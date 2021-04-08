@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Members">
+	<select id="idcheck" resultType="member" parameterType="String">
+		Select*
+		from members
+		where id = #{id}
+	</select>
+	
+	<insert id="insert" parameterType="member">
+		insert into members
+		values(#{id}, #{password}, #{name}, #{phone}, #{gender}, #{position})
+	</insert>
+</mapper>
