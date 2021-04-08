@@ -17,8 +17,14 @@ public class ShopController {
 	public String mainPage() {
 		return "shop/shop_main";
 	}
+
 	@GetMapping("detail")
 	public String detailPage() {
 		return "shop/shop_detail";
+	}
+	
+	@GetMapping("write")
+	public String writePage() {
+		return "shop/shop_write";
 	}
 }
