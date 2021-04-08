@@ -1,0 +1,207 @@
+@charset "utf-8";
+
+/* body {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+
+select, input[type=text], input[type=password], input[type="button"] {
+	width: 100%;
+	padding: 15px;
+	margin: 5px 0 22px 0;
+	display: inline-block;
+	border: none;
+	background: #f1f1f1; 
+	outline: none;
+	height:40px;
+	
+}
+
+select {
+	padding:10px 15px 10px 15px;
+	vertical-align:bottom;
+}
+
+
+
+
+legend {
+	text-align: center;
+	font-size: 40px;
+	font-weight: bold
+}
+
+#id, #post1 {
+	width: 70%
+}
+
+#jumin1, #jumin2 {
+	width: 49%
+}
+
+#id+input, #post1+input {
+	width: 29%;
+	background: orange;
+	line-height:10px;
+          vertical-align:bottom;
+}
+
+textarea {
+	width: 100%;resize:none;
+
+}
+
+#email, #domain {
+	width: 33%
+}
+
+#sel {
+	width: 30%;
+	background: lightgray
+}
+
+.container2 {
+	border: 1px solid lightgray;
+	padding: 1.5% 1%
+}
+
+input[type=text]:focus, input[type=password]:focus {
+	background-color: #ddd;
+	outline: none;
+}
+
+input[type=button]:hover {
+	opacity: 0.8;
+	cursor: pointer
+}
+
+button {
+	background-color: #4CAF50;
+	color: white;
+	padding: 14px 20px;
+	margin: 8px 0;
+	border: none;
+	cursor: pointer;
+	width: 100%;
+	opacity: 0.9;
+}
+
+button:hover {
+	opacity: 1;
+}
+
+.cancelbtn {
+	padding: 14px 20px;
+	background-color: #f44336;
+}
+
+.cancelbtn, .signupbtn {
+	float: left;
+	width: 50%;
+}
+
+.container {
+	padding: 16px;
+}
+
+body {
+	background-color: #474e5d;
+}
+
+#myform {
+	background-color: #fefefe;
+	margin: 5% auto 15% auto;
+	width: 850px;
+} */
+
+	
+		html{ background : #323642; }
+	
+		form{
+			width : 500px;
+			background : white;
+			padding : 20px;
+			margin : 0 auto;
+			margin-top : 30px;
+		}
+	
+		legend{
+			text-align : center;
+			font-weight : bolder;
+			font-size : 30px;
+			width : 30%
+		}
+	
+		#id,#pass,#jumin1, #jumin2, #email, #domain, #post1, #address{
+			border : none;
+			background : #e6e6e6;
+			height : 30px;
+		}
+	
+		button.cancelbtn{
+		 	height : 30px;
+		 	width : 50%;
+		 	border : none;
+		 	background : red;
+		 	color : white;
+		 }
+		 
+		 button.signupbtn{
+		 	height : 30px;
+		 	width : 50%;
+		 	border : none;
+		 	background : green;
+		 	color : white;
+		 	float : right;		  
+		  }
+		  
+		  #intro{ width : 99%;}
+		  
+		  input[type=button]:nth-child(4){
+			border : none;
+			background : orange;
+			height : 32px;	
+			width : 29.5%;	
+			float : right;  	
+		  }
+		  
+		  #sel{
+			border : none;
+			background : #c5c5c5;
+			height : 32px;	
+			width : 29.5%;
+			float : right;	
+			padding: 8px;
+		  }
+		  
+		  p:nth-child(10){ margin-bottom: 3px;}
+		  
+		  label{ font-weight : bold;}
+		  
+		  
+		 #radio, #check{
+		  	border : 1px solid lightgray;
+		  	height : 35px;
+		  }
+		  
+		 p:nth-child(6), p:nth-child(8), p:nth-child(12){
+		 	margin-bottom : 2px;
+		 }
+		 
+		 #gender1, #hobby1{
+		 	margin-left :  10px;
+		 	margin-top : 10px;
+		 }
+		 
+		 #address, #pass, #id, #email{ width : 99%; }
+		 
+		 
+		 
+		 span{
+				color: red;
+		 }
+		 
