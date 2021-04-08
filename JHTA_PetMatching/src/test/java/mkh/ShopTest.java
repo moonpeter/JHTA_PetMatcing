@@ -8,6 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
+import com.jhta.petMatching.mkh.domain.ShopBoard;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 //WAS 없이 MVC 패턴의 Controller를 단위 테스트하기위해서는 @WebAppConfiguration을 사용해야만 합니다.
@@ -49,13 +52,32 @@ public class ShopTest {
 	@Autowired
 	private DataSource dataSource; // root-context.xml 에 설정된 dataSource를 자동으로 주입
 
-	@Test // 현재 메서드를 테스트 대상으로 지정하는 어노테이션
+	//@Test // 현재 메서드를 테스트 대상으로 지정하는 어노테이션
 	public void testConnection() {
 		try (Connection conn = dataSource.getConnection()) {
 			logger.info("확인용 conn : " + conn);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Autowired
+	private SqlSessionTemplate sqlsession;
+	
+	@Test
+	public void insert() {
+		logger.info("insert() start!!!");
+		ShopBoard shopBoard = new ShopBoard();
+		shopBoard.setShop_num(10);
+		shopBoard.setShop_category("사료");
+		shopBoard.setShop_title("Test Title");
+		shopBoard.setShop_price("1000");
+		shopBoard.setShop_country_of_origin("서울");
+		shopBoard.setShop_brand("TestBrand");
+		shopBoard.setShop_thumnail("testThumnail");
+		shopBoard.setShop_text_content("TEST Content!!!");
+		int result = sqlsession.insert("ShopBoards.insert", shopBoard);
+		logger.info("insert() end!!! result = " + result);
 	}
 	
 }

@@ -5,7 +5,7 @@ public class ShopBoard {
 	private int		shop_num;
 	private String 	shop_category;
 	private String 	shop_title;
-	private int 	shop_price;
+	private String 	shop_price;
 	private String 	shop_country_of_origin;
 	private String 	shop_brand;
 	private String 	shop_thumnail;
@@ -37,11 +37,11 @@ public class ShopBoard {
 		this.shop_title = shop_title;
 	}
 	
-	public int getShop_price() {
+	public String getShop_price() {
 		return shop_price;
 	}
 	
-	public void setShop_price(int shop_price) {
+	public void setShop_price(String shop_price) {
 		this.shop_price = shop_price;
 	}
 	
