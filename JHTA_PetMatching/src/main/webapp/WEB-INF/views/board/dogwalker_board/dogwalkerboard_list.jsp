@@ -4,6 +4,7 @@
 <head>
 	<jsp:include page = "/WEB-INF/views/common/header.jsp" />
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/list.css">
+	<script src="${pageContext.request.contextPath}/resources/js/list.js"></script>
 	<script>
 		var result = "${result}";
 		if(result == 'deleteSucess'){
@@ -12,8 +13,7 @@
 			alert("회원 정보가 수정되었습니다.")
 		}
 	</script>
-	<script src="${pageContext.request.contextPath}/resources/js/list.js"></script>
-<title>자유게시판</title>
+<title>산책 신청(Walker)</title>
 </head>
 <body>
 <div class = "container">
@@ -23,7 +23,7 @@
 
 		<!-- 게시판 타이틀 -->
 		<p class="text-danger">
-		  <font size = 4>자유게시판&nbsp;&nbsp;&nbsp;</font>
+		  <font size = 4>산책 신청 게시판&nbsp;&nbsp;&nbsp;</font>
 		  <em id="listcount" class="text-danger"> ${listcount}개의 게시물</em>
 		</p>
 		<hr class="text-danger"> 
@@ -147,6 +147,7 @@
 <c:if test = "${listcount == 0 }">
 	<font size = 5>등록된 글이 없습니다.</font>
 </c:if>
+
 </div>
 </body>
 </html>

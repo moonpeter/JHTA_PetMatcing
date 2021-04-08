@@ -8,7 +8,7 @@
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 
 <title>우리 주인이 달라졌어요</title>
-
+<link rel="shortcut icon" href="${pageContext.request.contextPath}/resources/image/dog.ico">
 </head>
 <body>
 

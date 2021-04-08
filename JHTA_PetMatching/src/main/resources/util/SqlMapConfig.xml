@@ -12,8 +12,8 @@
 
 	<mappers>
 <!-- 		<mapper resource="sql/member.xml" /> -->
-		    <mapper resource="sql/board.xml" /> 
-		    <mapper resource="sql/member.xml" />
-		    <mapper resource="sql/comment.xml" />
+		    <mapper resource="sql/board/board_free.xml" /> 
+	<!--    <mapper resource="sql/member.xml" />
+		    <mapper resource="sql/comment.xml" /> -->
 	</mappers>
 </configuration>

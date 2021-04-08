@@ -10,7 +10,45 @@
 	
 </head>
 <style>
+	.menu-navi.menu-main .subMenuNaviListDiv {
+    position: absolute;
+    width: auto;
+    height: auto;
+    z-index: 1000;
+    padding-top: 0.9em;
+    margin-left: -0.9em;
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: opacity 0.4s,visibility 0.4s;
+    -moz-transition: opacity 0.4s,visibility 0.4s;
+    -ms-transition: opacity 0.4s,visibility 0.4s;
+    -o-transition: opacity 0.4s,visibility 0.4s;
+    transition: opacity 0.4s,visibility 0.4s;
+}
 
+.menu-name {
+    display: inline-block;
+}
+
+#body.mobile .site-element.headerMenuList .menu-navi {
+    color: #CD181E;
+    font-size: 13px;
+}
+
+#body.mobile .site-element.headerMenuList .menu-navi.now > .menu-name, #body.mobile .site-element.headerMenuList .menu-navi.now > .menu-opener {
+    color: #9C1217!important;
+}
+
+site-element .menu-navi {
+    display: inline-block;
+    cursor: pointer;
+    color: inherit;
+    margin-right: 1em;
+}
+
+li.menu-navi.menu-main.pageMenu.subMenu-exist{
+color:#dc3545;
+}
 </style>
 <div>
 	<header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 ">
@@ -20,15 +58,17 @@
 
     <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
       <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
-	  <li>
-       <div class="dropdwon">
+      <li class="menu-navi menu-main pageMenu subMenu-exist">
       <a href="/do_board/list" alt="산책 신청" class="nav-link px-2 link-danger">산책 신청</a>
-        	<ul class="dropdown-content">
-        		<li>
+       <div class="subMenuNaviListDiv">
+        	<ul class="subMenuNaviList">
+        		<li class="menu-navi menu-sub pageMenu">
         		 <a class="menu-name" alt="주인" href="/do_board/list">주인</a>
+        		 <div class="menu-opner"></div>
         		</li>
-        		<li>
+        		<li class="menu-navi menu-sub pageMenu">
         		 <a class="menu-name" alt="산책러" href="/dw_board/list">산책러</a>
+        		 <div class="menu-opner"></div>
         		</li>
         	</ul>
         </div>

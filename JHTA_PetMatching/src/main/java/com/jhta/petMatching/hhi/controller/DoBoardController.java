@@ -34,8 +34,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jhta.petMatching.hhi.domain.DoBoard;
-import com.jhta.petMatching.hhi.service.DoBoardService;
 import com.jhta.petMatching.hhi.service.CommentService;
+import com.jhta.petMatching.hhi.service.DoBoardService;
+
 
 
 @Controller

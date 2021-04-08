@@ -3,7 +3,7 @@
 <html>
 <head>
 	<jsp:include page = "/WEB-INF/views/common/header.jsp" />
-	<script src="../resources/js/writeform.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/writeform.js"></script>
 	<link rel="stylesheet" href="../resources/css/write.css">
 	<style>
 		h1{font-size: 1.5rem; text-align : center; color: #1a92b9}
@@ -25,7 +25,7 @@
 		
 		<div class = "form-group">
 			<label for = "board_name">글쓴이</label>
-			<input name = "BOARD_NAME" id="board_name" value="${id}" readOnly
+			<input name = "BOARD_NAME" id="board_name" value="${BOARD_NAME}" readOnly
 			       type="text" maxlength="30"	class="form-control"
 			       placeholder="Enter board_name">
 		</div>

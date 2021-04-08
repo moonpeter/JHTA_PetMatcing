@@ -23,7 +23,7 @@
 		<h1>MVC 게시판 - Reply</h1>
 		<div class = "form-group">
 			<label for = "board_name">글쓴이</label>
-			<input name = "BOARD_NAME" id="board_name" value="${id}" readOnly
+			<input name = "BOARD_NAME" id="board_name" value="${boarddata.BOARD_NAME}" readOnly
 			       type="text" maxlength="30"	class="form-control">
 		</div>
 		<div class = "form-group">

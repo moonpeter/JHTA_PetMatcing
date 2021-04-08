@@ -190,7 +190,7 @@ public class DwBoardController {
 				mv.addObject("url", request.getRequestURL());
 				mv.addObject("message","게시판 답변 처리 실패");
 			} else {
-				mv.setViewName("redirect:dw_board/list");
+				mv.setViewName("redirect:list");
 			}
 			return mv;
 		}
@@ -251,7 +251,7 @@ public class DwBoardController {
 			if(usercheck == false) {
 				rattr.addFlashAttribute("result", "passFail");
 				rattr.addAttribute("num", boarddata.getBOARD_NUM());
-				return "redirect:dw_board/modifyView";
+				return "redirect:modifyView";
 			}
 			
 			MultipartFile uploadfile = boarddata.getUploadfile();
@@ -342,7 +342,7 @@ public class DwBoardController {
 		
 		boardService.insertBoard(board); // 저장메서드 호출
 		
-		return "redirect:dw_board/list";
+		return "redirect:list";
 		
 	}
 	
@@ -415,7 +415,7 @@ public class DwBoardController {
 		// 삭제 처리 성공한 경우 - 글 목록 보기 요청을 전송하는 부분입니다.
 		logger.info("게시판 삭제 성공");
 		rattr.addFlashAttribute("result", "deleteSuccess");
-		return "redirect:dw_board/list";
+		return "redirect:list";
 	
 	}
 	

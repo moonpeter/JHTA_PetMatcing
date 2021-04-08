@@ -13,7 +13,7 @@
 		}
 	</script>
 	<script src="${pageContext.request.contextPath}/resources/js/list.js"></script>
-<title>산책 신청(Walker)</title>
+<title>자유게시판</title>
 </head>
 <body>
 <div class = "container">
@@ -23,7 +23,7 @@
 
 		<!-- 게시판 타이틀 -->
 		<p class="text-danger">
-		  <font size = 4>산책 신청 게시판&nbsp;&nbsp;&nbsp;</font>
+		  <font size = 4>자유게시판&nbsp;&nbsp;&nbsp;</font>
 		  <em id="listcount" class="text-danger"> ${listcount}개의 게시물</em>
 		</p>
 		<hr class="text-danger"> 
@@ -138,7 +138,6 @@
 				</li>
 			</c:if>
 		</ul>
-		<button type = "button" class = "btn btn-info float-right">글 쓰 기</button>
 	</div>
 	
 </c:if> <%-- c:if test = "${listcount > 0}"> end --%>
@@ -147,7 +146,7 @@
 <c:if test = "${listcount == 0 }">
 	<font size = 5>등록된 글이 없습니다.</font>
 </c:if>
-
+		<button type="button" onclick="location.href='/free_board/write'" class = "btn btn-info float-right">글 쓰 기</button>
 </div>
 </body>
 </html>
