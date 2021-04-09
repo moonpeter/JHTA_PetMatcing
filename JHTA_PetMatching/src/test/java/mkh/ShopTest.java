@@ -1,6 +1,8 @@
 package mkh;
 
 import java.sql.Connection;
+import java.util.List;
+import java.util.Map;
 
 import javax.sql.DataSource;
 
@@ -62,22 +64,33 @@ public class ShopTest {
 	}
 	
 	@Autowired
-	private SqlSessionTemplate sqlsession;
+	private SqlSessionTemplate sqlSession;
 	
-	@Test
+//	@Test
 	public void insert() {
 		logger.info("insert() start!!!");
 		ShopBoard shopBoard = new ShopBoard();
-		shopBoard.setShop_num(10);
 		shopBoard.setShop_category("사료");
-		shopBoard.setShop_title("Test Title");
+		shopBoard.setShop_title("Test 제목for시퀀");
 		shopBoard.setShop_price("1000");
 		shopBoard.setShop_country_of_origin("서울");
 		shopBoard.setShop_brand("TestBrand");
 		shopBoard.setShop_thumnail("testThumnail");
+		shopBoard.setShop_grade("0");
+		shopBoard.setShop_img_content("TEST image");
 		shopBoard.setShop_text_content("TEST Content!!!");
-		int result = sqlsession.insert("ShopBoards.insert", shopBoard);
+		int result = sqlSession.insert("ShopBoards.insert", shopBoard);
 		logger.info("insert() end!!! result = " + result);
 	}
 	
+	@Test
+	public void main_list() {
+		logger.info("main_list() start!!!");
+//		ShopBoard shopBoard = new ShopBoard();
+		List<Object> list = sqlSession.selectList("ShopBoards.main_list");
+		for(int i=0; i<list.size(); i++) {
+			logger.info(list.get(i).toString());
+		}
+		logger.info("main_list() end!!!");
+	}
 }

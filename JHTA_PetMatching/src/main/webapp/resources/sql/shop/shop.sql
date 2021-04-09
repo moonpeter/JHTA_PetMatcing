@@ -12,3 +12,10 @@ create table shop_board(
 	shop_img_content			varchar2(50),				-- 본문 이미지 파일
 	shop_text_content			varchar2(3000)				-- 본문 텍스트
 );
+
+select * from shop_board;
+
+drop sequence shop_seq_num;
+
+create sequence shop_seq_num
+increment by 1;

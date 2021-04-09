@@ -5,7 +5,23 @@
 
 <mapper namespace="ShopBoards">
 	<insert id="insert" parameterType="ShopBoard">
-		insert into shop_board
-		values (#{shop_num}, #{shop_category}, #{shop_title}, #{shop_price}, #{shop_country_of_origin}, #{shop_brand},#{shop_thumnail}, #{shop_text_content})
+		insert into 
+		shop_board
+		values (
+				shop_seq_num.nextval, 
+				#{shop_category}, 
+				#{shop_title}, 
+				#{shop_price}, 
+				#{shop_country_of_origin}, 
+				#{shop_brand},
+				#{shop_thumnail},
+				0,
+				#{shop_img_content},  
+				#{shop_text_content}
+				)
 	</insert>
+	
+	<select id="main_list" resultType="map">
+		select * from shop_board
+	</select>
 </mapper>

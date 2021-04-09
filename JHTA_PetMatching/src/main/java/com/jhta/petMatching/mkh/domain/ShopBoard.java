@@ -10,7 +10,7 @@ public class ShopBoard {
 	private String 	shop_brand;
 	private String 	shop_thumnail;
 	private String 	shop_grade;
-	private String 	shop_img_cotent;
+	private String 	shop_img_content;
 	private String 	shop_text_content;
 	
 	public int getShop_num() {
@@ -77,12 +77,12 @@ public class ShopBoard {
 		this.shop_grade = shop_grade;
 	}
 	
-	public String getShop_img_cotent() {
-		return shop_img_cotent;
+	public String getShop_img_content() {
+		return shop_img_content;
 	}
 	
-	public void setShop_img_cotent(String shop_img_cotent) {
-		this.shop_img_cotent = shop_img_cotent;
+	public void setShop_img_content(String shop_img_cotent) {
+		this.shop_img_content = shop_img_cotent;
 	}
 	
 	public String getShop_text_content() {

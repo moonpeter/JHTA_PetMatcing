@@ -30,33 +30,32 @@
 	    <button class="btn btn-danger" type="submit">Search</button>
     </form>
     
-    <form action="writeAction" method="post" enctype="multipart/form-date">
-    	<div class="btn-group">
-	  		<button type="button" class="btn btn-danger dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-	    		카테고리
-	  		</button>
-	  		<br>
-	  		<ul class="dropdown-menu">
-			  <li><a class="dropdown-item" href="#">사료</a></li>
-			  <li><a class="dropdown-item" href="#">간식/건강</a></li>
-			  <li><a class="dropdown-item" href="#">미용/목욕</a></li>
-			  <li><a class="dropdown-item" href="#">외출용품</a></li>
-			  <li><a class="dropdown-item" href="#">의류/악세사리</a></li>
-			  <li><a class="dropdown-item" href="#">장난감</a></li>
-			  <li><a class="dropdown-item" href="#">생활용품</a></li>
-			</ul>
-		</div>
-		<div>
-	    제목 : <input type="text" id="shop_title" name="shop_title"><br>
-	    가격 : <input type="text" id="shop_price" name="shop_price"><br>
-	    원산지 : <input type="text" id="shop_country_of_origin" name="shop_country_of_origin"><br>
-	    브랜드 : <input type="text" id="shop_brand" name="shop_brand"><br>
-	    썸네일 : <input type="file" id="shop_thumnail" name="shop_thumnail"><br>
-	    본문 이미지 : <input type="file" id="shop_img_content" name="shop_img_content"><br>
-	    본문 텍스트 : <input type="text" id="shop_text_content" name="shop_text_content"><br>
-	    </div>
-		<br>	
-		<button type=submit class="btn btn-primary">등록</button>	
+    <form action="write" method="post" enctype="multipart/form-date">
+    	<div class="form-group">
+         	<label for="board_title"> Category :&nbsp; </label> 
+	         <select name="shop_category">
+	            <option>----</option>
+	            <option>사료</option>
+	            <option>간식/건강</option>
+	            <option>미용/목욕</option>
+	            <option>외출용품</option>
+	            <option>의류/악세사리</option>
+	            <option>장난감</option>
+	            <option>생활용품</option>
+	         </select>
+			<div>
+		    제목 : <input type="text" id="shop_title" name="shop_title"><br>
+		    가격 : <input type="text" id="shop_price" name="shop_price"><br>
+		    원산지 : <input type="text" id="shop_country_of_origin" name="shop_country_of_origin"><br>
+		    브랜드 : <input type="text" id="shop_brand" name="shop_brand"><br>
+		    썸네일 : <input type="file" id="shop_thumnail" name="shop_thumnail"><br>
+<!-- 		    평점 : <input type="text" id="shop_grade" name="shop_grade"><br> -->
+		    본문 이미지 : <input type="file" id="shop_img_content" name="shop_img_content"><br>
+		    본문 텍스트 : <input type="text" id="shop_text_content" name="shop_text_content"><br>
+		    </div>
+			<br>	
+			<button type=submit class="btn btn-primary">등록</button>
+		</div>	
 	</form>
 
 </div>

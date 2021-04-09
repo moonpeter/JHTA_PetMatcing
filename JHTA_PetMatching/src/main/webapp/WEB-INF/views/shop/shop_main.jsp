@@ -21,7 +21,7 @@
       <li><a href="#" class="nav-link px-3 link-danger">장난감</a></li>
       <li><a href="#" class="nav-link px-3 link-danger">생활용품</a></li>
     </ul>
-  	<button class="btn btn-danger" type="submit" onclick="location.href='/shop/write'">글작성</button>
+  	<button class="btn btn-danger" type="submit" onclick="location.href='/shop/writeForm'">글작성</button>
 </div>
 
 <div class="container">
