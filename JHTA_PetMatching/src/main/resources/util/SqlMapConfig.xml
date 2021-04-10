@@ -8,6 +8,7 @@
 		 <typeAlias alias="board" type="com.jhta.petMatching.hhi.domain.Board" />
 		 <typeAlias alias="comment" type="com.jhta.petMatching.hhi.domain.Comment" />
 		 <typeAlias alias="member" type="com.jhta.petMatching.hhi.domain.Member" />
+ 		 <typeAlias alias="shopBoard" type="com.jhta.petMatching.mkh.domain.ShopBoard" />		 
 	</typeAliases>
 
 	<mappers>
@@ -15,5 +16,6 @@
 		    <mapper resource="sql/board.xml" /> 
 		    <mapper resource="sql/member.xml" />
 		    <mapper resource="sql/comment.xml" />
+		    <mapper resource="sql/shopBoard.xml" />
 	</mappers>
 </configuration>
