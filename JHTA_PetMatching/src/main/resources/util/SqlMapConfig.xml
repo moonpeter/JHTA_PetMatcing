@@ -7,13 +7,12 @@
 		<!-- <typeAlias alias="board" type="com.jhta.petMatching.domain.Board" /> -->
 		 <typeAlias alias="board" type="com.jhta.petMatching.hhi.domain.Board" />
 		 <typeAlias alias="comment" type="com.jhta.petMatching.hhi.domain.Comment" />
-		 <typeAlias alias="member" type="com.jhta.petMatching.hhi.domain.Member" />
+		 <typeAlias alias="member" type="com.jhta.petMatching.abh.domain.Member" />
 	</typeAliases>
 
 	<mappers>
-<!-- 		<mapper resource="sql/member.xml" /> -->
-		    <mapper resource="sql/board.xml" /> 
-		    <mapper resource="sql/member.xml" />
+		    <mapper resource="sql/board.xml" />
+		    <mapper resource="sql/member/member.xml" />
 		    <mapper resource="sql/comment.xml" />
 	</mappers>
 </configuration>
