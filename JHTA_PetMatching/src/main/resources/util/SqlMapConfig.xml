@@ -11,9 +11,10 @@
 	</typeAliases>
 
 	<mappers>
-<!-- 		<mapper resource="sql/member.xml" /> -->
 		    <mapper resource="sql/board/board_free.xml" /> 
-	<!--    <mapper resource="sql/member.xml" />
-		    <mapper resource="sql/comment.xml" /> -->
+		    <mapper resource="sql/board/board_owner.xml" /> 
+		    <mapper resource="sql/board/board_walker.xml" /> 
+		    <mapper resource="sql/comment/comment_free.xml" />
+		    <mapper resource="sql/member/member.xml" />
 	</mappers>
 </configuration>

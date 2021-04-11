@@ -24,14 +24,6 @@
 		})
 	</script>
 <style>
-	/* tr:nth-child(1){text-align:center}
-	td:nth-child(1){width:20%}
-	a{color : white}
-	tr:nth-child(5)>td:nth-child(2)>a{color:black}
-	tbody tr:last-child{text-align:center;}
-	.btn-primary{background-color : #4f07e5}
-	#myModal{display : none}
-	tr>td:nth-child(1){font-weight:bold; font-size:1em} */
 	body > div > table > tbody >tr:nth-child(1) {
 	text-align: center
 }

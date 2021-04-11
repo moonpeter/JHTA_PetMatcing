@@ -73,7 +73,7 @@ public class DoBoardController {
 		 
 		List<DoBoard> boardlist = boardService.getBoardList(page, limit); // 리스트를 받아옴
 		
-		mv.setViewName("dogowner_board/dogownerboard_list"); // setViewName() > 경로이동
+		mv.setViewName("board/dogowner_board/dogownerboard_list"); // setViewName() > 경로이동
 		mv.addObject("page", page);			// addObject() > 객체를 만들어 정보 전달
 		mv.addObject("maxpage", maxpage);
 		mv.addObject("startpage", startpage);
@@ -134,7 +134,7 @@ public class DoBoardController {
 			} else {
 				logger.info("상세보기 성공");
 				int count = commentService.getListCount(num);
-				mv.setViewName("dogowner_board/dogownerboard_view");
+				mv.setViewName("board/dogowner_board/dogownerboard_view");
 				mv.addObject("count", count);
 				mv.addObject("boarddata", board);
 			}
@@ -153,7 +153,7 @@ public class DoBoardController {
 				mv.addObject("message", "게시판 답변글 가져오기 실패입니다.");
 		} else {
 				mv.addObject("boarddata", board);
-				mv.setViewName("dogowner_board/dogownerboard_reply");
+				mv.setViewName("board/dogowner_board/dogownerboard_reply");
 			}
 		return mv;
 		}
@@ -167,7 +167,7 @@ public class DoBoardController {
 				mv.addObject("url", request.getRequestURL());
 				mv.addObject("message","게시판 답변 처리 실패");
 			} else {
-				mv.setViewName("redirect:do_board/list");
+				mv.setViewName("redirect:list");
 			}
 			return mv;
 		}
@@ -182,7 +182,7 @@ public class DoBoardController {
 	//@RequestMapping(value="/write", method=RequestMethod.GET) > 간단하게 아래 문장으로 변경
 	@GetMapping(value="/write")
 	public String doboard_wirte(){
-	 		return "dogowner_board/dogownerboard_write";
+	 		return "board/dogowner_board/dogownerboard_write";
 	}
 
 	
@@ -205,7 +205,7 @@ public class DoBoardController {
 		// ModelAndView 객체에 저장합니다.
 		mv.addObject("boarddata",boarddata);
 		// 글 수정 폼 페이지로 이동하기 위해 경로를 설정합니다.
-		mv.setViewName("dogowner_board/dogownerboard_modify");
+		mv.setViewName("board/dogowner_board/dogownerboard_modify");
 		return mv;
 	}	
 	
@@ -228,7 +228,7 @@ public class DoBoardController {
 			if(usercheck == false) {
 				rattr.addFlashAttribute("result", "passFail");
 				rattr.addAttribute("num", boarddata.getBOARD_NUM());
-				return "redirect:do_board/modifyView";
+				return "redirect:modifyView";
 			}
 			
 			MultipartFile uploadfile = boarddata.getUploadfile();
@@ -319,7 +319,7 @@ public class DoBoardController {
 		
 		boardService.insertBoard(board); // 저장메서드 호출
 		
-		return "redirect:do_board/list";
+		return "redirect:list";
 		
 	}
 	
@@ -375,7 +375,7 @@ public class DoBoardController {
 		if(usercheck == false) {
 			rattr.addFlashAttribute("result", "passFail");
 			rattr.addAttribute("num", num);
-			return "redirect:do_board/detail";
+			return "redirect:detail";
 		}
 		
 		// 비밀번호 일치하는 경우 삭제처리 합니다.
@@ -392,7 +392,7 @@ public class DoBoardController {
 		// 삭제 처리 성공한 경우 - 글 목록 보기 요청을 전송하는 부분입니다.
 		logger.info("게시판 삭제 성공");
 		rattr.addFlashAttribute("result", "deleteSuccess");
-		return "redirect:do_board/list";
+		return "redirect:list";
 	
 	}
 	

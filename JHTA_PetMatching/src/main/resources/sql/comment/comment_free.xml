@@ -6,12 +6,12 @@
 
 	<select id="count" resultType="int" parameterType="int">
 		select count(*)
-		from comments
+		from freeboard_comments
 		where board_num = #{board_num}
 	</select>
 	
 	<insert id="insert" parameterType="comment">
-		insert into comments
+		insert into freeboard_comments
 		values(com_seq.nextval, #{id}, #{content}, sysdate, #{board_num})
 	</insert>
 	
@@ -20,7 +20,7 @@
 		from (select rownum rnum, num, id, content, reg_date, board_num
 				from (
 					select num, id, content, reg_date, board_num
-					from comments
+					from freeboard_comments
 					where board_num = #{board_num}
 					order by reg_date desc
 				)
@@ -29,14 +29,14 @@
 	</select>
 	
 	<update id="update" parameterType="comment">
-		update	 comments
+		update	 freeboard_comments
 		set		 content = #{content}
 		where	 num = #{num}
 	</update> 
 
 
 	<delete id="delete" parameterType="comment">
-		delete	 comments
+		delete	 freeboard_comments
 		where 	 num = #{num}
 	</delete>
 </mapper>

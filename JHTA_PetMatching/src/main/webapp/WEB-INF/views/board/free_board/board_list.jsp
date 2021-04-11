@@ -3,6 +3,9 @@
 <html>
 <head>
 	<jsp:include page = "/WEB-INF/views/common/header.jsp" />
+	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.js"></script>
+	<script src = "${pageContext.request.contextPath}/resources/js/views3.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/list.js"></script>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/list.css">
 	<script>
 		var result = "${result}";
@@ -12,7 +15,10 @@
 			alert("회원 정보가 수정되었습니다.")
 		}
 	</script>
-	<script src="${pageContext.request.contextPath}/resources/js/list.js"></script>
+<style>
+#speechbubble{float:right;}
+#count {position: relative;color: #dc3545;}
+</style>
 <title>자유게시판</title>
 </head>
 <body>
@@ -88,6 +94,8 @@
 					<c:out value = "${b.BOARD_SUBJECT}" escapeXml="true" />
 					<%-- escapeXml = "true" : HTML 태그를 화면에 그대로 보여줍니다. --%>
 				</a>
+				<span id="count">
+				<img id="speechbubble" src ="${pageContext.request.contextPath}/resources/image/speechbubble.png" width="30px">${count}</span>
 			</div>
 			</td>
 			<td><div>${b.BOARD_NAME}</div></td>

@@ -131,7 +131,7 @@ div.desc {
 				</li>
 			</c:if>
 		</ul>
-		<button type = "button" class = "btn btn-info float-right">글 쓰 기</button>
+		<button type = "button" onclick="location.href='/do_board/write'" class = "btn btn-info float-right">글 쓰 기</button>
 	</div>
 
 </c:if> <%-- c:if test = "${listcount > 0}"> end --%>

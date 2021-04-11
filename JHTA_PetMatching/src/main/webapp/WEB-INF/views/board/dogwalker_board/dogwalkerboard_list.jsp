@@ -3,8 +3,11 @@
 <html>
 <head>
 	<jsp:include page = "/WEB-INF/views/common/header.jsp" />
+	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.js"></script>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/list.css">
 	<script src="${pageContext.request.contextPath}/resources/js/list.js"></script>
+		<script src="${pageContext.request.contextPath}/resources/js/sigungu.js"></script>
+	
 	<script>
 		var result = "${result}";
 		if(result == 'deleteSucess'){
@@ -37,11 +40,16 @@
 					<option value="15">15개씩 보기</option>
 				</select>&nbsp;&nbsp;&nbsp; 
 
-				<select id="searchField">
+				<!-- <select id="searchField">
 					<option value="dogowner" selected>견주</option>
 					<option value="walker">산책러</option>
 					<option value="subject+content">제목+내용</option>
-				</select>
+				</select> -->
+				
+				<select name="addressRegion" id="addressRegion"></select>
+				<select name="addressDo" id="addressDo"></select>
+				<select name="addressSiGunGu" id="addressSiGunGu"></select>
+				
 				
 				<span class="search">
 					<button id="search_button"><img src="${pageContext.request.contextPath}/resources/image/search.png" width="15px"></button>
@@ -138,7 +146,6 @@
 				</li>
 			</c:if>
 		</ul>
-		<button type = "button" class = "btn btn-info float-right">글 쓰 기</button>
 	</div>
 	
 </c:if> <%-- c:if test = "${listcount > 0}"> end --%>
@@ -147,6 +154,8 @@
 <c:if test = "${listcount == 0 }">
 	<font size = 5>등록된 글이 없습니다.</font>
 </c:if>
+		<button type="button" onclick="location.href='/dw_board/write'" class = "btn btn-info float-right">글 쓰 기</button>
+
 
 </div>
 </body>

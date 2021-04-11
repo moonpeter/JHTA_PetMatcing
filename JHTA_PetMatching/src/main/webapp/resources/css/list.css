@@ -173,7 +173,7 @@ input::placeholder {
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
-#searchField {
+#addressRegion, #addressDo, #addressSiGunGu, #searchField {
     font-style: italic;
     font-size: 1rem;
     height: 31px;

@@ -3,8 +3,9 @@
 <html>
 <head>
 	<jsp:include page = "/WEB-INF/views/common/header.jsp" />
-	<script src="../resources/js/writeform.js"></script>
-	<link rel="stylesheet" href="../resources/css/write.css">
+	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/writeform.js"></script>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/write.css">
 	<style>
 		h1{font-size: 1.5rem; text-align : center; color: #1a92b9}
 		.container{width:60%}
@@ -54,7 +55,7 @@
 		</div>
 		<div class = "form-group">
 			<button type = "submit" class = "btn btn-primary">등록</button>
-			<button type = "reset" class = "btn btn-danger">취소</button>
+			<button type = "reset" class = "btn btn-danger" onClick="history.go(-1)">취소</button>
 		</div>
 		</form>
 	</div>

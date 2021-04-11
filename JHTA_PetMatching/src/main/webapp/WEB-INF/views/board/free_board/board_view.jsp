@@ -3,10 +3,11 @@
 
 <html>
 <head>
-<title>MVC 게시판 - view</title>
+<title>자유게시판</title>
 	<jsp:include page = "/WEB-INF/views/common/header.jsp" />
-	<script src = "../resources/js/views3.js"></script>
-	<link rel="stylesheet" href="../resources/css/view.css">
+	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.js"></script>
+	<script src = "${pageContext.request.contextPath}/resources/js/views3.js"></script>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/view.css">
 	<script>
 		
 		var result="${result}";
@@ -24,52 +25,23 @@
 		})
 	</script>
 <style>
-	/* tr:nth-child(1){text-align:center}
-	td:nth-child(1){width:20%}
-	a{color : white}
-	tr:nth-child(5)>td:nth-child(2)>a{color:black}
-	tbody tr:last-child{text-align:center;}
-	.btn-primary{background-color : #4f07e5}
-	#myModal{display : none}
-	tr>td:nth-child(1){font-weight:bold; font-size:1em} */
-	body > div > table > tbody >tr:nth-child(1) {
-	text-align: center
-}
+	body > div > table > tbody >tr:nth-child(1) {text-align: center}
 
-td:nth-child(1) {
-	width: 20%
-}
+td:nth-child(1) {width: 20%}
 
-a {
-	color: black
-}
+a {color: black}
 
-body > div > table > tbody >tr:nth-child(5)>td:nth-child(2)>a {
-	color: black
-}
+body > div > table > tbody >tr:nth-child(5)>td:nth-child(2)>a {color: black}
 
-body > div > table > tbody tr:last-child {
-	text-align: center;
-}
+body > div > table > tbody tr:last-child {text-align: center;}
 
-.btn-primary {
-	background-color: #4f97e5
-}
+.btn-primary {background-color: #4f97e5}
 
+#myModal {display: none}
 
+#comment > table > tbody > tr > td:nth-child(2){width:60%}
 
-#myModal {
-	display: none
-}
-
-#comment > table > tbody > tr > td:nth-child(2){
- width:60%
-}
-
-#count {
-    position: relative;
-    color: #dc3545;
-}
+#count {position: relative;color: #dc3545;}
 
 textarea{resize:none}
 
@@ -82,10 +54,11 @@ body > div > div:nth-child(6){color:#dc3545}
 </style>
 </head>
 <body>
+
 	<input type="hidden" id="loginid" value="${id}" name="loginid">
 	<div class = "container">
 		<p class="text-danger">
-		  <font size = 4>산책 신청 게시판&nbsp;&nbsp;&nbsp;</font>
+		  <font size = 4>자유게시판&nbsp;&nbsp;&nbsp;</font>
 		</p>
 		<hr class="text-danger"> 
 			
@@ -105,7 +78,7 @@ body > div > div:nth-child(6){color:#dc3545}
 
 				<div>첨부파일&nbsp;
 				<c:if test = "${!empty boarddata.BOARD_FILE}"> <%-- 파일 첨부한 경우 --%>
-				<img src = "../resources/image/down.png" width = "10px">
+				<img src = "${pageContext.request.contextPath}/resources/image/down.png" width = "10px">
 					<a href = "down?filename=${boarddata.BOARD_FILE}&original=${boarddata.BOARD_ORIGINAL}">
 					${boarddata.BOARD_ORIGINAL}</a>
 				</c:if>

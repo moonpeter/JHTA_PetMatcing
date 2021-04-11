@@ -3,8 +3,9 @@
 <html>
 <head>
 	<jsp:include page = "/WEB-INF/views/common/header.jsp" />
+	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/writeform.js"></script>
-	<link rel="stylesheet" href="../resources/css/write.css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/write.css">
 	<style>
 		h1{font-size: 1.5rem; text-align : center; color: #1a92b9}
 		.container{width:60%}
@@ -18,14 +19,14 @@
 		<form action = "add" method = "post" enctype="multipart/form-data"
 			  name = "boardform"> 
 		<p class="text-danger">
-		  <font size = 4>산책 신청 게시판&nbsp;&nbsp;&nbsp;</font>
+		  <font size = 4>자유게시판&nbsp;&nbsp;&nbsp;</font>
 		</p>
 		<hr class="text-danger"> 
 		
 		
 		<div class = "form-group">
 			<label for = "board_name">글쓴이</label>
-			<input name = "BOARD_NAME" id="board_name" value="${BOARD_NAME}" readOnly
+			<input name = "BOARD_NAME" id="board_name" value="${id}" readOnly
 			       type="text" maxlength="30"	class="form-control"
 			       placeholder="Enter board_name">
 		</div>
@@ -54,7 +55,7 @@
 		</div>
 		<div class = "form-group">
 			<button type = "submit" class = "btn btn-primary">등록</button>
-			<button type = "reset" class = "btn btn-danger">취소</button>
+			<button type = "reset" class = "btn btn-danger" onClick = "history.go(-1)">취소</button>
 		</div>
 		</form>
 	</div>

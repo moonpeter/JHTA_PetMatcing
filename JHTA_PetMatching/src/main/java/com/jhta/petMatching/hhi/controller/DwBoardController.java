@@ -33,8 +33,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.jhta.petMatching.hhi.domain.Board;
-import com.jhta.petMatching.hhi.service.BoardService;
+import com.jhta.petMatching.hhi.domain.DwBoard;
+import com.jhta.petMatching.hhi.service.DwBoardService;
 import com.jhta.petMatching.hhi.service.CommentService;
 
 
@@ -45,7 +45,7 @@ public class DwBoardController {
 	private static final Logger logger = LoggerFactory.getLogger(DwBoardController.class); 
 	
 	@Autowired
-	private BoardService boardService;
+	private DwBoardService boardService;
 	
 	@Autowired
 	private CommentService commentService;
@@ -70,9 +70,9 @@ public class DwBoardController {
 		if(endpage > maxpage)
 			endpage = maxpage;
 		 
-		List<Board> boardlist = boardService.getBoardList(page, limit); // 리스트를 받아옴
+		List<DwBoard> boardlist = boardService.getBoardList(page, limit); // 리스트를 받아옴
 		
-		mv.setViewName("dogwalker_board/dogwalkerboard_list"); // setViewName() > 경로이동
+		mv.setViewName("board/dogwalker_board/dogwalkerboard_list"); // setViewName() > 경로이동
 		mv.addObject("page", page);			// addObject() > 객체를 만들어 정보 전달
 		mv.addObject("maxpage", maxpage);
 		mv.addObject("startpage", startpage);
@@ -83,31 +83,6 @@ public class DwBoardController {
 		
 		return mv;
 	}
-	
-   /*
-	 	@ResponseBody란?
-	 	메서드에 @ResponseBody Annotation이 되어 있으면 return되는 값은 View를 통해서
-	 	출력되는 것이 아니라 HTTP Response Body에 직접 쓰여지게 됩니다.
-	 	예) HTTP 응답 프로토콜의 구조 HTTP/1.1
-	 	
-	*	Message Header
-	 	200OK => Start Line Content-Type:text/html => Message Header Connection :
-	 	close Server : Apache Tomcat... Last-Modified : Mon, ...
-	 	
-	*	Message Body
-	 	<html> <head> <title> Hello JSP </title> </head> <body> Hello JSP! </body> </html> =>
-	 	
-	* 	응답 결과를 HTML이 아닌 JSON으로 변환하여 Message Body에 저장하려면 스프링에서
-	 	제공하는 변환기(Converter)를 사용해야 합니다.
-	* 	이 변환기를 이용해서 자바 객체를 다양한 타입으로 변환하여 HTTP Response Body에 설정할 수 있습니다.
-	 	스프링 설정 파일에 <mvc:annotation-driven>을 설정하면 변환기가 생성됩니다.
-	* 	이 중에서 자바 객체를 JSON 응답 바디로 변환할 때는
-	 	MappingJackson2HttpMessageConverter를 사용합니다.
-	 	
-	* 	@ResponseBody를 이용해서 각 메서드의 실행 결과는 JSON으로 변환되어
-	 	HTTP Response BODY에 설정됩니다.
-	 	
-	*/
 	
 		@ResponseBody
 		@RequestMapping(value = "/list_ajax")
@@ -127,7 +102,7 @@ public class DwBoardController {
 			if(endpage > maxpage)
 				endpage = maxpage;
 			 
-			List<Board> boardlist = boardService.getBoardList(page, limit); // 리스트를 받아옴
+			List<DwBoard> boardlist = boardService.getBoardList(page, limit); // 리스트를 받아옴
 			
 			Map<String, Object> map = new HashMap<String, Object>();
 			map.put("page", page);			
@@ -147,7 +122,7 @@ public class DwBoardController {
 		@GetMapping("/detail")
 		public ModelAndView dwDetail(int num, ModelAndView mv, HttpServletRequest request) {
 			
-			Board board = boardService.getDetail(num);
+			DwBoard board = boardService.getDetail(num);
 			// board null;	// error 페이지 이동 확인하고자 임의로 지정합니다.
 			if(board == null) {
 				logger.info("상세보기 실패");
@@ -157,7 +132,7 @@ public class DwBoardController {
 			} else {
 				logger.info("상세보기 성공");
 				int count = commentService.getListCount(num);
-				mv.setViewName("dogwalker_board/dogwalkerboard_view");
+				mv.setViewName("board/dogwalker_board/dogwalkerboard_view");
 				mv.addObject("count", count);
 				mv.addObject("boarddata", board);
 			}
@@ -168,7 +143,7 @@ public class DwBoardController {
 		@GetMapping("/replyView")
 		public ModelAndView dwreplyView(int num, ModelAndView mv, HttpServletRequest request) {
 					
-		Board board = boardService.getDetail(num);
+		DwBoard board = boardService.getDetail(num);
 		// board null;	// error 페이지 이동 확인하고자 임의로 지정합니다.
 		if(board == null) {
 				mv.setViewName("error/error");
@@ -176,13 +151,13 @@ public class DwBoardController {
 				mv.addObject("message", "게시판 답변글 가져오기 실패입니다.");
 		} else {
 				mv.addObject("boarddata", board);
-				mv.setViewName("dogwalker_board/dogwalkerboard_reply");
+				mv.setViewName("board/dogwalker_board/dogwalkerboard_reply");
 			}
 		return mv;
 		}
 		
 		@PostMapping("/replyAction")
-		public ModelAndView dwBoardModifyAction(Board board, ModelAndView mv, HttpServletRequest request) {
+		public ModelAndView dwBoardModifyAction(DwBoard board, ModelAndView mv, HttpServletRequest request) {
 			
 			int result = boardService.boardReply(board);
 			if(result == 0) {
@@ -195,17 +170,12 @@ public class DwBoardController {
 			return mv;
 		}
 		
-		
-	//	private String fileDBName(String)
-		
-		
-	
 	
 	//글쓰기
 	//@RequestMapping(value="/write", method=RequestMethod.GET) > 간단하게 아래 문장으로 변경
 	@GetMapping(value="/write")
 	public String board_wirte(){
-	 		return "dogwalker_board/dogwalkerboard_write";
+	 		return "board/dogwalker_board/dogwalkerboard_write";
 	}
 
 	
@@ -213,7 +183,7 @@ public class DwBoardController {
 	//@RequestMapping(value="/write", method=RequestMethod.GET) > 간단하게 아래 문장으로 변경
 	@GetMapping("/modifyView")
 	public ModelAndView dwBoardModifyView(int num, ModelAndView mv, HttpServletRequest request){
-		Board boarddata = boardService.getDetail(num);
+		DwBoard boarddata = boardService.getDetail(num);
 		
 		// 글 내용 불러오기 실패한 경우입니다.
 		if(boarddata == null) {
@@ -228,14 +198,14 @@ public class DwBoardController {
 		// ModelAndView 객체에 저장합니다.
 		mv.addObject("boarddata",boarddata);
 		// 글 수정 폼 페이지로 이동하기 위해 경로를 설정합니다.
-		mv.setViewName("dogwalker_board/dogwalkerboard_modify");
+		mv.setViewName("board/dogwalker_board/dogwalkerboard_modify");
 		return mv;
 	}	
 	
 	
 	// @RequestMapping(value="/add", method=RequestMethod.POST)
 		@PostMapping("/modifyAction")
-		public String BoardModifyAction(Board boarddata, String check, Model mv, HttpServletRequest request, RedirectAttributes rattr) throws Exception {
+		public String BoardModifyAction(DwBoard boarddata, String check, Model mv, HttpServletRequest request, RedirectAttributes rattr) throws Exception {
 			
 			// 추가합니다.
 			// input type="hidden" name="BOARD_FILE" value="${boarddata.BOARD_FILE}">
@@ -319,7 +289,7 @@ public class DwBoardController {
 	
 	// @RequestMapping(value="/add", method=RequestMethod.POST)
 	@PostMapping("/add")
-	public String add(Board board) throws Exception {
+	public String add(DwBoard board) throws Exception {
 		
 		MultipartFile uploadfile = board.getUploadfile();
 		
