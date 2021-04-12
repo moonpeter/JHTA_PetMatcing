@@ -12,9 +12,8 @@
 	</typeAliases>
 
 	<mappers>
-<!-- 		<mapper resource="sql/member.xml" /> -->
-		    <mapper resource="sql/board.xml" /> 
-		    <mapper resource="sql/member.xml" />
+		    <mapper resource="sql/board.xml" />
+		    <mapper resource="sql/member/member.xml" />
 		    <mapper resource="sql/comment.xml" />
 		    <mapper resource="sql/shopBoard.xml" />
 	</mappers>

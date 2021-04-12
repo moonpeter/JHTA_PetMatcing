@@ -1,7 +1,5 @@
 package com.jhta.petMatching.abh.service;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -15,8 +13,8 @@ public class MemberServiceImple implements MemberService{
 	@Autowired
 	private MemberDAO dao;
 	
-	//@Autowired
-	//private PasswordEncoder passwordEncoder;
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Override
 	public int isId(String id) {			//회원가입 시 아이디 중복검사
@@ -34,10 +32,10 @@ public class MemberServiceImple implements MemberService{
 		Member rmember = dao.isId(id);
 		int result = -1;	//아이디가 존재하지 않은 경우 -> rmember가 null인 경우
 		if(rmember != null) {//아디디가 존재하는 경우
-			if(rmember.getPassword().equals(password)) {
-				result = 1;	//아이디와 비밀번호가 일치하는 경우
-			} else {
-				result = 0;	//아이디는 존재하지만 비밀번호가 일치하지 않는 경우
+			if(passwordEncoder.matches(password, rmember.getPassword())) {
+				result = 1;	//아이디와 비밀번호 일치
+			}else {
+				result = 0;	//아이디는 존재, 비밀번호 불일치
 			}
 		}
 		return result;
