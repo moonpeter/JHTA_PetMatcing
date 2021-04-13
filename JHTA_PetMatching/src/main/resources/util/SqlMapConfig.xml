@@ -7,8 +7,9 @@
 		<!-- <typeAlias alias="board" type="com.jhta.petMatching.domain.Board" /> -->
 		 <typeAlias alias="board" type="com.jhta.petMatching.hhi.domain.Board" />
 		 <typeAlias alias="comment" type="com.jhta.petMatching.hhi.domain.Comment" />
-		 <typeAlias alias="member" type="com.jhta.petMatching.hhi.domain.Member" />
- 		 <typeAlias alias="shopBoard" type="com.jhta.petMatching.mkh.domain.ShopBoard" />		 
+		 <typeAlias alias="member" type="com.jhta.petMatching.abh.domain.Member" />
+ 		 <typeAlias alias="shopBoard" type="com.jhta.petMatching.mkh.domain.ShopBoard" />
+ 		 <typeAlias alias="message" type="com.jhta.petMatching.ahnyh.domain.Message" />		 
 	</typeAliases>
 
 	<mappers>
@@ -16,5 +17,6 @@
 		    <mapper resource="sql/member/member.xml" />
 		    <mapper resource="sql/comment.xml" />
 		    <mapper resource="sql/shopBoard.xml" />
+		    <mapper resource="sql/message.xml" />
 	</mappers>
 </configuration>

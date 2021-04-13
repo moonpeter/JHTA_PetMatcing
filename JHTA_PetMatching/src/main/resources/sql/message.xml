@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  SQL 맴퍼 파일은 xml이기 때문에 제일 먼저 xml 선언이 옵니다.-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+ 
+
+<mapper namespace="Messages">
+
+  <insert id="insert" parameterType="message">
+    insert into message
+    (message_num, sender_id, receiver_id, message_title, message_content)
+    values
+    (message_seq.nextval, #{sender_id}, #{receiver_id}, #{message_title}, #{message_content})
+  </insert>
+  
+  
+  <select id="newMessageCount" parameterType="String" resultType="int">
+    select count(*) from message
+    where receiver_id=#{loginid} and read_count=0 and deleteby_receiver='n' and cancelby_sender='n'
+  </select>
+  
+  
+  <!-- map은 java.util.Map의 별칭입니다. -->
+  <select id="getSearchReceiveMessage" parameterType="map" resultType="message">
+    select *
+    from ( select rownum rnum, b.*
+           from (select *
+                 from message
+                 where receiver_id = #{loginid} and deleteby_receiver='n' and cancelby_sender='n'
+                    <include refid="search_Message" /> 
+                 order by register_date desc   
+                 )b 
+         )
+    where rnum &gt;= #{start} and rnum &lt;= #{end}
+  </select>
+  
+
+  <sql id="search_Message"> 
+    <if test="search_field!=null">
+      and
+      <foreach collection="search_field" separator="or" item="index">
+        <choose>                            <!-- MyBatis 싱글코드, 더블코드 주의사항 -->
+          <when test='index=="S"'>sender_id</when> <!-- 여러글자인 경우는 상관없는데, 한글자인 String은 ""더블코트를 써야한다. 안그러면 에러 발생-->
+          <when test='index=="R"'>receiver_id</when><!-- 만약 한글자 스트링에 싱글코트를 쓰고 싶다면 "index=='N'.toString()" 이와 같이 .toString을 사용해야 한다. -->    
+          <when test='index=="T"'>message_title</when> 
+          <when test='index=="C"'>message_content</when>
+        </choose>
+      like #{search_word}
+      </foreach>
+    </if>
+  </sql>
+  
+  <select id="getSearchReceiveMessageCount" parameterType="map" resultType="int">
+    select count(*) from message
+    where receiver_id = #{loginid} and deleteby_receiver='n' and cancelby_sender='n'
+    <include refid="search_Message" /> 
+  </select>
+  
+  
+  <select id="getDetail_sendMessage" parameterType="map" resultType="message">
+    select*from message 
+    where message_num = #{num} and sender_id=#{loginid}
+  </select>
+  
+  
+  <select id="getDetail_receiveMessage" parameterType="map" resultType="message">
+    select*from message 
+    where message_num = #{num} and receiver_id=#{loginid}
+  </select>
+  
+  
+  
+  <select id="idcheck" parameterType="String" resultType="member">
+    select*from members where id = #{receive_id}
+  </select>
+  
+  
+  <update id="readCountUpdate" parameterType="int" >
+    update message
+    set read_count = read_count + 1
+    where message_num =#{num}
+  </update>
+  
+  <!-- update문장을 여러개 돌리는 것 -->
+  <!-- 
+      (참고)
+       insert, update, delete에는 resultType이 없고, 각각 삽입된, 수정된, 삭제된 row의 수를 반환한다.   
+            따라서, 원래는 update문 1개에 대한 결과 row 수를 int형으로 반환하는데(예를 들어서 5개의 row가 업데이트 되면 5를 반환)
+            아래의 경우는 여러개의 update문을 여러개 수행하는 것이므로 성공하면 -1을 반환하는 것을 확인할 수 있다. (컨트롤러에서 logger.info 사용)         
+   -->
+  <update id="deleteByReceiver" parameterType="map">
+    <foreach collection="select_delete"  item="selected_num" open="DECLARE BEGIN" close="; END;" separator=";" >
+      update message
+      set deleteby_receiver = 'y'
+      where
+      message_num =#{selected_num}
+    </foreach>
+  </update>
+  
+  
+  <select id="getSearchSendMessage" parameterType="map" resultType="message">
+    select *
+    from ( select rownum rnum, b.*
+           from (select *
+                 from message
+                 where sender_id = #{loginid} and deleteby_sender='n'
+                    <include refid="search_Message" /> 
+                 order by register_date desc   
+                 )b 
+         )
+    where rnum &gt;= #{start} and rnum &lt;= #{end}
+  </select>
+  
+  <select id="getSearchSendMessageCount" parameterType="map" resultType="int">
+    select count(*) from message
+    where sender_id = #{loginid} and deleteby_sender='n' 
+    <include refid="search_Message" /> 
+  </select>
+  
+  
+  <update id="deleteBySender" parameterType="map">
+    <foreach collection="select_delete"  item="selected_num" open="DECLARE BEGIN" close="; END;" separator=";" >
+      update message
+      set deleteby_sender = 'y'
+      where
+      message_num =#{selected_num}
+    </foreach>
+  </update>
+  
+  
+  <update id="cancelBySender" parameterType="int">
+    update message
+    set cancelby_sender = 'y'
+    where
+    message_num = #{cancel_num}
+  </update>
+  
+  
+  <delete id="messageDeleteBySchedule1">
+    delete message
+    where deleteby_receiver = 'y' and deleteby_sender = 'y'
+  </delete>
+  
+  <delete id="messageDeleteBySchedule2">
+    delete message
+    where deleteby_sender = 'y' and cancelby_sender ='y'
+  </delete>
+  
+  
+   
+</mapper>
