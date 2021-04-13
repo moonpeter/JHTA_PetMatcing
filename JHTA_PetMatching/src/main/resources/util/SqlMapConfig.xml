@@ -15,6 +15,7 @@
 		 <typeAlias alias="Doboard" type="com.jhta.petMatching.hhi.domain.DoBoard" />
 		 <typeAlias alias="comment" type="com.jhta.petMatching.hhi.domain.Comment" />
 		 <typeAlias alias="member" type="com.jhta.petMatching.abh.domain.Member" />
+ 		 <typeAlias alias="message" type="com.jhta.petMatching.ahnyh.domain.Message" />		 
  		 <typeAlias alias="shopBoard" type="com.jhta.petMatching.mkh.domain.ShopBoard" />		 
 	</typeAliases>
 
@@ -27,6 +28,7 @@
 		    <mapper resource="sql/comment/comment_do.xml" />
 		    <mapper resource="sql/member/member.xml" />
 		    <mapper resource="sql/shopBoard.xml" />
+		    <mapper resource="sql/message.xml" />
 	</mappers>
 	
 	
