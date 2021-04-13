@@ -5,8 +5,9 @@
 <head>
 <title>MVC 게시판 - view</title>
 	<jsp:include page = "/WEB-INF/views/common/header.jsp" />
-	<script src = "../resources/js/views3.js"></script>
-	<link rel="stylesheet" href="../resources/css/view.css">
+	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.js"></script>
+	<script src = "${pageContext.request.contextPath}/resources/js/views3.js"></script>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/view.css">
 	<script>
 		
 		var result="${result}";

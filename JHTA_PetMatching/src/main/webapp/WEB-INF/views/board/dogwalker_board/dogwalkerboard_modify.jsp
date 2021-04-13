@@ -2,10 +2,11 @@
 <%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-	<title>MVC 게시판</title>
+	<title>산책 신청 게시판(Walker)</title>
 	<jsp:include page = "/WEB-INF/views/common/header.jsp"/>
-	<script src = "../resources/js/modifyform.js"></script>
-	<link rel="stylesheet" href="../resources/css/write.css">
+	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.js"></script>
+	<script src = "${pageContext.request.contextPath}/resources/js/modifyform.js"></script>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/write.css">
 	<style>
 		h1{font-size:1.5em; text-align:center; color:#1a92b9}
 		label{font-weight:light; color:#dc3545}
@@ -27,7 +28,7 @@
 			<input type = "hidden" name = "BOARD_NUM" value = "${boarddata.BOARD_NUM}">
 			<input type = "hidden" name = "BOARD_FILE" value = "${boarddata.BOARD_FILE}">
 			<p class="text-danger">
-			  <font size = 4>산책 신청 게시판&nbsp;&nbsp;&nbsp;</font>
+			  <font size = 4>산책 신청 게시판 (산책러)</font>
 			</p>
 			<hr class="text-danger">
 			

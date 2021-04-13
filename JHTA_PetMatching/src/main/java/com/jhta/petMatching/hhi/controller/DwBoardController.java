@@ -53,7 +53,7 @@ public class DwBoardController {
 	@Value("${savefoldername}")
 	private String saveFolder;
 	
-	// DW_BOARD List 출력
+	// List 출력
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView dwboardList(@RequestParam(value="page", defaultValue="1", required=false) int page, ModelAndView mv) {
 		
@@ -170,22 +170,18 @@ public class DwBoardController {
 			return mv;
 		}
 		
-	
 	//글쓰기
-	//@RequestMapping(value="/write", method=RequestMethod.GET) > 간단하게 아래 문장으로 변경
 	@GetMapping(value="/write")
-	public String board_wirte(){
+	public String dwBoard_wirte(){
 	 		return "board/dogwalker_board/dogwalkerboard_write";
 	}
-
 	
 	//수정하기
-	//@RequestMapping(value="/write", method=RequestMethod.GET) > 간단하게 아래 문장으로 변경
 	@GetMapping("/modifyView")
 	public ModelAndView dwBoardModifyView(int num, ModelAndView mv, HttpServletRequest request){
 		DwBoard boarddata = boardService.getDetail(num);
 		
-		// 글 내용 불러오기 실패한 경우입니다.
+		// 글 내용 불러오기 실패한 경우
 		if(boarddata == null) {
 			logger.info("수정보기 실패");
 			mv.setViewName("error/error");
@@ -194,18 +190,14 @@ public class DwBoardController {
 			return mv;
 		}
 		logger.info("(수정)상세보기 성공");
-		// 수정 폼 페이지로 이동할 때 원문 글 내용을 보여주기 때문에 boarddata 객체를
-		// ModelAndView 객체에 저장합니다.
 		mv.addObject("boarddata",boarddata);
-		// 글 수정 폼 페이지로 이동하기 위해 경로를 설정합니다.
 		mv.setViewName("board/dogwalker_board/dogwalkerboard_modify");
 		return mv;
 	}	
 	
 	
-	// @RequestMapping(value="/add", method=RequestMethod.POST)
 		@PostMapping("/modifyAction")
-		public String BoardModifyAction(DwBoard boarddata, String check, Model mv, HttpServletRequest request, RedirectAttributes rattr) throws Exception {
+		public String dwBoardModifyAction(DwBoard boarddata, String check, Model mv, HttpServletRequest request, RedirectAttributes rattr) throws Exception {
 			
 			// 추가합니다.
 			// input type="hidden" name="BOARD_FILE" value="${boarddata.BOARD_FILE}">
@@ -270,7 +262,7 @@ public class DwBoardController {
 			} else { // 수정 성공의 경우
 				logger.info("게시판 수정 완료");
 				// 수정한 글 내용을 보여주기 위해 글 내용 보기 페이지로 이동하기 위해 경로를 설정합니다.
-				url = "redirect:dw_board/detail";
+				url = "redirect:detail";
 				rattr.addAttribute("num", boarddata.getBOARD_NUM());
 				
 				// 파일 삭제를 위해 추가한 부분
@@ -282,12 +274,9 @@ public class DwBoardController {
 				}
 			}
 			return url;
-			
 		}
 	
 	
-	
-	// @RequestMapping(value="/add", method=RequestMethod.POST)
 	@PostMapping("/add")
 	public String add(DwBoard board) throws Exception {
 		

@@ -3,7 +3,9 @@
 <html>
 <head>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
-	<script src = "../resources/js/writeform.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.js"></script>
+	<script src = "${pageContext.request.contextPath}/resources/js/writeform.js"></script>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/write.css">
 	<style>
 		h1{font-size: 1.5rem; text-align : center; color: #1a92b9}
 		.container{width:60%}

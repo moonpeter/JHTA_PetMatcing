@@ -110,15 +110,15 @@ body > div > div:nth-child(6){color:#dc3545}
 	
 	
 		<%-- modal 시작 --%>
-		<div class = "modal" id = "myModal">
+		<div class="modal" id="myModal">
 		 <div class = "modal-dialog">
 		 	<div class = "modal-content">
 		 		<%-- Modal body --%>
 		 	<div class = "modal-body">
-		 		<form name = "deleteForm" action="delete" method = "post">
+		 		<form name = "deleteForm" action="delete" method="post">
 		 			<%-- http://localhost:8088/Board/BoardDetailAction.bo?num=22
 		 				 주소를 보면 num을 파라미터로 넘기고 있습니다.
-		 				 이 값을 가져와서 %{param.num}를 사용
+		 				 이 값을 가져와서 ${param.num}를 사용
 		 				 또는 ${boarddata.BOARD_NUM}
 		 			 --%>
 		 		<input type="hidden" name="num" value="${param.num}" id="board_num">

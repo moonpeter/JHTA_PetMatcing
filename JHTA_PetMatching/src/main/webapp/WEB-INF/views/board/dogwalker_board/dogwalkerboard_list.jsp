@@ -26,7 +26,7 @@
 
 		<!-- 게시판 타이틀 -->
 		<p class="text-danger">
-		  <font size = 4>산책 신청 게시판&nbsp;&nbsp;&nbsp;</font>
+		  <font size = 4>산책 신청 게시판 (산책러)&nbsp;&nbsp;&nbsp;</font>
 		  <em id="listcount" class="text-danger"> ${listcount}개의 게시물</em>
 		</p>
 		<hr class="text-danger"> 

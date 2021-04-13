@@ -172,22 +172,13 @@ public class DoBoardController {
 			return mv;
 		}
 		
-		
-	//	private String fileDBName(String)
-		
-		
-	
-	
 	//글쓰기
-	//@RequestMapping(value="/write", method=RequestMethod.GET) > 간단하게 아래 문장으로 변경
 	@GetMapping(value="/write")
 	public String doboard_wirte(){
 	 		return "board/dogowner_board/dogownerboard_write";
 	}
 
-	
 	//수정하기
-	//@RequestMapping(value="/write", method=RequestMethod.GET) > 간단하게 아래 문장으로 변경
 	@GetMapping("/modifyView")
 	public ModelAndView doBoardModifyView(int num, ModelAndView mv, HttpServletRequest request){
 		DoBoard boarddata = boardService.getDetail(num);
@@ -231,7 +222,7 @@ public class DoBoardController {
 				return "redirect:modifyView";
 			}
 			
-			MultipartFile uploadfile = boarddata.getUploadfile();
+			MultipartFile uploadfile = boarddata.getDog_uploadfile();
 			// String saveFolder = request.getSession().getServletContext().getRealPath("resources") + "/upload/";
 			
 			if(check != null && !check.equals("")) { // 1. 기존 파일을 그대로 사용하는 경우입니다.
@@ -298,11 +289,11 @@ public class DoBoardController {
 	@PostMapping("/add")
 	public String doadd(DoBoard board) throws Exception {
 		
-		MultipartFile uploadfile = board.getUploadfile();
+		MultipartFile dog_uploadfile = board.getDog_uploadfile();
 		
-		if (!uploadfile.isEmpty()) {
-			String fileName = uploadfile.getOriginalFilename(); // 원래 파일 명
-			board.setBOARD_ORIGINAL(fileName); // 원래 파일명 저장
+		if (!dog_uploadfile.isEmpty()) {
+			String fileName = dog_uploadfile.getOriginalFilename(); // 원래 파일 명
+//			board.setDOG_PHOTO(fileName); // 원래 파일명 저장
 			
 			// String saveFolder =
 			//		request.getSession().getServletContext().getRealPath("resources") + "/upload/";
@@ -311,10 +302,10 @@ public class DoBoardController {
 			logger.info("fileDBName = " + fileDBName);
 			
 			// transferTO(File path) : 업로드한 파일을 매개변수의 경로에 저장합니다.
-			uploadfile.transferTo(new File(saveFolder + fileDBName));
+			dog_uploadfile.transferTo(new File(saveFolder + fileDBName));
 			
 			// 바뀐 파일명으로 저장
-			board.setBOARD_FILE(fileDBName);
+			board.setDOG_PHOTO(fileDBName);
 		}
 		
 		boardService.insertBoard(board); // 저장메서드 호출

@@ -19,7 +19,7 @@
 		<form action = "add" method = "post" enctype="multipart/form-data"
 			  name = "boardform"> 
 		<p class="text-danger">
-		  <font size = 4>산책 신청 게시판&nbsp;&nbsp;&nbsp;</font>
+		  <font size = 4>산책 신청 게시판 (산책러)</font>
 		</p>
 		<hr class="text-danger"> 
 		
@@ -27,8 +27,7 @@
 		<div class = "form-group">
 			<label for = "board_name">글쓴이</label>
 			<input name = "BOARD_NAME" id="board_name" value="${id}" readOnly
-			       type="text" maxlength="30"	class="form-control"
-			       placeholder="Enter board_name">
+			       type="text" maxlength="30"	class="form-control">
 		</div>
 		<div class = "form-group">
 			<label for = "board_pass">비밀번호</label>

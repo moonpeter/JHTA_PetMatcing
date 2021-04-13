@@ -3,7 +3,9 @@
 <html>
 <head>
 	<jsp:include page = "/WEB-INF/views/common/header.jsp" />
-	<script src = "../resources/js/writeform.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.js"></script>
+	<script src = "${pageContext.request.contextPath}/resources/js/writeform.js"></script>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/write.css">
 	<style>
 		h1{font-size: 1.5rem; text-align : center; color: #1a92b9}
 		.container{width:60%}
@@ -13,14 +15,17 @@
 	</style>
 </head>
 <body>
-	<div class = "container">
-		<form action = "replyAction" method = "post" 
-			  name = "boardform"> 
+		<div class = "container">
+		<form action = "add" method = "post"  name = "boardform"> 
+		<p class="text-danger">
+		  <font size = 4>산책 신청 게시판 (산책러) - 답변</font>
+		</p>
+		<hr class="text-danger"> 
+		
 		<input type="hidden" name="BOARD_RE_REF" value="${boarddata.BOARD_RE_REF}">
 		<input type="hidden" name="BOARD_RE_LEV" value="${boarddata.BOARD_RE_LEV}">
 		<input type="hidden" name="BOARD_RE_SEQ" value="${boarddata.BOARD_RE_SEQ}">
 		
-		<h1>MVC 게시판 - Reply</h1>
 		<div class = "form-group">
 			<label for = "board_name">글쓴이</label>
 			<input name = "BOARD_NAME" id="board_name" value="${boarddata.BOARD_NAME}" readOnly
@@ -43,7 +48,7 @@
 		</div>
 		<div class = "form-group">
 			<button type = "submit" class = "btn btn-primary">등록</button>
-			<button type = "reset" class = "btn btn-danger">취소</button>
+			<button type = "reset" class = "btn btn-danger" onClick="history.go(-1)">취소</button>
 		
 		</div>
 		</form>

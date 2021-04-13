@@ -4,8 +4,9 @@
 <head>
 	<title>MVC 게시판</title>
 	<jsp:include page = "/WEB-INF/views/common/header.jsp"/>
-	<script src = "../resources/js/modifyform.js"></script>
-	<link rel="stylesheet" href="../resources/css/write.css">
+	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.js"></script>
+	<script src = "${pageContext.request.contextPath}/resources/js/modifyform.js"></script>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/write.css">
 	<style>
 		h1{font-size:1.5em; text-align:center; color:#1a92b9}
 		label{font-weight:light; color:#dc3545}
@@ -30,7 +31,6 @@
 			  <font size = 4>산책 신청 게시판&nbsp;&nbsp;&nbsp;</font>
 			</p>
 			<hr class="text-danger">
-			
 			
 				<div class = "form-group">
 					<label for = "board_name">글쓴이</label>

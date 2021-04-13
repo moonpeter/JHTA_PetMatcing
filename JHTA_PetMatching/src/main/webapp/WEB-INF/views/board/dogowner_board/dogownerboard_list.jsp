@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
 <html>
@@ -43,51 +44,24 @@ div.desc {
 
 <%-- 게시글이 있는 경우 --%>
 <c:if test = "${listcount > 0 }">
-
 <!-- 게시판 타이틀 -->
 <p class="text-danger">
-	<font size = 4>산책 신청 게시판&nbsp;&nbsp;&nbsp;</font>
+	<font size = 4>산책 신청 게시판 (주인)&nbsp;&nbsp;&nbsp;</font>
 	<em id="listcount" class="text-danger"> ${listcount}개의 게시물</em>
 	</p>
 <hr class="text-danger"> 
 
-<div class="responsive">
-  <div class="gallery">
-    <a target="_blank" href="${pageContext.request.contextPath}/resources/image/dog1.jpeg">
-      <img src="${pageContext.request.contextPath}/resources/image/dog1.jpeg" alt="dog" width="600" height="400">
-    </a>
-    <div id="desc">산책시켜주실분 구합니다</div>
-  </div>
-</div>
+<c:forEach var = "b" items="${boardlist}">
 
-
-<div class="responsive">
-  <div class="gallery">
-    <a target="_blank" href="egg.jpeg">
-      <img src="${pageContext.request.contextPath}/resources/image/kongsoon.png" alt="dog" width="600" height="400">
-    </a>
-    <div id="desc">산책시켜주실분 구합니다</div>
-  </div>
-</div>
-
-<div class="responsive">
-  <div class="gallery">
-    <a target="_blank" href="${pageContext.request.contextPath}/resources/image/dog2.jpeg">
-      <img src="${pageContext.request.contextPath}/resources/image/dog2.jpeg" alt="dog" width="600" height="400">
-    </a>
-    <div id="desc">산책시켜주실분 구합니다</div>
-  </div>
-</div>
-
-<div class="responsive">
-  <div class="gallery">
-    <a target="_blank" href="${pageContext.request.contextPath}/resources/image/dog3.jpeg">
-      <img src="${pageContext.request.contextPath}/resources/image/dog3.jpeg" alt="dog" width="600" height="400">
-    </a>
-    <div id="desc">산책시켜주실분 구합니다</div>
-  </div>
-</div>
-
+	<div class="responsive">
+	  <div class="gallery">
+	    <a target="_blank" href="detail?num=${b.BOARD_NUM}">
+	      <img src="${pageContext.request.contextPath}/resources/upload${b.DOG_PHOTO}" alt="dog" width="600" height="400">
+	    </a>
+	    <div id="desc">${b.BOARD_SUBJECT}</div>
+	  </div>
+	</div>
+</c:forEach>
 
 <div class="clearfix"></div>
 
@@ -131,15 +105,15 @@ div.desc {
 				</li>
 			</c:if>
 		</ul>
-		<button type = "button" onclick="location.href='/do_board/write'" class = "btn btn-info float-right">글 쓰 기</button>
 	</div>
 
 </c:if> <%-- c:if test = "${listcount > 0}"> end --%>
 
 <%-- 게시글이 없는 경우 --%>
-<%-- <c:if test = "${listcount == 0 }">
-	<font size = 5>등록된 글이 없습니다.</font>
-</c:if> --%>
+<c:if test = "${listcount == 0 }">
+	<font size=5>등록된 글이 없습니다.</font>
+</c:if> 
+		<button type = "button" onclick="location.href='/do_board/write'" class = "btn btn-info float-right">글 쓰 기</button>
 
 </div>
 </body>

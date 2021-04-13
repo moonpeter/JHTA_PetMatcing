@@ -4,8 +4,9 @@
 <head>
 	<title>MVC 게시판</title>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
-	<script src = "../resources/js/modifyform.js"></script>
-	<link rel="stylesheet" href="../resources/css/write.css">
+	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.js"></script>
+	<script src = "${pageContext.request.contextPath}/resources/js/modifyform.js"></script>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/write.css">
 	<style>
 		h1{font-size:1.5em; text-align:center; color:#1a92b9}
 		label{font-weight:light; color:#dc3545}
@@ -27,7 +28,7 @@
 			<input type = "hidden" name = "BOARD_NUM" value = "${boarddata.BOARD_NUM}">
 			<input type = "hidden" name = "BOARD_FILE" value = "${boarddata.BOARD_FILE}">
 			<p class="text-danger">
-			  <font size = 4>산책 신청 게시판&nbsp;&nbsp;&nbsp;</font>
+			  <font size = 4>산책 신청 게시판 (주인)&nbsp;&nbsp;&nbsp;</font>
 			</p>
 			<hr class="text-danger">
 			
@@ -36,6 +37,26 @@
 					<label for = "board_name">글쓴이</label>
 					<input name = "BOARD_NAME" id = "board_name" type = "text" value = "${boarddata.BOARD_NAME}"
 							class = "form-control" readOnly>
+				</div>
+				<div class = "form-group">
+					<label for = "dog_name">반려견 이름</label>
+					<textarea name = "DOG_NAME" id = "dog_name" rows="1" maxlength="20"
+							class = "form-control" maxlength="100">${boarddata.DOG_NAME }</textarea>
+				</div>
+				<div class = "form-group">
+					<label for = "dog_age">반려견 나이</label>
+					<textarea name = "DOG_AGE" id = "dog_age" rows="1" maxlength="2"
+							class = "form-control" maxlength="100">${boarddata.DOG_AGE }</textarea>
+				</div>
+				<div class = "form-group">
+					<label for = "dog_breed">반려견 견종</label>
+					<textarea name = "DOG_BREED" id = "dog_breed" rows="1" maxlength="20"
+							class = "form-control" maxlength="100">${boarddata.DOG_BREED }</textarea>
+				</div>
+				<div class = "form-group">
+					<label for = "dog_special_note">반려견 특이사항</label>
+					<textarea name = "DOG_SPECIAL_NOTE" id = "dog_special_note" rows="1" maxlength="200"
+							class = "form-control" maxlength="100">${boarddata.DOG_SPECIAL_NOTE }</textarea>
 				</div>
 				<div class = "form-group">
 					<label for = "board_subject">제목</label>

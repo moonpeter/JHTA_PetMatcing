@@ -19,18 +19,6 @@
 			where rnum &gt;= #{start} and rnum &lt;= #{end}
 	</select>
 	
-	<!-- 1. jdbcType=VARCHAR : 첨부파일을 추가하지 않은 경우 에러 처리해줍니다.
-			해당 필드가 null인 경우 jdbcType=VARCHAR로 처리하면 null로 설정됩니다.
-			number 타입일 경우는 jdbcType=INTEGER
-		 2. ① insert 전에 (order="BEFORE")
-		 	   조회(select nvl(max(BOARD_NUM),0)+1 from board)합니다.
-		    ② 조회한 값을 keyProperty="BOARD_NUM"에서 설정한 대로
-		      "BOARD_NUM" 프로퍼티에 저장합니다.
-		      (public void setBOARD_NUM(int BOARD_NUM))
-		    ③ insert문의 #{BOARD_NUM}는 지금 구한 값을 BoardBean에서 가져옵니다.
-		       (public String getBOARD_NUM() {return BOARD_NUM;})
-	-->
-	
 	<insert id = "insert" parameterType="board">
 		<selectKey resultType="int"		order="BEFORE"	keyProperty="BOARD_NUM">
 			select nvl(max(BOARD_NUM),0)+1 from free_board
@@ -73,7 +61,6 @@
 	</update>
 	
 	
-	<!--  map 은 java.util.Map의 별칭입니다.-->
 	<select id="boardWriter" parameterType="map"
 		resultType="board">
 			select * from free_board
@@ -88,7 +75,6 @@
 		and 	 BOARD_RE_SEQ <![CDATA[>]]> #{BOARD_RE_SEQ}
 	</update>
 	
-	<!-- BOARD_FILE, BOARD_ORIGINAL 필드 없어요 -->
 	
 	<insert id="reply_insert" parameterType="board">
 	   <selectKey resultType="int" order="BEFORE" keyProperty="BOARD_NUM">

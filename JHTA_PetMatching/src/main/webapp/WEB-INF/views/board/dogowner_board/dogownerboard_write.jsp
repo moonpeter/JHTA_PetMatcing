@@ -38,30 +38,36 @@
 		</div><hr class="text-danger">
 		
 		<div class = "form-group">
-			<label for = "board_file">반려견 사진</label>
-			<label for = "upfile">
+			<label for = "dog_upfile">반려견 사진</label>
+			<label for = "dog_upfile">
 				<img src = "${pageContext.request.contextPath}/resources/image/attach.png" alt="파일첨부">
 			</label>
-			<input type="file" id = "upfile" name="uploadfile">
-			<span id = "filevalue"></span>
+			<input type="file" id = "dog_upfile" name="DOG_UPLOADFILE">
+			<span id = "dog_filevalue"></span>
 		</div>
 		
 		<div class = "form-group">
-			<label for = "board_subject">반려견 나이</label>
-			<input name = "BOARD_SUBJECT" id="board_subject" type="text" maxlength="100"
-			       class="form-control" placeholder="Enter board_subject">
+			<label for = "dog_age">반려견 이름</label>
+			<input name = "DOG_NAME" id="dog_name" type="text" maxlength="20"
+			       class="form-control" placeholder="Enter your dog's name.">
 		</div>
 		
 		<div class = "form-group">
-			<label for = "board_subject">반려견 견종</label>
-			<input name = "BOARD_SUBJECT" id="board_subject" type="text" maxlength="100"
-			       class="form-control" placeholder="Enter board_subject">
+			<label for = "dog_age">반려견 나이</label>
+			<input name = "DOG_AGE" id="dog_age" type="text" maxlength="2"
+			       class="form-control" placeholder="Enter your dog's age.">
 		</div>
 		
 		<div class = "form-group">
-			<label for = "board_subject">반려견 특이사항</label>
-			<input name = "BOARD_SUBJECT" id="board_subject" type="text" maxlength="100"
-			       class="form-control" placeholder="Enter board_subject">
+			<label for = "dog_breed">반려견 견종</label>
+			<input name = "DOG_BREED" id="dog_breed" type="text" maxlength=20"
+			       class="form-control" placeholder="Enter your dog breed.">
+		</div>
+		
+		<div class = "form-group">
+			<label for = "dog_special_note">반려견 특이사항</label>
+			<input name = "DOG_SPECIAL_NOTE" id="dog_special_note" type="text" maxlength="200"
+			       class="form-control" placeholder="Enter a special note.">
 		</div><hr class="text-danger">
 		
 		<div class = "form-group">

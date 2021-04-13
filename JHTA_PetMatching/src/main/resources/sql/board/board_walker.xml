@@ -8,7 +8,7 @@
 		select count(*) from dw_board
 	</select>
 
-	<select id="list" parameterType="java.util.Map" resultType="board">
+	<select id="list" parameterType="java.util.Map" resultType="Dwboard">
 		select * from
 			( select rownum rnum, b.*
 				from
@@ -45,7 +45,7 @@
 		where BOARD_NUM = #{number}
 	</update> 
 	
-	<select id="detail" parameterType="int" resultType="board" >
+	<select id="detail" parameterType="int" resultType="Dwboard" >
 		select * from dw_board where BOARD_NUM = #{number}
 	</select>
 	
@@ -63,7 +63,7 @@
 	
 	<!--  map 은 java.util.Map의 별칭입니다.-->
 	<select id="boardWriter" parameterType="map"
-		resultType="board">
+		resultType="Dwboard">
 			select * from dw_board
 			where BOARD_NUM=#{num}
 			and BOARD_PASS=#{pass}

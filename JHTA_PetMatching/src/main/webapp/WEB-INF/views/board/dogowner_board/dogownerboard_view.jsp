@@ -5,8 +5,9 @@
 <head>
 <title>산책 신청(Owner)</title>
 <jsp:include page="/WEB-INF/views/common/header.jsp" />
-<script src="../resources/js/views3.js"></script>
-<link rel="stylesheet" href="../resources/css/view.css">
+<script src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.js"></script>
+<script src="${pageContext.request.contextPath}/resources/js/views3.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/view.css">
 <script>
 	var result = "${result}";
 	if (result == 'passFail') {
@@ -50,6 +51,11 @@ body>div>div:nth-child(4), body>div>div:nth-child(5)>textarea {padding-bottom: 2
 body>div>div:nth-child(6) {padding-bottom: 0.53em;}
 
 body>div>div:nth-child(6) {color: #dc3545}
+
+body > div.container > div.container > div > div.col-4 > div > img{margin-bottom: 5em;}
+
+body > div.container > div.center{margin-top: 2em;}
+
 </style>
 </head>
 <body>
@@ -58,32 +64,9 @@ body>div>div:nth-child(6) {color: #dc3545}
 	<!-- 게시판명  --> 
 	<div class="container">
 		<p class="text-danger">
-			<font size=4>산책 신청 게시판&nbsp;&nbsp;&nbsp;</font>
+			<font size=4>산책 신청 게시판 (주인)&nbsp;&nbsp;&nbsp;</font>
 		</p>
 		<hr class="text-danger">
-
-    <!-- 강아지 정보란  -->
-		<div class="container">
-			<div class="row">
-				<div class="col-4 bg-secondary">
-					<img class="card-img-top"
-						src="${pageContext.request.contextPath}/resources/image/mainPage_icon.png"
-						alt="" height="200px">
-				</div>
-				<div class="col-8 bg-primary">
-					<div class="bg-success">Test Subject</div>
-					<div class="bg-warning">판매가격</div>
-					<div class="bg-success">원산지</div>
-					<div class="bg-warning">브랜드</div>
-					<div class="bg-success">
-						<small class="text-danger">평점 : &#9733; &#9733; &#9733;
-							&#9733; &#9733;</small>
-					</div>
-				</div>
-			</div>
-		</div>
-
-
 
 		<!-- 게시글 제목 -->
 		<c:out value="${boarddata.BOARD_SUBJECT}" />
@@ -94,28 +77,29 @@ body>div>div:nth-child(6) {color: #dc3545}
 			${boarddata.BOARD_NAME} <span id="date">${boarddata.BOARD_DATE}</span>
 		</div>
 
-		<!-- 내용 -->
-		<div style="padding-right: 0px">
-			<textarea class="form-control" readOnly> ${boarddata.BOARD_CONTENT}</textarea>
-		</div>
-
-		<c:if test="${boarddata.BOARD_RE_LEV == 0}">
-			<%-- 원문글인 경우에만 첨부파일을 추가할 수 있습니다. --%>
-
-			<div>
-				첨부파일&nbsp;
-				<c:if test="${!empty boarddata.BOARD_FILE}">
-					<%-- 파일 첨부한 경우 --%>
-					<img src="../resources/image/down.png" width="10px">
-					<a
-						href="down?filename=${boarddata.BOARD_FILE}&original=${boarddata.BOARD_ORIGINAL}">
-						${boarddata.BOARD_ORIGINAL}</a>
-				</c:if>
-				<c:if test="${empty boarddata.BOARD_FILE}">
-					<%-- 파일 첨부하지 않은 경우 --%>
-				</c:if>
+    	<!-- 강아지 정보란  -->
+		<div class="container">
+			<div class="row">
+				<div class="col-4">
+				  <div class="mySliders">
+					<img class="card-img-top"
+						src="${pageContext.request.contextPath}/resources/upload${boarddata.DOG_PHOTO}"
+						alt="" >
+				</div>
+				</div>
+				<div class="col-8">
+					<div>이&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;름&nbsp;&nbsp;&nbsp;&nbsp;${boarddata.DOG_NAME }</div>
+					<div>나&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;이&nbsp;&nbsp;&nbsp;&nbsp;${boarddata.DOG_AGE }</div>
+					<div>견&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;종&nbsp;&nbsp;&nbsp;&nbsp;${boarddata.DOG_BREED }</div>
+					<div>특이사항&nbsp;&nbsp;&nbsp;${boarddata.DOG_SPECIAL_NOTE }</div>
+					</div>
 			</div>
-		</c:if>
+		</div> <!-- <div class="container"> end -->
+
+		<!-- 내용 -->
+		<p class="text-danger"> 내용
+			<hr class="text-danger">
+			 ${boarddata.BOARD_CONTENT}
 
 		<div class="center">
 			<button id="comment">댓글</button>
@@ -129,9 +113,7 @@ body>div>div:nth-child(6) {color: #dc3545}
 				</a>
 			</c:if>
 
-			<a href="replyView?num=${boarddata.BOARD_NUM}">
-				<button id="viewbtn">답변</button>
-			</a> <a href="list">
+			<a href="list">
 				<button id="viewbtn">목록</button>
 			</a>
 			<%-- 게시판 view end --%>

@@ -71,6 +71,9 @@ public class FreeBoardController {
 		 
 		List<Board> boardlist = boardService.getBoardList(page, limit); // 리스트를 받아옴
 		
+//		int count = commentService.getListCount(num);
+//		mv.addObject("count", count);
+		
 		mv.setViewName("board/free_board/board_list"); // setViewName() > 경로이동
 		mv.addObject("page", page);			// addObject() > 객체를 만들어 정보 전달
 		mv.addObject("maxpage", maxpage);
@@ -79,6 +82,7 @@ public class FreeBoardController {
 		mv.addObject("listcount", listcount);
 		mv.addObject("boardlist", boardlist);
 		mv.addObject("limit", limit);
+		
 		
 		return mv;
 	}
@@ -363,7 +367,7 @@ public class FreeBoardController {
 		}	
 	
 	@PostMapping("/delete")
-	public String freeBoardDeleteActioin(String BOARD_PASS, int num, Model mv, RedirectAttributes rattr, HttpServletRequest request) throws Exception {
+	public String freeBoardDeleteAction(String BOARD_PASS, int num, Model mv, RedirectAttributes rattr, HttpServletRequest request) throws Exception {
 		// 글 삭제 명령을 요청한 사용자가 글을 작성한 사용자인지 판단하기 위해
 		// 입력한 비밀번호와 저장된 비밀번호를 비교하여 일치하면 삭제합니다.
 		boolean usercheck = boardService.isBoardWriter(num, BOARD_PASS);
