@@ -18,15 +18,25 @@ public class DoBoard {
 	
 	// board_wirte.jsp에서 name 속성 확인하세요.
 	// <input type="file" id="upfile" name="uploadfile"> 확인
-	private MultipartFile uploadfile;	
-	
+//	private MultipartFile uploadfile;	
 	private String BOARD_ORIGINAL;		// 첨부될 파일의 이름
+	
 	private String BOARD_DATE;
 	private String DOG_THUMBIMG;
 	private String DOG_NAME;
 	private int DOG_AGE;
 	private String DOG_BREED;
+	public MultipartFile getDog_uploadfile() {
+		return dog_uploadfile;
+	}
+
+	public void setDog_uploadfile(MultipartFile dog_uploadfile) {
+		this.dog_uploadfile = dog_uploadfile;
+	}
+
 	private String DOG_SPECIAL_NOTE;
+	
+	private MultipartFile dog_uploadfile;	
 	private String DOG_PHOTO;
 	
 	
@@ -110,13 +120,13 @@ public class DoBoard {
 		BOARD_READCOUNT = bOARD_READCOUNT;
 	}
 	
-	public MultipartFile getUploadfile() {
-		return uploadfile;
-	}
-	
-	public void setUploadfile(MultipartFile uploadfile) {
-		this.uploadfile = uploadfile;
-	}
+//	public MultipartFile getUploadfile() {
+//		return uploadfile;
+//	}
+//	
+//	public void setUploadfile(MultipartFile uploadfile) {
+//		this.uploadfile = uploadfile;
+//	}
 	
 	public String getBOARD_ORIGINAL() {
 		return BOARD_ORIGINAL;
@@ -131,7 +141,7 @@ public class DoBoard {
 	}
 	
 	public void setBOARD_DATE(String bOARD_DATE) {
-		BOARD_DATE = bOARD_DATE;
+		BOARD_DATE = bOARD_DATE.substring(0,16);
 	}
 	
 	public String getDOG_THUMBIMG() {
