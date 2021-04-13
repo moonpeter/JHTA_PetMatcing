@@ -18,50 +18,50 @@ public class DoBoardDAO {
 	private SqlSessionTemplate sqlSession;
 	
 	public int getListCount() {
-		return sqlSession.selectOne("Boards.count");
+		return sqlSession.selectOne("DoBoard.count");
 	}
 
 	public List<DoBoard> getBoardList(HashMap<String, Integer> map) {
-		return sqlSession.selectList("Boards.list", map);
+		return sqlSession.selectList("DoBoard.list", map);
 	}
 	
 	public void insertBoard(DoBoard board) {
-		sqlSession.insert("Boards.insert", board);
+		sqlSession.insert("DoBoard.insert", board);
 	}
 
 	public int setReadCountUpdate(int num) {
-		return sqlSession.update("Boards.readCountUpdate", num);
+		return sqlSession.update("DoBoard.readCountUpdate", num);
 	}
 
 	public DoBoard getDetail(int num) {
-		return sqlSession.selectOne("Boards.detail",num);
+		return sqlSession.selectOne("DoBoard.detail",num);
 	}
 
 	public DoBoard getBoardList(Map<String, Object> map) {
-		return sqlSession.selectOne("Boards.boardWriter", map);
+		return sqlSession.selectOne("DoBoard.boardWriter", map);
 	}
 
 	public int boardModify(DoBoard modifyboard) {
-		return sqlSession.update("Boards.modify", modifyboard);
+		return sqlSession.update("DoBoard.modify", modifyboard);
 	}
 
 	public int boardReply(DoBoard board) {
-		return sqlSession.insert("Boards.reply_insert",board);
+		return sqlSession.insert("DoBoard.reply_insert",board);
 	}
 
 	public int boardReplyUpdate(DoBoard board) {
-		return sqlSession.update("Boards.reply_update", board);
+		return sqlSession.update("DoBoard.reply_update", board);
 	}
 
 	public int boardDelete(DoBoard board) {
-		return sqlSession.delete("Boards.delete", board);
+		return sqlSession.delete("DoBoard.delete", board);
 	}
 
 	public int insert_deleteFile(String before_file) {
-		return sqlSession.insert("Boards.insert_deleteFile", before_file);
+		return sqlSession.insert("DoBoard.insert_deleteFile", before_file);
 	}
 
 	public List<String> getDeleteFileList() {
-		return sqlSession.selectList("Boards.deleteFileList");
+		return sqlSession.selectList("DoBoard.deleteFileList");
 	}
 }
