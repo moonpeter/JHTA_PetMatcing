@@ -3,7 +3,13 @@
 
 <!DOCTYPE html>
 <html>
-<head>
+<head>	
+	<jsp:include page = "/WEB-INF/views/common/header.jsp" />
+	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.js"></script>
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/list.css">
+	<script src="${pageContext.request.contextPath}/resources/js/list.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/sigungu.js"></script>
+	
 <style>
 div.gallery {
   border: 1px solid #ccc;
@@ -34,9 +40,8 @@ div.desc {
 }
 
 #desc{text-align:left}
+body > div.container > div.container{margin-bottom:3em;}
 </style>
-<jsp:include page="/WEB-INF/views/common/header.jsp" />
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/list.css">
 </head>
 <title>산책 신청(Owner)</title>
 <body>
@@ -50,6 +55,31 @@ div.desc {
 	<em id="listcount" class="text-danger"> ${listcount}개의 게시물</em>
 	</p>
 <hr class="text-danger"> 
+
+<!-- 게시판 리스트 기능 메뉴 -->
+		<div class="container">
+				<select class = "form-control" id="viewcount">
+					<option value="5">5개씩 보기</option>
+					<option value="10" selected>10개씩 보기</option>
+					<option value="15">15개씩 보기</option>
+				</select>&nbsp;&nbsp;&nbsp; 
+
+				<!-- <select id="searchField">
+					<option value="dogowner" selected>견주</option>
+					<option value="walker">산책러</option>
+					<option value="subject+content">제목+내용</option>
+				</select> -->
+				
+				<select name="addressRegion" id="addressRegion"></select>
+				<select name="addressDo" id="addressDo"></select>
+				<select name="addressSiGunGu" id="addressSiGunGu"></select>
+				
+				
+				<span class="search">
+					<button id="search_button"><img src="${pageContext.request.contextPath}/resources/image/search.png" width="15px"></button>
+					<input type="text" id="search" placeholder=" 검색어를 입력하세요.">
+				</span>
+		</div>
 
 <c:forEach var = "b" items="${boardlist}">
 

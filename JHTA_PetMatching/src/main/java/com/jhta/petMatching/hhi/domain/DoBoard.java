@@ -26,6 +26,12 @@ public class DoBoard {
 	private String DOG_NAME;
 	private int DOG_AGE;
 	private String DOG_BREED;
+	private String DOG_PHOTO;
+	private String DOG_SPECIAL_NOTE;
+	
+	private MultipartFile dog_uploadfile;	
+	
+	
 	public MultipartFile getDog_uploadfile() {
 		return dog_uploadfile;
 	}
@@ -34,12 +40,6 @@ public class DoBoard {
 		this.dog_uploadfile = dog_uploadfile;
 	}
 
-	private String DOG_SPECIAL_NOTE;
-	
-	private MultipartFile dog_uploadfile;	
-	private String DOG_PHOTO;
-	
-	
 	public int getBOARD_NUM() {
 		return BOARD_NUM;
 	}
