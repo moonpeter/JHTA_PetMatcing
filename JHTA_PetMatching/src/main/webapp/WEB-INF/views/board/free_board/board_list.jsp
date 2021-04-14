@@ -14,6 +14,17 @@
 		} else if(result == 'updateSuccess'){
 			alert("회원 정보가 수정되었습니다.")
 		}
+		
+		$(function){
+			var selectedValue = '${search_field}'
+			if(selectedValue != '')
+				$("#viewcount").val(selectedValue);
+			
+			$("#search_button").click(function(){
+				var word = $("검색버튼셀렉터").val();
+				if(selectedValue ==)
+			})
+		}
 	</script>
 <style>
 #speechbubble{float:right;}
@@ -43,9 +54,11 @@
 					<option value="15">15개씩 보기</option>
 				</select>&nbsp;&nbsp;&nbsp; 
 
+			<div class="search">
 				<select id="searchField">
-					<option value="dogowner" selected>견주</option>
-					<option value="walker">산책러</option>
+					<option value="subject" selected>제목</option>
+					<option value="content">내용</option>
+					<option value="writer">작성자</option>
 					<option value="subject+content">제목+내용</option>
 				</select>
 				
@@ -53,6 +66,7 @@
 					<button id="search_button"><img src="${pageContext.request.contextPath}/resources/image/search.png" width="15px"></button>
 					<input type="text" id="search" placeholder=" 검색어를 입력하세요.">
 				</span>
+			</div>
 		</div>
 		
 	<table>

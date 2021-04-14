@@ -6,7 +6,7 @@
 	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.js"></script>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/list.css">
 	<script src="${pageContext.request.contextPath}/resources/js/list.js"></script>
-		<script src="${pageContext.request.contextPath}/resources/js/sigungu.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/sigungu.js"></script>
 	
 	<script>
 		var result = "${result}";
