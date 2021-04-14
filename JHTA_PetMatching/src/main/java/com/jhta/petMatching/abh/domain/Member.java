@@ -7,7 +7,16 @@ public class Member {
 	private String phone;
 	private String gender;
 	private String position;
+	private String auth="SET_MEMBER";
 	
+	public String getAuth() {
+		return auth;
+	}
+
+	public void setAuth(String auth) {
+		this.auth = auth;
+	}
+
 	public String getId() {
 		return id;
 	}

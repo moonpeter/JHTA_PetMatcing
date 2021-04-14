@@ -48,9 +48,8 @@
 		    가격 : <input type="text" id="shop_price" name="shop_price"><br>
 		    원산지 : <input type="text" id="shop_country_of_origin" name="shop_country_of_origin"><br>
 		    브랜드 : <input type="text" id="shop_brand" name="shop_brand"><br>
-		    썸네일 : <input type="file" id="shop_thumnail" name="shop_thumnail"><br>
-<!-- 		    평점 : <input type="text" id="shop_grade" name="shop_grade"><br> -->
-		    본문 이미지 : <input type="file" id="shop_img_content" name="shop_img_content"><br>
+		    썸네일 : <input type="file" id="shop_thumnail" name="shop_upload_thumnail"><br>
+		    본문 이미지 : <input type="file" id="shop_img_content" name="shop_upload_img_content"><br>
 		    본문 텍스트 : <input type="text" id="shop_text_content" name="shop_text_content"><br>
 		    </div>
 			<br>	

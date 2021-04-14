@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -105,15 +106,17 @@ input[type=password]{
 			<form action="loginProcess" method="post">
 				<div class="form-group"> <!-- 아이디  -->
 					<label for=login_id>아이디</label><br>
-					<input class="form-control"	type="text" name="id" id="id">
+					<input class="form-control"	type="text" name="id" id="id" required>
 				</div>
+				
 				<div class="from-group"> <!-- 비밀번호 -->
 					<label for=password>비밀번호</label><br>
 					<input class="form-control"	type="password" name="password" id="password">
 				</div>
+				
 				<div class="form-group form-check"> <!-- 아이디 기억하기 -->
 					<input type="checkbox" class="form-check-input" id="remember" name="remember">
-					<label class="from-check-label" for="remember">아이디 기억하기</label>
+					<label class="from-check-label" for="remember">로그인 유지</label>
 				</div>
 				
 				<!-- 로그인, 회원가입 버튼 -->
@@ -124,6 +127,7 @@ input[type=password]{
 						<button type="button" id="naver_btn">네이버로 로그인하기</button>
 					</div>
 				</div>
+				<input type = "hidden" name = "${_csrf.parameterName}" value = "${_csrf.token}">
 			</form>
 		</div>
 </div>
@@ -143,13 +147,15 @@ $(function(){
 	});
 	
 	var result = "${result}";
-	if (result == 'joinSuccess'){
-		alert("회원가입을 축하합니다~")
-	}else if(result == '0'){
-		alert("비밀번호가 일치하지 않습니다.")
-	}else if(result == '-1'){
-		alert("존재하지 않는 아이디입니다.")
+	if(result == 'joinSuccess'){
+		alert("회원가입을 축하합니다~");
 	}
+	
+	//로그인 실패
+	result = "${loginFailMsg}";
+		if(result){
+			alert(result);
+		}
 })
 </script>
 </html>

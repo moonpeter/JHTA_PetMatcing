@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+
+	<security:http>
+	
+	<security:intercept-url pattern="/resources/**/**" access="permitAll" />
+	<security:intercept-url pattern="/member/login" access="permitAll" />
+	<security:intercept-url pattern="/member/join" access="permitAll" />
+	<security:intercept-url pattern="/member/idcheck" access="permitAll" />
+	<security:intercept-url pattern="/member/joinProcess" access="permitAll" />
+	<security:intercept-url pattern="/member/list" access="hasRole('SET_ADMIN')" />
+	<security:intercept-url pattern="/**" access="hasAnyRole('SET_MEMBER', 'SET_ADMIN')" />
+	
+		
+	
+		<security:form-login login-page="/member/login"
+							 default-target-url="/board/list"
+							 login-processing-url="/member/loginProcess"
+							 username-parameter="id"
+							 password-parameter="password"
+							 authentication-failure-handler-ref="loginHandler"
+							 />
+							
+		<security:access-denied-handler ref="UserAccessDeniedHandler" />
+		
+		<security:remember-me
+                      data-source-ref="dataSource"
+                      remember-me-parameter="remember" 
+                      remember-me-cookie="remember"
+                      token-validity-seconds="2419200"/>
+		
+		<security:logout logout-success-url="/member/login"
+						logout-url="/member/logout"
+						invalidate-session="true"
+						delete-cookies="true" />
+							  
+	</security:http>
+	
+	<security:authentication-manager>
+		<security:authentication-provider user-service-ref="UserDetailService">
+			<security:password-encoder ref="bcryptPasswordEncoder" />
+		</security:authentication-provider>
+	</security:authentication-manager>
+	
+	<!-- com.naver.myhome6.security.CustomUserDetailsService.java의 @Service를 인식하기 위해 사용합니다. -->
+	<context:component-scan base-package="com.jhta.petMatching.abh.security" />
+</beans>
