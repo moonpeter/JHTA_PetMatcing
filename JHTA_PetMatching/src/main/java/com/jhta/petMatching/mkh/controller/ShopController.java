@@ -1,5 +1,7 @@
 package com.jhta.petMatching.mkh.controller;
 
+import java.io.IOException;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.jhta.petMatching.mkh.domain.ShopBoard;
 import com.jhta.petMatching.mkh.service.ShopService;
@@ -38,6 +41,8 @@ public class ShopController {
 	
 	@PostMapping("write")
 	public String insert(ShopBoard shopBoard) {
+//		MultipartFile uploadFile = shopBoard.getUploadFile();
+		
 		shopService.insertShopBoard(shopBoard);
 		
 		return "redirect:main";
