@@ -50,7 +50,6 @@ body > div > table > tbody tr:last-child {
 }
 
 
-
 #myModal {
 	display: none
 }

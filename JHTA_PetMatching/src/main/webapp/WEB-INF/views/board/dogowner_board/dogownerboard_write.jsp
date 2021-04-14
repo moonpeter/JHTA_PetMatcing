@@ -42,7 +42,7 @@
 			<label for = "dog_upfile">
 				<img src = "${pageContext.request.contextPath}/resources/image/attach.png" alt="파일첨부">
 			</label>
-			<input type="file" id = "dog_upfile" name="DOG_UPLOADFILE">
+			<input type="file" id = "dog_upfile" name="dog_uploadfile">
 			<span id = "dog_filevalue"></span>
 		</div>
 		
