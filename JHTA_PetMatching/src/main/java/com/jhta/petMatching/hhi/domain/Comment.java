@@ -30,7 +30,7 @@ public class Comment {
 		return reg_date;
 	}
 	public void setReg_date(String reg_date) {
-		this.reg_date = reg_date;
+		this.reg_date = reg_date.substring(0,16);
 	}
 	public int getBoard_num() {
 		return board_num;

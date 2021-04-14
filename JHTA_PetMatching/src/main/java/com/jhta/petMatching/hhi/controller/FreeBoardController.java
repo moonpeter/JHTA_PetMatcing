@@ -44,16 +44,6 @@ public class FreeBoardController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(FreeBoardController.class); 
 	
-//	@GetMapping("dogowner_list")
-//	public String dogowner_list() {
-//		return "dogowner_board/dogownerboard_list";
-//	}
-	
-//	@GetMapping("dogowner_detail")
-//	public String dogowner_detail() {
-//		return "dogowner_board/dogownerboard_detail";
-//	}
-	
 	@Autowired
 	private BoardService boardService;
 	
@@ -81,7 +71,10 @@ public class FreeBoardController {
 		 
 		List<Board> boardlist = boardService.getBoardList(page, limit); // 리스트를 받아옴
 		
-		mv.setViewName("free_board/board_list"); // setViewName() > 경로이동
+//		int count = commentService.getListCount(num);
+//		mv.addObject("count", count);
+		
+		mv.setViewName("board/free_board/board_list"); // setViewName() > 경로이동
 		mv.addObject("page", page);			// addObject() > 객체를 만들어 정보 전달
 		mv.addObject("maxpage", maxpage);
 		mv.addObject("startpage", startpage);
@@ -90,33 +83,10 @@ public class FreeBoardController {
 		mv.addObject("boardlist", boardlist);
 		mv.addObject("limit", limit);
 		
+		
 		return mv;
 	}
 	
-   /*
-	 	@ResponseBody란?
-	 	메서드에 @ResponseBody Annotation이 되어 있으면 return되는 값은 View를 통해서
-	 	출력되는 것이 아니라 HTTP Response Body에 직접 쓰여지게 됩니다.
-	 	예) HTTP 응답 프로토콜의 구조 HTTP/1.1
-	 	
-	*	Message Header
-	 	200OK => Start Line Content-Type:text/html => Message Header Connection :
-	 	close Server : Apache Tomcat... Last-Modified : Mon, ...
-	 	
-	*	Message Body
-	 	<html> <head> <title> Hello JSP </title> </head> <body> Hello JSP! </body> </html> =>
-	 	
-	* 	응답 결과를 HTML이 아닌 JSON으로 변환하여 Message Body에 저장하려면 스프링에서
-	 	제공하는 변환기(Converter)를 사용해야 합니다.
-	* 	이 변환기를 이용해서 자바 객체를 다양한 타입으로 변환하여 HTTP Response Body에 설정할 수 있습니다.
-	 	스프링 설정 파일에 <mvc:annotation-driven>을 설정하면 변환기가 생성됩니다.
-	* 	이 중에서 자바 객체를 JSON 응답 바디로 변환할 때는
-	 	MappingJackson2HttpMessageConverter를 사용합니다.
-	 	
-	* 	@ResponseBody를 이용해서 각 메서드의 실행 결과는 JSON으로 변환되어
-	 	HTTP Response BODY에 설정됩니다.
-	 	
-	*/
 	
 		@ResponseBody
 		@RequestMapping(value = "/list_ajax")
@@ -166,7 +136,7 @@ public class FreeBoardController {
 			} else {
 				logger.info("상세보기 성공");
 				int count = commentService.getListCount(num);
-				mv.setViewName("free_board/board_view");
+				mv.setViewName("board/free_board/board_view");
 				mv.addObject("count", count);
 				mv.addObject("boarddata", board);
 			}
@@ -185,7 +155,7 @@ public class FreeBoardController {
 				mv.addObject("message", "게시판 답변글 가져오기 실패입니다.");
 		} else {
 				mv.addObject("boarddata", board);
-				mv.setViewName("free_board/board_reply");
+				mv.setViewName("board/free_board/board_reply");
 			}
 		return mv;
 		}
@@ -204,19 +174,20 @@ public class FreeBoardController {
 			return mv;
 		}
 		
-		
-	//	private String fileDBName(String)
-		
-		
-	
 	
 	//글쓰기
 	//@RequestMapping(value="/write", method=RequestMethod.GET) > 간단하게 아래 문장으로 변경
 	@GetMapping(value="/write")
-	public String freeboard_wirte(){
-	 		return "free_board/board_write";
+	public String write(){
+	 		return "board/free_board/board_write";
 	}
 
+	
+	
+	
+	
+	
+	
 	
 	//수정하기
 	//@RequestMapping(value="/write", method=RequestMethod.GET) > 간단하게 아래 문장으로 변경
@@ -237,7 +208,7 @@ public class FreeBoardController {
 		// ModelAndView 객체에 저장합니다.
 		mv.addObject("boarddata",boarddata);
 		// 글 수정 폼 페이지로 이동하기 위해 경로를 설정합니다.
-		mv.setViewName("free_board/board_modify");
+		mv.setViewName("board/free_board/board_modify");
 		return mv;
 	}	
 	
@@ -321,14 +292,12 @@ public class FreeBoardController {
 				}
 			}
 			return url;
-			
 		}
-	
 	
 	
 	// @RequestMapping(value="/add", method=RequestMethod.POST)
 	@PostMapping("/add")
-	public String freeadd(Board board) throws Exception {
+	public String add(Board board) throws Exception {
 		
 		MultipartFile uploadfile = board.getUploadfile();
 		
@@ -398,7 +367,7 @@ public class FreeBoardController {
 		}	
 	
 	@PostMapping("/delete")
-	public String freeBoardDeleteActioin(String BOARD_PASS, int num, Model mv, RedirectAttributes rattr, HttpServletRequest request) throws Exception {
+	public String freeBoardDeleteAction(String BOARD_PASS, int num, Model mv, RedirectAttributes rattr, HttpServletRequest request) throws Exception {
 		// 글 삭제 명령을 요청한 사용자가 글을 작성한 사용자인지 판단하기 위해
 		// 입력한 비밀번호와 저장된 비밀번호를 비교하여 일치하면 삭제합니다.
 		boolean usercheck = boardService.isBoardWriter(num, BOARD_PASS);

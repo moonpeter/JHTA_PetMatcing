@@ -11,6 +11,6 @@
 	
 	<insert id="insert" parameterType="member">
 		insert into members
-		values(#{id}, #{password}, #{name}, #{phone}, #{gender}, #{position})
+		values(#{id}, #{password}, #{name}, #{phone}, #{gender}, #{position}, #{auth})
 	</insert>
 </mapper>

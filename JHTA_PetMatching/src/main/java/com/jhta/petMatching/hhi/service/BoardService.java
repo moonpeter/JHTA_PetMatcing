@@ -38,7 +38,6 @@ public interface BoardService {
 	// BOARD_RE_SEQ 값 수정
 	public int boardReplyUpdate(Board board);
 
-	
 	public List<String> getDeleteFileList();
 
 	public int insert_deleteFile(String before_file);
