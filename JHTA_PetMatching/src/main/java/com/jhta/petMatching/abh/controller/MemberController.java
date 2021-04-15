@@ -74,7 +74,7 @@ public class MemberController {
 		}
 	}
 	
-	@RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
+	//@RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
 	public String loginProcess(@RequestParam("id") String id, @RequestParam("password") String password,
 			@RequestParam(value = "remember", defaultValue = "", required = false) String remember,
 			HttpServletResponse response, HttpSession session, RedirectAttributes rattr) {
