@@ -2,7 +2,7 @@ package com.jhta.petMatching.mkh.domain;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class ShopBoard {
+public class Shop {
 	private int				shop_num;
 	private String 			shop_category;
 	private String 			shop_title;
