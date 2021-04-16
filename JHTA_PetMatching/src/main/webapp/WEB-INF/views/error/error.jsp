@@ -18,7 +18,7 @@ body {
 <body>
 죄송합니다.<br>
 <img src="${pageContext.request.contextPath}/resource/image/tear3.png" width="100px"><br>
-요청하신 <b>${url}</b> 처리에 요류가 발생했습니다.
+요청하신 <b>${url}</b> 처리에 오류가 발생했습니다.
 <hr>
 ${message}
 </body>
