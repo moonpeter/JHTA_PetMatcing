@@ -27,9 +27,9 @@
 	</bean>
 	
 	<!-- 파일 업로드 경로를 설정 --> 
-	<bean id="uploadPath" class="java.lang.String"> 
+<!-- 	<bean id="uploadPath" class="java.lang.String"> 
 	<constructor-arg value="/Users/hyeinhong/Desktop/final/" />
-	</bean>
+	</bean> -->
 	
 	<bean id = "bcryptPasswordEncoder"
 			class = "org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />

@@ -2,7 +2,7 @@ package com.jhta.petMatching.mkh.domain;
 
 import org.springframework.web.multipart.MultipartFile;
 
-public class ShopBoard {
+public class Shop {
 	private int				shop_num;
 	private String 			shop_category;
 	private String 			shop_title;
@@ -11,11 +11,13 @@ public class ShopBoard {
 	private String 			shop_brand;
 	
 	private String		 	shop_thumnail;
+	private String 			shop_thumnail_original;
 	private MultipartFile	shop_upload_thumnail;
 
 	private String 			shop_grade;
 	
 	private String		 	shop_img_content;
+	private String 			shop_img_content_original;
 	private MultipartFile	shop_upload_img_content;
 
 	private String 			shop_text_content;
@@ -116,6 +118,22 @@ public class ShopBoard {
 
 	public void setShop_upload_img_content(MultipartFile shop_upload_img_content) {
 		this.shop_upload_img_content = shop_upload_img_content;
+	}
+
+	public String getShop_thumnail_original() {
+		return shop_thumnail_original;
+	}
+
+	public void setShop_thumnail_original(String shop_thumnail_original) {
+		this.shop_thumnail_original = shop_thumnail_original;
+	}
+
+	public String getShop_img_content_original() {
+		return shop_img_content_original;
+	}
+
+	public void setShop_img_content_original(String shop_img_content_original) {
+		this.shop_img_content_original = shop_img_content_original;
 	}
 
 	

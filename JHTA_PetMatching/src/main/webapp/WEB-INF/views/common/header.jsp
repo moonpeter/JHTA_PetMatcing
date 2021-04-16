@@ -1,7 +1,9 @@
 <head>
     <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="_csrf" content="${_csrf.token}">
@@ -80,7 +82,7 @@
       </li>
       <li><a href="#" class="nav-link px-2 link-danger">산책로 추천</a></li>
       <li><a href="/free_board/list" class="nav-link px-2 link-danger">자유게시판</a></li>
-      <li><a href="/shop/main" class="nav-link px-2 link-danger">쇼핑몰</a></li>
+      <li><a href="/shop/list" class="nav-link px-2 link-danger">쇼핑몰</a></li>
     </ul>
    
    <sec:authorize access="isAnonymous()">
