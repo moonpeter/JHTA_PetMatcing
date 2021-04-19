@@ -82,20 +82,32 @@ public class ShopTest {
 		logger.info("testWriteForm() end!!!");
 	}
 	
-//	@Test
+	@Test
 	public void testWrite() throws Exception {
 		logger.info("testWrite() start!!!");
+		FileInputStream fis_thumnail = new FileInputStream("/Users/moonpeter/projects/portfolio/sts_springTest/uploadformail/image/images123123.jpeg");
 		FileInputStream fis = new FileInputStream("/Users/moonpeter/projects/portfolio/sts_springTest/uploadformail/image/images123123.jpeg");
 		FileInputStream fis2 = new FileInputStream("/Users/moonpeter/projects/portfolio/sts_springTest/uploadformail/image/images123123.jpeg");
+		FileInputStream fis3 = new FileInputStream("/Users/moonpeter/projects/portfolio/sts_springTest/uploadformail/image/images123123.jpeg");
+		FileInputStream fis4 = new FileInputStream("/Users/moonpeter/projects/portfolio/sts_springTest/uploadformail/image/images123123.jpeg");
+		FileInputStream fis5 = new FileInputStream("/Users/moonpeter/projects/portfolio/sts_springTest/uploadformail/image/images123123.jpeg");
 
-		MockMultipartFile file = new MockMultipartFile("shop_upload_thumnail", "images123123.jpeg", MediaType.MULTIPART_FORM_DATA_VALUE, fis);		
-		MockMultipartFile file2 = new MockMultipartFile("shop_upload_img_content", "images123123.jpeg", MediaType.MULTIPART_FORM_DATA_VALUE, fis2);
+		MockMultipartFile file_thumnail = new MockMultipartFile("shop_upload_thumnail", "images123123.jpeg", MediaType.MULTIPART_FORM_DATA_VALUE, fis_thumnail);		
+		MockMultipartFile file = new MockMultipartFile("shop_upload_img_content", "images123123.jpeg", MediaType.MULTIPART_FORM_DATA_VALUE, fis);
+		MockMultipartFile file2 = new MockMultipartFile("shop_upload_img_content_2", "images123123.jpeg", MediaType.MULTIPART_FORM_DATA_VALUE, fis2);
+		MockMultipartFile file3 = new MockMultipartFile("shop_upload_img_content_3", "images123123.jpeg", MediaType.MULTIPART_FORM_DATA_VALUE, fis3);
+		MockMultipartFile file4 = new MockMultipartFile("shop_upload_img_content_4", "images123123.jpeg", MediaType.MULTIPART_FORM_DATA_VALUE, fis4);
+		MockMultipartFile file5 = new MockMultipartFile("shop_upload_img_content_5", "images123123.jpeg", MediaType.MULTIPART_FORM_DATA_VALUE, fis5);
 
 		mockMvc.perform(multipart("/shop/write")
+				.file(file_thumnail)
 				.file(file)
 				.file(file2)
+				.file(file3)
+				.file(file4)
+				.file(file5)
 				.param("shop_category", "사료")
-				.param("shop_title", "반복 테스트를 테스트중입니다333")
+				.param("shop_title", "반복 테스트를 테스트중입니다444")
 				.param("shop_price", "7777")
 				.param("shop_country_of_origin", "Seoul")
 				.param("shop_brand", "NoBrand")
@@ -104,7 +116,7 @@ public class ShopTest {
 		logger.info("testWrite() end!!!");
 	}
 	
-	@Test
+//	@Test
 	public void controllerTestForMainList() throws Exception {
 		mockMvc.perform(get("/shop/list")).andDo(print());
 	}
