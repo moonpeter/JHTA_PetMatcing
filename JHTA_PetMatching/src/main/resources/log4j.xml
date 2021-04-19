@@ -35,6 +35,10 @@
 	<logger name="DoComments">
 		<level value="trace" />
 	</logger>
+	
+	<logger name="Boards">
+		<level value="trace" />
+	</logger>
 
 	<!-- Root Logger -->
 	<root>

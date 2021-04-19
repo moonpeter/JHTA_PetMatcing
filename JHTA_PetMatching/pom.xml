@@ -146,6 +146,14 @@
 			<version>4.2</version>
 		</dependency>
 		
+		<!-- 트랜잭션 처리 -->
+		<dependency> 
+			<groupId>org.springframework</groupId> 
+			<artifactId>spring-tx</artifactId> 
+			<version>${org.springframework-version}</version> 
+		</dependency>
+
+		
 		<!-- Spring -->
 		<dependency>
 			<groupId>org.springframework</groupId>

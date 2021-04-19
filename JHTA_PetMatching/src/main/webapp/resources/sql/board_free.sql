@@ -22,3 +22,6 @@ select * from free_board;
 
 delete from board
 delete COMMENTS
+
+--ALTER TABLE FREE_BOARD ADD COLUMN COMMENT_CNT int DEFAULT 0
+

@@ -4,15 +4,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.jhta.petMatching.hhi.controller.FreeBoardController;
 import com.jhta.petMatching.hhi.dao.BoardDAO;
 import com.jhta.petMatching.hhi.domain.Board;
 
 @Service
 public class BoardServiceImpl implements BoardService {
 
+	private static final Logger logger = LoggerFactory.getLogger(FreeBoardController.class);
 	
 	@Autowired
 	private BoardDAO dao;
@@ -103,6 +107,40 @@ public class BoardServiceImpl implements BoardService {
 	@Override
 	public List<String> getDeleteFileList() {
 		return dao.getDeleteFileList();
+	}
+
+	@Override
+	public List<Board> getSearchList(String index, String search_word, int page, int limit) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(!index.equals("")) {
+			String[] search_field = index.split("");
+			logger.info("search_field : " + search_field.length);
+			for(String sf : search_field) {
+				logger.info(sf);
+			}
+			map.put("search_field", search_field);
+			map.put("search_word", "%" + search_word + "%");
+		}
+		int startrow = (page-1)*limit+1;
+		int endrow = startrow + limit + 1;
+		map.put("start", startrow);
+		map.put("end", endrow);
+		return dao.getSearchList(map);
+	}
+
+	@Override
+	public int getSearchListCount(String index, String search_word) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		if(!index.equals("")) {
+			String[] search_field = index.split("");
+			logger.info("search_field : " + search_field.length);
+			for(String sf : search_field) {
+				logger.info(sf);
+			}
+			map.put("search_field", search_field);
+			map.put("search_word", "%" + search_word + "%");
+		}
+		return dao.getSearchListCount(map);
 	}
 
 	

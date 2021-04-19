@@ -43,6 +43,10 @@
 				<img src = "${pageContext.request.contextPath}/resources/image/attach.png" alt="파일첨부">
 			</label>
 			<input type="file" id = "dog_upfile" name="dog_uploadfile">
+			<input type="file" id = "dog_upfile2" name="dog_uploadfile2">
+			<input type="file" id = "dog_upfile3" name="dog_uploadfile3">
+			<input type="file" id = "dog_upfile4" name="dog_uploadfile4">
+			<input type="file" id = "dog_upfile5" name="dog_uploadfile5">
 			<span id = "dog_filevalue"></span>
 		</div>
 		
