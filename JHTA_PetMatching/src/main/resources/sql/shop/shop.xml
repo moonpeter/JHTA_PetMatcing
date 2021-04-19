@@ -23,8 +23,14 @@
 				)
 	</insert>
 	
-	<select id="mainList" resultType="map">
-		select * from shop_board
+	<select id="mainList" parameterType="map" resultType="shop">
+		select * from 
+		(select rownum rnum, shop.* 
+		from (select * from 
+		shop_board order by shop_num desc) shop
+		)
+		where rnum >= 
+		#{start} and rnum &lt;= #{end}
 	</select>
 	
 	<select id="detail" parameterType="int" resultType="Shop">

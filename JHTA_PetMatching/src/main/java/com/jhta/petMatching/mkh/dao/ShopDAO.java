@@ -1,5 +1,6 @@
 package com.jhta.petMatching.mkh.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -18,8 +19,8 @@ public class ShopDAO {
 		return sqlSession.insert("Shops.insert", shopBoard);
 	}
 
-	public List<Shop> shopList() {
-		return sqlSession.selectList("Shops.mainList");
+	public List<Shop> shopList(HashMap<String, Integer> map) {
+		return sqlSession.selectList("Shops.mainList", map);
 	}
 
 	public Shop shopDetail(int shop_num) {
