@@ -1,12 +1,13 @@
 package mkh;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.io.FileInputStream;
 import java.sql.Connection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,12 +21,12 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -43,7 +44,11 @@ public class ShopTest {
 	@Autowired
 	private WebApplicationContext wac;
 	private MockMvc mockMvc; 			// MockMvc 는 웹 애플리케이션을 애플리케이션 서버에 배포하지 않고도 스프링 MVC의 동작을 재현할 수 있는 클래스
+	
+	@Autowired
 	private DataSource dataSource; 		// root-context.xml 에 설정된 dataSource를 자동으로 주입
+	
+	@Autowired
 	private SqlSessionTemplate sqlSession;
 
 
@@ -77,53 +82,56 @@ public class ShopTest {
 		logger.info("testWriteForm() end!!!");
 	}
 	
-	@Test
+//	@Test
 	public void testWrite() throws Exception {
 		logger.info("testWrite() start!!!");
-		
 		FileInputStream fis = new FileInputStream("/Users/moonpeter/projects/portfolio/sts_springTest/uploadformail/image/images123123.jpeg");
-		MockMultipartFile uploadFile = new MockMultipartFile("uploadFile", fis);
-		uploadFile.getOriginalFilename();
-		mockMvc.perform(MockMvcRequestBuilders.multipart("/shop/write")
-				.file(uploadFile)
+		FileInputStream fis2 = new FileInputStream("/Users/moonpeter/projects/portfolio/sts_springTest/uploadformail/image/images123123.jpeg");
+
+		MockMultipartFile file = new MockMultipartFile("shop_upload_thumnail", "images123123.jpeg", MediaType.MULTIPART_FORM_DATA_VALUE, fis);		
+		MockMultipartFile file2 = new MockMultipartFile("shop_upload_img_content", "images123123.jpeg", MediaType.MULTIPART_FORM_DATA_VALUE, fis2);
+
+		mockMvc.perform(multipart("/shop/write")
+				.file(file)
+				.file(file2)
 				.param("shop_category", "사료")
-				.param("shop_title", "Test title for mockMVC")
+				.param("shop_title", "반복 테스트를 테스트중입니다333")
 				.param("shop_price", "7777")
 				.param("shop_country_of_origin", "Seoul")
 				.param("shop_brand", "NoBrand")
-				.param("shop_text_context", "Test context for mockMVC")
-//				.param("shop_upload_thumnail", uploadFile.)
-//				.param("shop_upload_img_content", uploadFile)
-				).andDo(print());
+				.param("shop_text_content", "Test context for mockMVC")
+				);
 		logger.info("testWrite() end!!!");
 	}
 	
-//	@Test
-	public void insert() {
-		logger.info("insert() start!!!");
-		
-		MockMultipartFile file = new MockMultipartFile("file", "test.txt", "text/plain", "hello file".getBytes());
-		
-		Shop shop = new Shop();
-		shop.setShop_category("사료");
-		shop.setShop_title("Test 제목for시퀀");
-		shop.setShop_price("1000");
-		shop.setShop_country_of_origin("서울");
-		shop.setShop_brand("TestBrand");
-		shop.setShop_thumnail("testThumnail");
-		shop.setShop_grade("0");
-		shop.setShop_img_content("TEST image");
-		shop.setShop_text_content("TEST Content!!!");
-		int result = sqlSession.insert("ShopBoards.insert", shop);
-		logger.info("insert() end!!! result = " + result);
+	@Test
+	public void controllerTestForMainList() throws Exception {
+		mockMvc.perform(get("/shop/list")).andDo(print());
 	}
 	
 //	@Test
 	public void main_list() {
 		logger.info("main_list() start!!!");
-		List<Object> list = sqlSession.selectList("Shops.mainList");
-		for(int i=0; i<list.size(); i++) {
-			logger.info(list.get(i).toString());
+		
+		int page = 1;
+		int limit = 9; // 한 페이지에 보여줄 게시글의 수 
+		int listCount = sqlSession.selectOne("Shops.listCount");  
+		int maxPage = (listCount + limit -1) / limit;
+		int startPage = ((page-1) / 9) * 9 + 1;
+		int endPage = startPage + 9 -1;
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
+		
+		int startRow = (page - 1) * limit +1;
+		int endRow = startRow + limit -1;
+		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("start", startRow);
+		map.put("end", endRow);
+		List<Shop> list = sqlSession.selectList("Shops.mainList", map);
+		for(Shop shop : list) {
+			logger.info("title : " + shop.getShop_title());
 		}
 		logger.info("main_list() end!!!");
 	}

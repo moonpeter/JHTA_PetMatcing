@@ -42,9 +42,9 @@ public class ShopController {
 	public String insert(Shop shop) throws Exception {
 		MultipartFile uploadThumnail = shop.getShop_upload_thumnail();
 		MultipartFile uploadImgContent = shop.getShop_upload_img_content();
-		
+				
 		if (!uploadThumnail.isEmpty()) {
-			String fileName = uploadThumnail.getOriginalFilename(); // 썸네일의 원래 파일명 
+			String fileName = uploadThumnail.getOriginalFilename(); // 썸네일의 원래 파일명
 			shop.setShop_thumnail_original(fileName); // 썸네일의 원래 파일명 저장
 			String fileDBName = fileDBName(fileName, saveFolder);
 			logger.info("fileDBName = " + fileDBName);
@@ -122,7 +122,9 @@ public class ShopController {
 			endPage = maxPage;
 		}
 		
-		List<Shop> shopList = shopService.getShopList();
+		List<Shop> shopList = shopService.getShopList(page, limit);
+		
+		logger.info("!!!!!!!!!!! shoptList : " + shopList.toString() );
 		
 		mv.setViewName("shop/shop_main");
 		mv.addObject("page", page);
