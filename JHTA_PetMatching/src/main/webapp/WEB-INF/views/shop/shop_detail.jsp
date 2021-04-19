@@ -1,4 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <style>
 	.container {
 /* 		background-color : pink; */
@@ -8,6 +10,16 @@
 	#category-bar {
 		border-bottom: solid 1px #dc3545;
 	}
+	
+	#detail_title{
+		font-size: 45px;
+		border-bottom: solid 1px #dc3545;		
+	}
+	
+	#detail_info_table{
+		font-size: 20px;
+	}
+	td{width : 50%}
 </style>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp" ></jsp:include>
@@ -26,20 +38,34 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-4 bg-secondary">
-		<img class="card-img-top" src="${pageContext.request.contextPath}/resources/image/mainPage_icon.png" alt="" height="200px">
+    <div class="col-4">
+	<img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/shop/${shop.shop_thumnail }" alt="" height="200px">
     </div>
-    <div class="col-8 bg-primary">
-    	<div class="bg-success">Test Subject</div>
-    	<div class="bg-warning">판매가격 </div>
-    	<div class="bg-success">원산지 </div>
-    	<div class="bg-warning">브랜드 </div>
-    	<div class="bg-success"><small class="text-danger">평점 : &#9733; &#9733; &#9733; &#9733; &#9733;</small></div>
+    <div class="col-8">
+    	<div id="detail_title" class="">${shop.shop_title }</div>
+    	<table id="detail_info_table">
+    		<tr>
+    			<td class="text-danger">판매가격</td>
+    			<td><fmt:formatNumber value="${shop.shop_price}" pattern="###,###,###원"/></td>
+    		</tr>
+    		<tr>
+    			<td class="text-danger">원산지</td>
+    			<td>${shop.shop_country_of_origin }</td>
+    		</tr>
+    		<tr>
+    			<td class="text-danger">브랜드</td>
+    			<td>${shop.shop_brand }</td>
+    		</tr>
+    		<tr>
+    			<td class="text-danger">평점</td>
+    			<td><small class="text-danger">&#9733; &#9733; &#9733; &#9733; &#9733;</small></td>
+    		</tr>
+    	</table>
     </div>
   </div>
 </div>
 
-<div class="container bg-info d-flex flex-row-reverse bd-highlight">
+<div class="container d-flex flex-row-reverse bd-highlight">
 	<button type="button" class="btn btn-danger me-2">장바구니</button>
 	<button type="button" class="btn btn-outline-danger">바로구매</button>
 </div>
@@ -53,9 +79,7 @@
 </div>
 
 <div class="container bg-secondary">
-	<img class="card-img-top" src="${pageContext.request.contextPath}/resources/image/mainPage_icon.png" alt="" height="300px">
-	<img class="card-img-top" src="${pageContext.request.contextPath}/resources/image/mainPage_icon.png" alt="" height="300px">
-	<img class="card-img-top" src="${pageContext.request.contextPath}/resources/image/mainPage_icon.png" alt="" height="300px">
+	<img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/shop/${shop.shop_img_content }">
 </div>
 
 <div class="container">

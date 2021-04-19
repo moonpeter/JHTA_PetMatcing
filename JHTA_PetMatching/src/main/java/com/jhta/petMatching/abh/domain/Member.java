@@ -7,7 +7,7 @@ public class Member {
 	private String phone;
 	private String gender;
 	private String position;
-	private String auth="SET_MEMBER";
+	private String auth="ROLE_MEMBER";
 	
 	public String getAuth() {
 		return auth;

@@ -10,7 +10,7 @@ PRIMARY KEY(id)
 );
 
 update members
-set auth = 'SET_ADMIN'
+set auth = 'ROLE_ADMIN'
 where id = 'admin';
 
 select *

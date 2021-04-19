@@ -124,7 +124,7 @@ input[type=password]{
 					<div class="form-group-wrapper">
 						<button type="submit" id="login_btn">로그인하기</button>
 						<button type="button" id="join_btn">회원가입</button>
-						<button type="button" id="naver_btn">네이버로 로그인하기</button>
+						<button type="button" id="naver_btn">네이버로 로그인하기2</button>
 					</div>
 				</div>
 				<input type = "hidden" name = "${_csrf.parameterName}" value = "${_csrf.token}">
