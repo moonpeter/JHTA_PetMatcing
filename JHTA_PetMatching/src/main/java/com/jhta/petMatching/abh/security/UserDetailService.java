@@ -16,6 +16,7 @@ import com.jhta.petMatching.abh.domain.Member;
 
 @Service
 public class UserDetailService implements UserDetailsService{
+	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
