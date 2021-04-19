@@ -40,7 +40,14 @@ public class ShopController {
 	
 	@PostMapping("write")
 	public String insert(Shop shop) throws Exception {
+		
 		MultipartFile uploadThumnail = shop.getShop_upload_thumnail();
+		
+		MultipartFile img_content_array[] = null;
+		for(int i=0; i<=5; i++) {
+			img_content_array[i] = shop.getShop_upload_img_content();	
+		}
+		
 		MultipartFile uploadImgContent = shop.getShop_upload_img_content();
 		MultipartFile uploadImgContent_2 = shop.getShop_upload_img_content_2();
 		MultipartFile uploadImgContent_3 = shop.getShop_upload_img_content_3();

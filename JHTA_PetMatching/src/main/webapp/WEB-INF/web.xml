@@ -38,7 +38,7 @@
 	</filter-mapping>
 	
 	<!-- mulltipart/form-data csrf 적용하기 위한 필터 -->
-	<!-- <filter>
+	<filter>
 		<display-name>springMultipartFilter</display-name>
 		<filter-name>springMultipartFilter</filter-name>
 		<filter-class>org.springframework.web.multipart.support.MultipartFilter</filter-class>
@@ -46,17 +46,17 @@
 	<filter-mapping>
 		<filter-name>springMultipartFilter</filter-name>
 		<url-pattern>/*</url-pattern>
-	</filter-mapping> -->
+	</filter-mapping>
 
 	<!-- spring security -->
-	<!-- <filter>
+	<filter>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
 	</filter>
 	<filter-mapping>
 		<filter-name>springSecurityFilterChain</filter-name>
 		<url-pattern>/*</url-pattern>
-	</filter-mapping> -->
+	</filter-mapping>
 
 	<!-- Processes application requests -->
 	<servlet>
