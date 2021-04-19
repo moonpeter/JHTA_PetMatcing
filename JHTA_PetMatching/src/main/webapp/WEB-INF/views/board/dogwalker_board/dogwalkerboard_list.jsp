@@ -46,16 +46,30 @@
 					<option value="subject+content">제목+내용</option>
 				</select> -->
 				
-				<select name="addressRegion" id="addressRegion"></select>
+				<!-- <select name="addressRegion" id="addressRegion"></select>
 				<select name="addressDo" id="addressDo"></select>
-				<select name="addressSiGunGu" id="addressSiGunGu"></select>
+				<select name="addressSiGunGu" id="addressSiGunGu"></select> -->
 				
+				<!-- 검색창 -->
+			<div class="search">
+				<form action="search_list">
+				<div class="input-group">
+				<select id="viewcount" name="search_field">
+					<option value="S">제목</option>
+					<option value="C">내용</option>
+					<option value="W">작성자</option>
+					<option value="SC">제목+내용</option>
+				</select> &nbsp;
 				
-				<span class="search">
+				<div class="search">
 					<button id="search_button"><img src="${pageContext.request.contextPath}/resources/image/search.png" width="15px"></button>
-					<input type="text" id="search" placeholder=" 검색어를 입력하세요.">
-				</span>
+					<input class="form-control" name="search_word" type="text" id="search" placeholder=" 검색어를 입력하세요." value="${search_word}">
+				</div>
+		      </div>
+		    </form>
+		   </div>
 		</div>
+		
 		
 	<table>
 	  <thead class="text-danger">

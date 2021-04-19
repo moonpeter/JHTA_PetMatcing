@@ -86,7 +86,7 @@ body > div.container > div.container{margin-bottom:3em;}
 	<div class="responsive">
 	  <div class="gallery">
 	    <a target="_blank" href="detail?num=${b.BOARD_NUM}">
-	      <img src="${pageContext.request.contextPath}/resources/upload${b.DOG_PHOTO}" alt="dog" width="600" height="400">
+	      <img src="${pageContext.request.contextPath}/resources/upload/doBoard${b.DOG_PHOTO}" alt="dog" width="600" height="400">
 	    </a>
 	    <div id="desc">${b.BOARD_SUBJECT}</div>
 	  </div>

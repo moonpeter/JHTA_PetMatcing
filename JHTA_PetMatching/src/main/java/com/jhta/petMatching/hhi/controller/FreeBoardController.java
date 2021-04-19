@@ -23,6 +23,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,7 +51,7 @@ public class FreeBoardController {
 	@Autowired
 	private CommentService commentService;
 	
-	@Value("${savefoldername}")
+	@Value("${savefoldername_free}")
 	private String saveFolder;
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
@@ -71,8 +72,6 @@ public class FreeBoardController {
 		 
 		List<Board> boardlist = boardService.getBoardList(page, limit); // 리스트를 받아옴
 		
-//		int count = commentService.getListCount(num);
-//		mv.addObject("count", count);
 		
 		mv.setViewName("board/free_board/board_list"); // setViewName() > 경로이동
 		mv.addObject("page", page);			// addObject() > 객체를 만들어 정보 전달
@@ -83,6 +82,8 @@ public class FreeBoardController {
 		mv.addObject("boardlist", boardlist);
 		mv.addObject("limit", limit);
 		
+//		int count = commentService.getListCount();
+//		mv.addObject("count", count);
 		
 		return mv;
 	}
@@ -121,6 +122,39 @@ public class FreeBoardController {
 		}
 	
 	
+		// 서치 리스트
+		@RequestMapping(value="/search_list")
+		public ModelAndView searchList(
+				@RequestParam(value="page", defaultValue="1", required=false) int page,
+				@RequestParam(value="limit", defaultValue="10", required=false) int limit,
+				ModelAndView mv,
+				@RequestParam(value="search_field", defaultValue="", required=false) String index,
+				@RequestParam(value="search_word", defaultValue="", required=false) String search_word
+				) {
+				List<Board> list = null;
+				int listcount = 0;
+				
+				list = boardService.getSearchList(index, search_word, page, limit);
+				listcount = boardService.getSearchListCount(index, search_word);
+				
+				int maxpage = (listcount + limit - 1) / limit; 
+				int startpage = ((page-1)/10)*10+1;
+				int endpage = startpage+10-1;
+				if(endpage > maxpage)
+					endpage = maxpage;
+				
+				mv.setViewName("board/free_board/board_list");
+				mv.addObject("page", page);			
+				mv.addObject("maxpage", maxpage);
+				mv.addObject("startpage", startpage);
+				mv.addObject("endpage", endpage);
+				mv.addObject("listcount", listcount);
+				mv.addObject("boardlist", list);
+				mv.addObject("search_field", index);
+				mv.addObject("search_word", search_word);
+				
+				return mv;
+		}
 	
 	    // detail?num=9 요청 시 파라미터 num의 값을 int num에 저장합니다.
 		@GetMapping("/detail")
@@ -176,21 +210,12 @@ public class FreeBoardController {
 		
 	
 	//글쓰기
-	//@RequestMapping(value="/write", method=RequestMethod.GET) > 간단하게 아래 문장으로 변경
 	@GetMapping(value="/write")
 	public String write(){
 	 		return "board/free_board/board_write";
 	}
 
-	
-	
-	
-	
-	
-	
-	
 	//수정하기
-	//@RequestMapping(value="/write", method=RequestMethod.GET) > 간단하게 아래 문장으로 변경
 	@GetMapping("/modifyView")
 	public ModelAndView freeBoardModifyView(int num, ModelAndView mv, HttpServletRequest request){
 		Board boarddata = boardService.getDetail(num);
@@ -213,7 +238,6 @@ public class FreeBoardController {
 	}	
 	
 	
-	// @RequestMapping(value="/add", method=RequestMethod.POST)
 		@PostMapping("/modifyAction")
 		public String freeBoardModifyAction(Board boarddata, String check, Model mv, HttpServletRequest request, RedirectAttributes rattr) throws Exception {
 			
@@ -367,9 +391,7 @@ public class FreeBoardController {
 		}	
 	
 	@PostMapping("/delete")
-	public String freeBoardDeleteAction(String BOARD_PASS, int num, Model mv, RedirectAttributes rattr, HttpServletRequest request) throws Exception {
-		// 글 삭제 명령을 요청한 사용자가 글을 작성한 사용자인지 판단하기 위해
-		// 입력한 비밀번호와 저장된 비밀번호를 비교하여 일치하면 삭제합니다.
+	public String BoardDeleteAction(String BOARD_PASS, int num, Model mv, RedirectAttributes rattr, HttpServletRequest request) throws Exception {
 		boolean usercheck = boardService.isBoardWriter(num, BOARD_PASS);
 		
 		// 비밀번호 일치하지 않는 경우

@@ -21,6 +21,10 @@ CREATE TABLE DO_BOARD(
 	DOG_BREED				VARCHAR2(30), 			-- 견종
 	DOG_SPECIAL_NOTE		VARCHAR2(200),			-- 반려견 특이사항
 	DOG_PHOTO				VARCHAR2(200),			-- 반려견 사진
+--	DOG_PHOTO1				VARCHAR2(200),			-- 반려견 사진
+--	DOG_PHOTO2				VARCHAR2(200),			-- 반려견 사진
+--	DOG_PHOTO3				VARCHAR2(200),			-- 반려견 사진
+--	DOG_PHOTO4				VARCHAR2(200),			-- 반려견 사진
 	PRIMARY KEY(BOARD_NUM)
 );
 

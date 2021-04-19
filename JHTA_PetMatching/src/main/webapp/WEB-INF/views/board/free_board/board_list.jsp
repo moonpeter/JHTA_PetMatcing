@@ -4,28 +4,31 @@
 <head>
 	<jsp:include page = "/WEB-INF/views/common/header.jsp" />
 	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.js"></script>
-	<script src = "${pageContext.request.contextPath}/resources/js/views3.js"></script>
 	<script src="${pageContext.request.contextPath}/resources/js/list.js"></script>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/list.css">
 	<script>
+		$(function(){
+			var selectedValue = '${search_field}'
+			if(selectedValue != '')
+				$("#viewcount").val(selectedValue);
+		})
+		
+		$("#search_button").click(function(){
+			var word = $(".search input").val();
+			if(word == ''){
+				alert("검색어를 입력하세요.");
+				return false;
+			}
+		});
+		
 		var result = "${result}";
 		if(result == 'deleteSucess'){
 			alert("삭제 성공입니다.")
 		} else if(result == 'updateSuccess'){
-			alert("회원 정보가 수정되었습니다.")
-		}
-		
-		$(function){
-			var selectedValue = '${search_field}'
-			if(selectedValue != '')
-				$("#viewcount").val(selectedValue);
-			
-			$("#search_button").click(function(){
-				var word = $("검색버튼셀렉터").val();
-				if(selectedValue ==)
-			})
+			alert("수정되었습니다.")
 		}
 	</script>
+	
 <style>
 #speechbubble{float:right;}
 #count {position: relative;color: #dc3545;}
@@ -48,25 +51,31 @@
 		
 		<!-- 게시판 리스트 기능 메뉴 -->
 		<div class="container">
-				<select class = "form-control" id="viewcount">
+				<select class = "form-control">
 					<option value="5">5개씩 보기</option>
 					<option value="10" selected>10개씩 보기</option>
 					<option value="15">15개씩 보기</option>
-				</select>&nbsp;&nbsp;&nbsp; 
-
-			<div class="search">
-				<select id="searchField">
-					<option value="subject" selected>제목</option>
-					<option value="content">내용</option>
-					<option value="writer">작성자</option>
-					<option value="subject+content">제목+내용</option>
 				</select>
+
+		<!-- 검색창 -->
+			<div class="search">
+				<form action="search_list">
+				<div class="input-group">
+				<select id="viewcount" name="search_field">
+					<option value="S">제목</option>
+					<option value="C">내용</option>
+					<option value="W">작성자</option>
+					<option value="SC">제목+내용</option>
+				</select> &nbsp;
 				
-				<span class="search">
-					<button id="search_button"><img src="${pageContext.request.contextPath}/resources/image/search.png" width="15px"></button>
-					<input type="text" id="search" placeholder=" 검색어를 입력하세요.">
-				</span>
-			</div>
+				<div class="search">
+					<input  class="form-control" type="text" id="search" name="search_word" placeholder=" 검색어를 입력하세요." value="${search_word}">&nbsp;
+					<button id="search_button" type="submit">
+					<img src="${pageContext.request.contextPath}/resources/image/search.png" width="15px"></button>
+				</div>
+				</div>
+			  </form>
+		     </div>
 		</div>
 		
 	<table>
@@ -110,6 +119,7 @@
 				</a>
 				<span id="count">
 				<img id="speechbubble" src ="${pageContext.request.contextPath}/resources/image/speechbubble.png" width="30px">${count}</span>
+				<%-- <span class="badge bg-danger"><i class="fa fa-comment-o"></i> + ${count}</span> --%>
 			</div>
 			</td>
 			<td><div>${b.BOARD_NAME}</div></td>
@@ -167,6 +177,10 @@
 <%-- 게시글이 없는 경우 --%>
 <c:if test = "${listcount == 0 }">
 	<font size = 5>등록된 글이 없습니다.</font>
+</c:if>
+
+<c:if test = "${listcount == 0 && !empty search_word }">
+	<font size = 5>검색 결과가 없습니다.</font>
 </c:if>
 		<button type="button" onclick="location.href='/free_board/write'" class = "btn btn-info float-right">글 쓰 기</button>
 </div>

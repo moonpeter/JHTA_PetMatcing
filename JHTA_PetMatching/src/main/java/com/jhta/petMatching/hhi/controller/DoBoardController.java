@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -30,9 +31,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.jhta.petMatching.hhi.domain.Board;
 import com.jhta.petMatching.hhi.domain.DoBoard;
 import com.jhta.petMatching.hhi.service.CommentService;
 import com.jhta.petMatching.hhi.service.DoBoardService;
@@ -51,7 +54,7 @@ public class DoBoardController {
 	@Autowired
 	private CommentService commentService;
 	
-	@Value("${savefoldername}")
+	@Value("${savefoldername_do}")
 	private String saveFolder;
 	
 	// DO_BOARD List 출력
@@ -118,8 +121,41 @@ public class DoBoardController {
 			return map;
 		}
 	
+		// 서치 리스트
+				@RequestMapping(value="/search_list")
+				public ModelAndView searchList(
+						@RequestParam(value="page", defaultValue="1", required=false) int page,
+						@RequestParam(value="limit", defaultValue="10", required=false) int limit,
+						ModelAndView mv,
+						@RequestParam(value="search_field", defaultValue="", required=false) String index,
+						@RequestParam(value="search_word", defaultValue="", required=false) String search_word
+						) {
+						List<Board> list = null;
+						int listcount = 0;
+						
+						list = boardService.getSearchList(index, search_word, page, limit);
+						listcount = boardService.getSearchListCount(index, search_word);
+						
+						int maxpage = (listcount + limit - 1) / limit; 
+						int startpage = ((page-1)/10)*10+1;
+						int endpage = startpage+10-1;
+						if(endpage > maxpage)
+							endpage = maxpage;
+						
+						mv.setViewName("board/free_board/board_list");
+						mv.addObject("page", page);			
+						mv.addObject("maxpage", maxpage);
+						mv.addObject("startpage", startpage);
+						mv.addObject("endpage", endpage);
+						mv.addObject("listcount", listcount);
+						mv.addObject("boardlist", list);
+						mv.addObject("search_field", index);
+						mv.addObject("search_word", search_word);
+						
+						return mv;
+				}	
 	
-	
+				
 	    // detail?num=9 요청 시 파라미터 num의 값을 int num에 저장합니다.
 		@GetMapping("/detail")
 		public ModelAndView doDetail(int num, ModelAndView mv, HttpServletRequest request) {
@@ -290,7 +326,7 @@ public class DoBoardController {
 	public String doadd(DoBoard board) throws Exception {
 		
 		MultipartFile dog_uploadfile = board.getDog_uploadfile();
-		
+	
 		if (!dog_uploadfile.isEmpty()) {
 			String fileName = dog_uploadfile.getOriginalFilename(); // 원래 파일 명
 //			board.setDOG_PHOTO(fileName); // 원래 파일명 저장
@@ -355,6 +391,58 @@ public class DoBoardController {
 		return fileDBName;
 		
 		}	
+		
+		// 다중파일(test)
+//		@RequestMapping(value="/add")
+//		public String doadd(MultipartHttpServletRequest board) throws Exception {
+//		List<MultipartFile> fileList = board.getFiles();
+//		String src = board.getParameter("src");
+//		
+//		private String fileDBName(String fileName, String saveFolder) {
+//		
+//		Calendar c = Calendar.getInstance();
+//		int year = c.get(Calendar.YEAR); // 오늘 년도 구합니다.
+//		int month = c.get(Calendar.MONTH) + 1; // 오늘 월 구합니다.
+//		int date = c.get(Calendar.DATE); // 오늘 일 구합니다.
+//		
+//		String homedir = saveFolder + year + "-" + month + "-" + date;
+//		logger.info(homedir);
+//		File path1 = new File(homedir);
+//		if(!(path1.exists())) {
+//			path1.mkdir(); // 새로운 폴더를 생성
+//		}
+//		
+//		// 난수를 구합니다.
+//		Random r = new Random();
+//		int random = r.nextInt(1000000000);
+//		
+//		/*** 확장자 구하기 시작 ***/
+//		int index = fileName.lastIndexOf(".");
+//		// 문자열에서 특정 문자열의 위치 값(index)를 반환한다.
+//		// indexOf가 처음 발견되는 문자열에 대한 index를 반환하는 반면,
+//		// lastIndexOf는 마지막으로 발견되는 문자열의 index를 반환합니다.
+//		// (파일명에 점이 여러개 있을 경우 맨 마지막에 발견되는 문자열의 위치를 리턴합니다.)
+//		logger.info("index = " + index);
+//		
+//		String fileExtension = fileName.substring(index + 1);
+//		logger.info("fileExtension = " + fileExtension);
+//		/*** 확장자 구하기 끝 ***/
+//		
+//		// 새로운 파일명
+//		String refileName = "bbs" + year + month + date + random + "." + fileExtension;
+//		logger.info("refileName = " + refileName);
+//		
+//		// 오라클 디비에 저장될 파일명
+//		String fileDBName = "/" + year + "-" + month + "-" + date + "/" + refileName;
+//		logger.info("fileDBName = " + fileDBName);
+//		return fileDBName;
+//		
+//		}
+		
+		
+		
+		
+		
 	
 	@PostMapping("/delete")
 	public String doBoardDeleteActioin(String BOARD_PASS, int num, Model mv, RedirectAttributes rattr, HttpServletRequest request) throws Exception {

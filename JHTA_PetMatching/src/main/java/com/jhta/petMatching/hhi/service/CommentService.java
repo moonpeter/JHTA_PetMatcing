@@ -21,6 +21,8 @@ public interface CommentService {
 	
 	// 댓글 수정
 	public int commentsUpdate(Comment co);
+
+
 	
 
 }

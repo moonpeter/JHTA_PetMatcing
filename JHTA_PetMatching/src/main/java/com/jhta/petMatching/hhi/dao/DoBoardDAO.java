@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.jhta.petMatching.hhi.domain.Board;
 import com.jhta.petMatching.hhi.domain.DoBoard;
 
 
@@ -63,5 +64,13 @@ public class DoBoardDAO {
 
 	public List<String> getDeleteFileList() {
 		return sqlSession.selectList("DoBoard.deleteFileList");
+	}
+	
+	public List<Board> getSearchList(Map<String, Object> map) {
+		return sqlSession.selectList("DoBoards.getSearchList", map);
+	}
+	
+	public int getSearchListCount(Map<String, Object> map) {
+		return sqlSession.selectOne("DoBoards.searchCount",map);
 	}
 }

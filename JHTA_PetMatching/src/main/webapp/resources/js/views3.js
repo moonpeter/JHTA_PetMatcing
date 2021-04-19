@@ -21,7 +21,7 @@ $(function() {
 	function getList(currentPage) {
 		$.ajax({
 					type : "post",
-					url : "../comment/list",
+					url : "/comment/list",
 					data : {
 						"board_num" : $("#board_num").val(),
 						"page" : currentPage
