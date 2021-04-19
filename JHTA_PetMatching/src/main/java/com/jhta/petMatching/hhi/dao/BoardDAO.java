@@ -64,4 +64,12 @@ public class BoardDAO {
 	public List<String> getDeleteFileList() {
 		return sqlSession.selectList("Boards.deleteFileList");
 	}
+
+	public List<Board> getSearchList(Map<String, Object> map) {
+		return sqlSession.selectList("Boards.getSearchList", map);
+	}
+	
+	public int getSearchListCount(Map<String, Object> map) {
+		return sqlSession.selectOne("Boards.searchCount",map);
+	}
 }

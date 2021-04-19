@@ -96,7 +96,7 @@ body > div > div:nth-child(6){color:#dc3545}
 				<a href = "#"> <!-- # : 최상단 페이지 이동 -->
 				<button id="viewbtn" data-toggle = "modal"
 						data-target="#myModal">삭제</button>
-						</a>
+				</a>
 				</c:if>
 				
 				<a href = "replyView?num=${boarddata.BOARD_NUM}">

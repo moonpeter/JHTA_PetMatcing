@@ -1,4 +1,11 @@
 $(function() {
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+	$(document).ajaxSend(function(e, xhr, options){
+		xhr.setRequestHeader(header, token);
+	});
+	
+	
 	$("#comment table").hide(); // 1
 	var page = 1; // 더 보기에서 보여줄 페이지를 기억할 변수
 	count = parseInt($("#count").text());
@@ -36,7 +43,7 @@ $(function() {
 							$(rdata.list).each(function() {
 												output = '';
 												img = '';
-												if ($("#loginid").val() == this.id) {
+												if ($("#loginid").text() == this.id) {
 													img = "<img src='../resources/image/pencil2.png' width='15px' class='update'>"
 															+ "<img src='../resources/image/delete.png' width='15px' class='remove'>"
 															+ "<input type='hidden' value='"
@@ -89,7 +96,7 @@ $(function() {
 			url = "../comment/add";
 			data = {
 				"content" : content,
-				"id" : $("#loginid").val(),
+				"id" : $("#loginid").text(),
 				"board_num" : $("#board_num").val()
 			};
 		} else { // 댓글을 수정하는 경우

@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.jhta.petMatching.hhi.domain.Board;
 import com.jhta.petMatching.hhi.domain.DwBoard;
 
 
@@ -63,5 +64,14 @@ public class DwBoardDAO {
 
 	public List<String> getDeleteFileList() {
 		return sqlSession.selectList("DwBoard.deleteFileList");
+	}
+
+	public List<Board> getSearchList(Map<String, Object> map) {
+		return sqlSession.selectList("DwBoard.getSearchList", map);
+	}
+
+	public int getSearchListCount(Map<String, Object> map) {
+		return sqlSession.selectOne("DwBoard.searchCount",map);
+
 	}
 }

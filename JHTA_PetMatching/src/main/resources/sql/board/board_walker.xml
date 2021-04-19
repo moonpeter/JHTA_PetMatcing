@@ -19,6 +19,40 @@
 			where rnum &gt;= #{start} and rnum &lt;= #{end}
 	</select>
 	
+	<select id="getSearchList" parameterType="map" resultType="Dwboard">
+		select *
+		from 
+			(select rownum rnum, b.*
+				from 
+				(select *
+				   from dw_board
+				   
+				<include refid="search" />
+			)b
+		)
+		where rnum &gt;=#{start} and rnum &lt;= #{end}
+	</select>
+
+	<select id="searchCount" parameterType="map" resultType="int">
+		select count(*)
+		from dw_board
+		<include refid="search"/>
+	</select>
+
+	<sql id="search">
+		<if test="search_field!=null">
+			where
+			<foreach collection="search_field" separator="or" item="index">
+				<choose>
+					<when test="index=='S'.toString()">BOARD_SUBJECT</when>
+					<when test="index=='C'.toString()">BOARD_CONTENT</when>
+					<when test="index=='W'.toString()">BOARD_NAME</when>
+				</choose>
+				like #{search_word}
+			</foreach>
+		</if>
+	</sql>
+	
 	<insert id = "insert" parameterType="board">
 		<selectKey resultType="int"		order="BEFORE"	keyProperty="BOARD_NUM">
 			select nvl(max(BOARD_NUM),0)+1 from dw_board
