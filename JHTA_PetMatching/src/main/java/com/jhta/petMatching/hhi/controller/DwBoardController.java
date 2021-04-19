@@ -3,6 +3,7 @@ package com.jhta.petMatching.hhi.controller;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.security.Principal;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -201,7 +202,10 @@ public class DwBoardController {
 
 	// 글쓰기
 	@GetMapping(value = "/write")
-	public String dwBoard_wirte() {
+	public String dwBoard_wirte(Principal principal, Model model) {
+		//로그인 id 가져오기
+		String loginid = principal.getName();
+		model.addAttribute("loginid", loginid);
 		return "board/dogwalker_board/dogwalkerboard_write";
 	}
 
