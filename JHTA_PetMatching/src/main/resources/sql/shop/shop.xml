@@ -18,7 +18,15 @@
 				#{shop_thumnail_original},
 				0,
 				#{shop_img_content},
-				#{shop_img_content_original},    
+				#{shop_img_content_original},
+				#{shop_img_content_2},
+				#{shop_img_content_original_2},
+				#{shop_img_content_3},
+				#{shop_img_content_original_3},
+				#{shop_img_content_4},
+				#{shop_img_content_original_4},
+				#{shop_img_content_5},
+				#{shop_img_content_original_5},    
 				#{shop_text_content}
 				)
 	</insert>
