@@ -142,7 +142,7 @@ public class DoBoardController {
 						if(endpage > maxpage)
 							endpage = maxpage;
 						
-						mv.setViewName("board/free_board/board_list");
+						mv.setViewName("board/do_board/board_list");
 						mv.addObject("page", page);			
 						mv.addObject("maxpage", maxpage);
 						mv.addObject("startpage", startpage);

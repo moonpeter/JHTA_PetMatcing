@@ -82,14 +82,14 @@ public class ShopTest {
 		logger.info("testWriteForm() end!!!");
 	}
 	
-//	@Test
+	@Test
 	public void testWrite() throws Exception {
 		logger.info("testWrite() start!!!");
-		FileInputStream fis = new FileInputStream("/Users/moonpeter/projects/portfolio/sts_springTest/uploadformail/image/images123123.jpeg");
-		FileInputStream fis2 = new FileInputStream("/Users/moonpeter/projects/portfolio/sts_springTest/uploadformail/image/images123123.jpeg");
+		FileInputStream fis = new FileInputStream("/Users/hyeinhong/Desktop/dog1.jpeg");
+		FileInputStream fis2 = new FileInputStream("/Users/hyeinhong/Desktop/dog1.jpeg");
 
-		MockMultipartFile file = new MockMultipartFile("shop_upload_thumnail", "images123123.jpeg", MediaType.MULTIPART_FORM_DATA_VALUE, fis);		
-		MockMultipartFile file2 = new MockMultipartFile("shop_upload_img_content", "images123123.jpeg", MediaType.MULTIPART_FORM_DATA_VALUE, fis2);
+		MockMultipartFile file = new MockMultipartFile("shop_upload_thumnail", "dog1.jpeg", MediaType.MULTIPART_FORM_DATA_VALUE, fis);		
+		MockMultipartFile file2 = new MockMultipartFile("shop_upload_img_content", "dog1.jpeg", MediaType.MULTIPART_FORM_DATA_VALUE, fis2);
 
 		mockMvc.perform(multipart("/shop/write")
 				.file(file)
@@ -104,7 +104,7 @@ public class ShopTest {
 		logger.info("testWrite() end!!!");
 	}
 	
-	@Test
+//	@Test
 	public void controllerTestForMainList() throws Exception {
 		mockMvc.perform(get("/shop/list")).andDo(print());
 	}
