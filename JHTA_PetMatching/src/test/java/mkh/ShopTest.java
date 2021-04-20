@@ -82,22 +82,22 @@ public class ShopTest {
 		logger.info("testWriteForm() end!!!");
 	}
 	
-	@Test
+//	@Test
 	public void testWrite() throws Exception {
 		logger.info("testWrite() start!!!");
-		FileInputStream fis_thumnail = new FileInputStream("/Users/moonpeter/projects/portfolio/sts_springTest/uploadformail/image/images123123.jpeg");
-		FileInputStream fis = new FileInputStream("/Users/moonpeter/projects/portfolio/sts_springTest/uploadformail/image/images123123.jpeg");
+		FileInputStream fis_thumnail = new FileInputStream("/Users/moonpeter/Desktop/mediatest/image/onion.jpeg");
+		FileInputStream fis = new FileInputStream("/Users/moonpeter/Desktop/mediatest/image/tomato.jpeg");
 		FileInputStream fis2 = new FileInputStream("/Users/moonpeter/projects/portfolio/sts_springTest/uploadformail/image/images123123.jpeg");
-		FileInputStream fis3 = new FileInputStream("/Users/moonpeter/projects/portfolio/sts_springTest/uploadformail/image/images123123.jpeg");
+		FileInputStream fis3 = new FileInputStream("/Users/moonpeter/Desktop/mediatest/image/tomato.jpeg");
 		FileInputStream fis4 = new FileInputStream("/Users/moonpeter/projects/portfolio/sts_springTest/uploadformail/image/images123123.jpeg");
-		FileInputStream fis5 = new FileInputStream("/Users/moonpeter/projects/portfolio/sts_springTest/uploadformail/image/images123123.jpeg");
+		FileInputStream fis5 = new FileInputStream("/Users/moonpeter/Desktop/mediatest/image/tomato.jpeg");
 
-		MockMultipartFile file_thumnail = new MockMultipartFile("shop_upload_thumnail", "images123123.jpeg", MediaType.MULTIPART_FORM_DATA_VALUE, fis_thumnail);		
-		MockMultipartFile file = new MockMultipartFile("shop_upload_img_content", "images123123.jpeg", MediaType.MULTIPART_FORM_DATA_VALUE, fis);
+		MockMultipartFile file_thumnail = new MockMultipartFile("shop_upload_thumnail", "vegi.jpeg", MediaType.MULTIPART_FORM_DATA_VALUE, fis_thumnail);		
+		MockMultipartFile file = new MockMultipartFile("shop_upload_img_content", "tomato.jpeg", MediaType.MULTIPART_FORM_DATA_VALUE, fis);
 		MockMultipartFile file2 = new MockMultipartFile("shop_upload_img_content_2", "images123123.jpeg", MediaType.MULTIPART_FORM_DATA_VALUE, fis2);
-		MockMultipartFile file3 = new MockMultipartFile("shop_upload_img_content_3", "images123123.jpeg", MediaType.MULTIPART_FORM_DATA_VALUE, fis3);
+		MockMultipartFile file3 = new MockMultipartFile("shop_upload_img_content_3", "tomato.jpeg", MediaType.MULTIPART_FORM_DATA_VALUE, fis3);
 		MockMultipartFile file4 = new MockMultipartFile("shop_upload_img_content_4", "images123123.jpeg", MediaType.MULTIPART_FORM_DATA_VALUE, fis4);
-		MockMultipartFile file5 = new MockMultipartFile("shop_upload_img_content_5", "images123123.jpeg", MediaType.MULTIPART_FORM_DATA_VALUE, fis5);
+		MockMultipartFile file5 = new MockMultipartFile("shop_upload_img_content_5", "tomato.jpeg", MediaType.MULTIPART_FORM_DATA_VALUE, fis5);
 
 		mockMvc.perform(multipart("/shop/write")
 				.file(file_thumnail)
@@ -106,13 +106,13 @@ public class ShopTest {
 				.file(file3)
 				.file(file4)
 				.file(file5)
-				.param("shop_category", "사료")
-				.param("shop_title", "반복 테스트를 테스트중입니다444")
+				.param("shop_category", "생활용품")
+				.param("shop_title", "반복 테스트를 테스트중입니다777")
 				.param("shop_price", "7777")
 				.param("shop_country_of_origin", "Seoul")
 				.param("shop_brand", "NoBrand")
 				.param("shop_text_content", "Test context for mockMVC")
-				);
+				).andDo(print());
 		logger.info("testWrite() end!!!");
 	}
 	
@@ -149,6 +149,34 @@ public class ShopTest {
 	}
 	
 //	@Test
+	public void list_ajax() {
+		logger.info("list_ajax() start!!!");
+		int page = 1;
+		int limit = 9; // 한 페이지에 보여줄 게시글의 수 
+		int listCount = sqlSession.selectOne("Shops.listCount");  
+		int maxPage = (listCount + limit -1) / limit;
+		int startPage = ((page-1) / 9) * 9 + 1;
+		int endPage = startPage + 9 -1;
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
+		
+		int startRow = (page - 1) * limit +1;
+		int endRow = startRow + limit -1;
+		
+		Map<String, Integer> map = new HashMap<String, Integer>();
+		map.put("start", startRow);
+		map.put("end", endRow);
+		List<Shop> list = sqlSession.selectList("Shops.mainList", map);
+		for(Shop shop : list) {
+			logger.info("title : " + shop.getShop_title());
+			logger.info("title : " + shop.getShop_thumnail_original());
+		}
+		
+		logger.info("list_ajax() end!!!");
+	}
+	
+//	@Test
 	public void detail() {
 		logger.info("detail() start!!!");
 		Shop detail = sqlSession.selectOne("Shops.detail", 1);
@@ -156,11 +184,48 @@ public class ShopTest {
 		logger.info("detail() end!!!");
 	}
 	
-//	@Test
+	@Test
 	public void getListCount() {
 		logger.info("getListCount() start!!!");
 		int listCount = sqlSession.selectOne("Shops.listCount");
 		logger.info("listCount ===== " + listCount);
 		logger.info("getListCount() end!!!");
 	}
+	
+	@Test
+	public void getCategoryListCount() {
+		logger.info("getCategoryListCount() start!!!");
+		int categoryListCount = sqlSession.selectOne("Shops.categoryListCount", "외출용");
+		logger.info("categoryListCount ===== " + categoryListCount);
+		logger.info("getCategoryListCount() end!!!");
+	}
+	
+//	@Test
+	public void categoryList() {
+		logger.info("categoryList() start!!!");
+		int page = 1;
+		int limit = 9; // 한 페이지에 보여줄 게시글의 수 
+		int listCount = sqlSession.selectOne("Shops.listCount");  
+		int maxPage = (listCount + limit -1) / limit;
+		int startPage = ((page-1) / 9) * 9 + 1;
+		int endPage = startPage + 9 -1;
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
+		
+		int startRow = (page - 1) * limit +1;
+		int endRow = startRow + limit -1;
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("start", String.valueOf(startRow));
+		map.put("end", String.valueOf(endRow));
+		map.put("category", "미용/목욕");
+		List<Shop> list = sqlSession.selectList("Shops.categoryList", map);
+		for(Shop shop : list) {
+			logger.info("title : " + shop.getShop_title());
+			logger.info("category : " + shop.getShop_category());
+		}
+		logger.info("categoryList() end!!!");
+	}
+	
 }
