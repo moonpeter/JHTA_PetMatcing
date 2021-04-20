@@ -5,6 +5,7 @@ $(function() {
 		xhr.setRequestHeader(header, token);
 	});
 	
+	var table_name = $("#table_name").val();
 	
 	$("#comment table").hide(); // 1
 	var page = 1; // 더 보기에서 보여줄 페이지를 기억할 변수
@@ -12,7 +13,7 @@ $(function() {
 	if (count != 0) { // 댓글 갯수가 0이 아니면
 		getList(1); // 첫 페이지의 댓글을 구해 옵니다.(한 페이지에 3개씩 가져옵니다.)
 	} else { // 댓글이 없는 경우
-		$("message").text("등록된 댓글이 없습니다.")
+		$("#message").text("등록된 댓글이 없습니다.")
 	}
 
 	// 글자 수 50개 제한하는 이벤트
@@ -28,10 +29,11 @@ $(function() {
 	function getList(currentPage) {
 		$.ajax({
 					type : "post",
-					url : "../comment/list",
+					url : "/comment/list",
 					data : {
 						"board_num" : $("#board_num").val(),
-						"page" : currentPage
+						"page" : currentPage,
+						"table_name" : table_name
 					},
 					dataType : "json",
 					success : function(rdata) {
@@ -44,8 +46,8 @@ $(function() {
 												output = '';
 												img = '';
 												if ($("#loginid").text() == this.id) {
-													img = "<img src='../resources/image/pencil2.png' width='15px' class='update'>"
-															+ "<img src='../resources/image/delete.png' width='15px' class='remove'>"
+													img = "<img src='${pageContext.request.contextPath}/resources/image/pencil2.png' width='15px' class='update'>"
+															+ "<img src='${pageContext.request.contextPath}/resources/image/delete.png' width='15px' class='remove'>"
 															+ "<input type='hidden' value='"
 															+ this.num + "'>";
 												}
@@ -93,17 +95,19 @@ $(function() {
 		$(".float-left").text('총 50자까지 가능합니다.');
 
 		if (buttonText == "등록") { // 댓글을 추가하는 경우
-			url = "../comment/add";
+			url = "/comment/add";
 			data = {
 				"content" : content,
-				"id" : $("#loginid").text(),
-				"board_num" : $("#board_num").val()
+				"id" : $("#id").val(),
+				"board_num" : $("#board_num").val(),
+				"table_name" : table_name
 			};
 		} else { // 댓글을 수정하는 경우
-			url = "../comment/update";
+			url = "/comment/update";
 			data = {
 				"num" : num,
-				"content" : content
+				"content" : content,
+				"table_name" : table_name
 			};
 			$("#write").text("등록"); // 다시 등록으로 변경
 		}
@@ -149,9 +153,10 @@ $(function() {
 		var num = $(this).next().val(); // 댓글번호
 		$.ajax({
 			type : "post",
-			url : "../comment/delete",
+			url : "/comment/delete",
 			data : {
-				"num" : num
+				"num" : num,
+				"table_name" : table_name
 			},
 			success : function(result) {
 				if (result == 1) {

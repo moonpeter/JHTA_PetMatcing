@@ -50,6 +50,11 @@
 		    브랜드 : <input type="text" id="shop_brand" name="shop_brand"><br>
 		    썸네일 : <input type="file" id="shop_upload_thumnail" name="shop_upload_thumnail"><br>
 		    본문 이미지 : <input type="file" id="shop_upload_img_content" name="shop_upload_img_content"><br>
+   		    본문 이미지_2 : <input type="file" id="shop_upload_img_content_2" name="shop_upload_img_content_2"><br>
+   		    본문 이미지_3 : <input type="file" id="shop_upload_img_content_3" name="shop_upload_img_content_3"><br>
+   		    본문 이미지_4 : <input type="file" id="shop_upload_img_content_4" name="shop_upload_img_content_4"><br>
+   		    본문 이미지_5 : <input type="file" id="shop_upload_img_content_5" name="shop_upload_img_content_5"><br>
+		    
 		    본문 텍스트 : <input type="text" id="shop_text_content" name="shop_text_content"><br>
 		    </div>
 			<br>	

@@ -40,9 +40,21 @@ public class ShopController {
 	
 	@PostMapping("write")
 	public String insert(Shop shop) throws Exception {
+		
 		MultipartFile uploadThumnail = shop.getShop_upload_thumnail();
+		
+//		MultipartFile img_content_array[] = null;
+//		for(int i=0; i<=5; i++) {
+//			img_content_array[i] = shop.getShop_upload_img_content();	
+//		}
+		
 		MultipartFile uploadImgContent = shop.getShop_upload_img_content();
-				
+		MultipartFile uploadImgContent_2 = shop.getShop_upload_img_content_2();
+		MultipartFile uploadImgContent_3 = shop.getShop_upload_img_content_3();
+		MultipartFile uploadImgContent_4 = shop.getShop_upload_img_content_4();
+		MultipartFile uploadImgContent_5 = shop.getShop_upload_img_content_5();
+
+		
 		if (!uploadThumnail.isEmpty()) {
 			String fileName = uploadThumnail.getOriginalFilename(); // 썸네일의 원래 파일명
 			shop.setShop_thumnail_original(fileName); // 썸네일의 원래 파일명 저장
@@ -65,9 +77,53 @@ public class ShopController {
 			shop.setShop_img_content(fileDBName);
 		}
 		
+		if (!uploadImgContent_2.isEmpty()) {
+			String fileName = uploadImgContent_2.getOriginalFilename(); // 썸네일의 원래 파일명 
+			shop.setShop_img_content_original_2(fileName); // 썸네일의 원래 파일명 저장
+			String fileDBName = fileDBName(fileName, saveFolder);
+			logger.info("fileDBName = " + fileDBName);
+			
+			uploadImgContent_2.transferTo(new File(saveFolder + fileDBName));
+			
+			shop.setShop_img_content_2(fileDBName);
+		}
+		
+		if (!uploadImgContent_3.isEmpty()) {
+			String fileName = uploadImgContent_3.getOriginalFilename(); // 썸네일의 원래 파일명 
+			shop.setShop_img_content_original_3(fileName); // 썸네일의 원래 파일명 저장
+			String fileDBName = fileDBName(fileName, saveFolder);
+			logger.info("fileDBName = " + fileDBName);
+			
+			uploadImgContent_3.transferTo(new File(saveFolder + fileDBName));
+			
+			shop.setShop_img_content_3(fileDBName);
+		}
+		
+		if (!uploadImgContent_4.isEmpty()) {
+			String fileName = uploadImgContent_4.getOriginalFilename(); // 썸네일의 원래 파일명 
+			shop.setShop_img_content_original_4(fileName); // 썸네일의 원래 파일명 저장
+			String fileDBName = fileDBName(fileName, saveFolder);
+			logger.info("fileDBName = " + fileDBName);
+			
+			uploadImgContent_4.transferTo(new File(saveFolder + fileDBName));
+			
+			shop.setShop_img_content_4(fileDBName);
+		}
+		
+		if (!uploadImgContent_5.isEmpty()) {
+			String fileName = uploadImgContent_5.getOriginalFilename(); // 썸네일의 원래 파일명 
+			shop.setShop_img_content_original_5(fileName); // 썸네일의 원래 파일명 저장
+			String fileDBName = fileDBName(fileName, saveFolder);
+			logger.info("fileDBName = " + fileDBName);
+			
+			uploadImgContent_5.transferTo(new File(saveFolder + fileDBName));
+			
+			shop.setShop_img_content_5(fileDBName);
+		}
+		
 		shopService.shopInsert(shop);
 		
-		return "redirect:main";
+		return "redirect:list";
 	}
 
 	private String fileDBName(String fileName, String saveFolder) {

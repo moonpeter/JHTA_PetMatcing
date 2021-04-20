@@ -14,6 +14,8 @@
 		 <typeAlias alias="Dwboard" type="com.jhta.petMatching.hhi.domain.DwBoard" />
 		 <typeAlias alias="Doboard" type="com.jhta.petMatching.hhi.domain.DoBoard" />
 		 <typeAlias alias="comment" type="com.jhta.petMatching.hhi.domain.Comment" />
+		 <typeAlias alias="Dwcomments" type="com.jhta.petMatching.hhi.domain.Comment" />
+		 <typeAlias alias="Docomments" type="com.jhta.petMatching.hhi.domain.Comment" />
 		 <typeAlias alias="member" type="com.jhta.petMatching.abh.domain.Member" />
  		 <typeAlias alias="message" type="com.jhta.petMatching.ahnyh.domain.Message" />		 
  		 <typeAlias alias="shop" type="com.jhta.petMatching.mkh.domain.Shop" />		 

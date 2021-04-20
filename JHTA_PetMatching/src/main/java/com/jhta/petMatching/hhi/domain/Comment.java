@@ -7,12 +7,19 @@ public class Comment {
 	private String content;
 	private String reg_date;
 	private int board_num;
+	private String table_name;
 	
 	public int getNum() {
 		return num;
 	}
 	public void setNum(int num) {
 		this.num = num;
+	}
+	public String getTable_name() {
+		return table_name;
+	}
+	public void setTable_name(String table_name) {
+		this.table_name = table_name;
 	}
 	public String getId() {
 		return id;

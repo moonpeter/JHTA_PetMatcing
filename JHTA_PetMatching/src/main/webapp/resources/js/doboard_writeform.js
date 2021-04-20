@@ -16,31 +16,31 @@ $(document).ready(function(){
 		}
 		
 		if($.trim($("input").eq(3).val()) == ""){
-			alert("반려견의 이름을 입력하세요.");
+			alert("비밀번호를 입력하세요.");
 			$("input:eq(3)").focus();
 			return false;
 		}
 		
 		if($.trim($("input").eq(4).val()) == ""){
-			alert("반려견의 나이를 입력하세요.");
+			alert("반려견의 사진을 선택하세요.");
 			$("input:eq(4)").focus();
 			return false;
 		}
 		
 		if($.trim($("input").eq(5).val()) == ""){
-			alert("반려견의 견종을 입력하세요.");
+			alert("반려견의 사진을 입력하세요.");
 			$("input:eq(5)").focus();
 			return false;
 		}
 		
 		if($.trim($("input").eq(6).val()) == ""){
-			alert("반려견의 특이사항을 입력하세요.");
+			alert("반려견의 사진을 입력하세요.");
 			$("input:eq(6)").focus();
 			return false;
 		}
 		
 		if($.trim($("input").eq(7).val()) == ""){
-			alert("제목 입력하세요.");
+			alert("반려견의 사진을 입력하세요.");
 			$("input:eq(7)").focus();
 			return false;
 		}

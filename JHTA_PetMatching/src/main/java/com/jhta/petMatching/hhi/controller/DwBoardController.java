@@ -150,7 +150,7 @@ public class DwBoardController {
 
 	// detail?num=9 요청 시 파라미터 num의 값을 int num에 저장합니다.
 	@GetMapping("/detail")
-	public ModelAndView dwDetail(int num, ModelAndView mv, HttpServletRequest request) {
+	public ModelAndView dwDetail(int num, ModelAndView mv, HttpServletRequest request, Principal principal, Model model) {
 
 		DwBoard board = boardService.getDetail(num);
 		// board null; // error 페이지 이동 확인하고자 임의로 지정합니다.
@@ -161,10 +161,13 @@ public class DwBoardController {
 			mv.addObject("message", "상세보기 실패입니다.");
 		} else {
 			logger.info("상세보기 성공");
-			int count = commentService.getListCount(num);
+			int count = commentService.getListCount(num,"dwboard_comments");
 			mv.setViewName("board/dogwalker_board/dogwalkerboard_view");
 			mv.addObject("count", count);
 			mv.addObject("boarddata", board);
+			
+			String loginid = principal.getName();
+			model.addAttribute("loginid", loginid);
 		}
 		return mv;
 	}
