@@ -39,8 +39,41 @@
 <div class="container">
   <div class="row">
     <div class="col-4">
-	<img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/shop/${shop.shop_thumnail }" alt="" height="200px">
+			
+			<!-- 슬라이드 이미지 -->
+			<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+			  <div class="carousel-inner">
+			    <div class="carousel-item active">
+			      <img src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_thumnail }" class="d-block w-100" alt="thumnail">
+			    </div>
+			    <div class="carousel-item">
+			      <img src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_img_content }" class="d-block w-100" alt="1">
+			    </div>
+			    <div class="carousel-item">
+			      <img src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_img_content_2 }" class="d-block w-100" alt="2">
+			    </div>
+			    <div class="carousel-item">
+			      <img src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_img_content_3 }" class="d-block w-100" alt="3">
+			    </div>
+			    <div class="carousel-item">
+			      <img src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_img_content_4 }" class="d-block w-100" alt="4">
+			    </div>
+			    <div class="carousel-item">
+			      <img src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_img_content_5 }" class="d-block w-100" alt="5">
+			    </div>
+			  </div>
+			  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+			    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			    <span class="visually-hidden">Previous</span>
+			  </button>
+			  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+			    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+			    <span class="visually-hidden">Next</span>
+			  </button>
+			</div>
+			
     </div>
+    
     <div class="col-8">
     	<div id="detail_title" class="">${shop.shop_title }</div>
     	<table id="detail_info_table">
@@ -79,11 +112,11 @@
 </div>
 
 <div class="container bg-secondary">
-	<img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/shop/${shop.shop_img_content }">
-	<img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/shop/${shop.shop_img_content_2 }">
-	<img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/shop/${shop.shop_img_content_3 }">
-	<img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/shop/${shop.shop_img_content_4 }">
-	<img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/shop/${shop.shop_img_content_5 }">
+	<img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_img_content }">
+	<img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_img_content_2 }">
+	<img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_img_content_3 }">
+	<img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_img_content_4 }">
+	<img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_img_content_5 }">
 </div>
 
 <div class="container">
