@@ -23,6 +23,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.jhta.petMatching.abh.service.MemberService;
+import com.jhta.petMatching.abh.domain.Destination;
 import com.jhta.petMatching.abh.domain.Member;
 
 @Controller
@@ -74,31 +75,6 @@ public class MemberController {
 		}
 	}
 	
-	//@RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
-	public String loginProcess(@RequestParam("id") String id, @RequestParam("password") String password,
-			@RequestParam(value = "remember", defaultValue = "", required = false) String remember,
-			HttpServletResponse response, HttpSession session, RedirectAttributes rattr) {
-		int result = memberService.isId(id, password);
-		logger.info("결과 값 : " + result);
-		
-		if (result == 1) { //로그인 성공
-			session.setAttribute("id", id);
-			Cookie savecookie = new Cookie("saveid", id);
-			if (!remember.equals("")) {
-				savecookie.setMaxAge(30* 60);
-				logger.info("쿠키저장 시간 : 30*60");
-			} else {
-				savecookie.setMaxAge(0);
-				logger.info("쿠키저장 없음");
-			}
-			response.addCookie(savecookie);
-			return "redirect:/shop/main";
-		} else {
-			rattr.addFlashAttribute("result", result);
-			return "redirect:login";
-		}
-	}
-	
 	@RequestMapping(value = "/logout", method = RequestMethod.POST)
 	public String logout(HttpSession session) {
 		session.invalidate();
@@ -111,5 +87,77 @@ public class MemberController {
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		out.print(result);
+	}
+	
+	@RequestMapping(value = "/info", method = RequestMethod.GET)
+	public ModelAndView member_info(@RequestParam("id") String id,
+							ModelAndView mv, HttpServletRequest request) {
+		Member m = memberService.member_info(id);
+		if (m != null) {
+			mv.setViewName("member/member_info");
+			mv.addObject("memberinfo", m);
+		}else {
+			mv.setViewName("error/error");
+			mv.addObject("url", request.getRequestURL());
+			mv.addObject("message", "해당 정보가 없습니다.");
+		}
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "/update")
+	public ModelAndView member_update(HttpSession session, ModelAndView mv, Principal principal) {
+		String id = (String) principal.getName();
+		if (id == null) {
+			mv.setViewName("redirect:login");
+		} else {
+			Member m = memberService.member_info(principal.getName());
+			mv.setViewName("member/member_update");
+			mv.addObject("memberinfo", m);
+		}
+		return mv;
+	}
+	
+	@RequestMapping(value = "/updateProcess", method = RequestMethod.POST)
+	public String updateProcess(Member member, Model model, HttpServletRequest request, RedirectAttributes rattr) {
+		String encPassword = passwordEncoder.encode(member.getPassword());
+		logger.info(encPassword);
+		member.setPassword(encPassword);
+		
+		int result = memberService.update(member);
+		if (result == 1) {
+			rattr.addFlashAttribute("result", "updateSuccess");
+			return "redirect:/home/main";
+		} else {
+			model.addAttribute("url", request.getRequestURL());
+			model.addAttribute("message", "수정에 실패하였습니다");
+			return "error/error";
+		}
+	}
+	
+	@RequestMapping(value = "/delete", method = RequestMethod.GET)
+	public String member_delete(Principal principal) {
+		memberService.delete(principal.getName());
+		return "redirect:/home/main";
+	}
+	
+	@RequestMapping(value = "/destination", method = RequestMethod.GET)
+	public String desti_Page() {
+		return "member/member_destination";
+	}
+	
+	@RequestMapping(value = "/desti_Process", method = RequestMethod.POST)
+	public String desti_Process(Destination d, RedirectAttributes rattr, Model model, HttpServletRequest request)
+			throws Exception {
+		int result2 = memberService.insert(d);
+		
+		if(result2 == 1) {
+			rattr.addFlashAttribute("result2", "insertSuccess");
+			return "redirect:/home/main";
+		}else {
+			model.addAttribute("url", request.getRequestURL());
+			model.addAttribute("message", "배송지 입력 실패");
+			return "error/error";
+		}
 	}
 }
