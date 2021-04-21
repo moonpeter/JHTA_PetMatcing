@@ -1,17 +1,19 @@
 <head>
     <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
     <%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="_csrf" content="${_csrf.token}">
-	<meta name="_csrf_header" content="${_csrf.headerName}">
+	<meta id="_csrf" name="_csrf" content="${_csrf.token}">
+    <meta id="_csrf_header" name="_csrf_header" content="${_csrf.headerName}">
     <!-- 부트스트랩 -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-	
+		
 </head>
 <style>
 .dropbtn {
@@ -45,11 +47,24 @@
 .dropdown:hover .dropdown-content {display: block;}
 
 .navbar{padding-right:3em;}
+
+#newMessage{
+ position: relative;
+    top: 2px;
+    left: -10px;
+    background: red;
+    color: white;
+    border-radius: 25px;
+    height: 25px;
+    width: 25px;
+    text-align: center;
+}
+#message_box{color:#dc3545}
 </style>
 <script>
 	$(function (){
 		$("#logout").click(function(event){
-			$("form").submit();
+			$("#form_logout").submit();
 		})
 		
 		$(".btn1").click(function(){
@@ -80,7 +95,7 @@
       </li>
       <li><a href="#" class="nav-link px-2 link-danger">산책로 추천</a></li>
       <li><a href="/free_board/list" class="nav-link px-2 link-danger">자유게시판</a></li>
-      <li><a href="/shop/main" class="nav-link px-2 link-danger">쇼핑몰</a></li>
+      <li><a href="/shop/list" class="nav-link px-2 link-danger">쇼핑몰</a></li>
     </ul>
    
    <sec:authorize access="isAnonymous()">
@@ -94,9 +109,37 @@
 	
 	<ul class="navbar-nav">
 		<sec:authorize access="isAuthenticated()">
+		<!-- 메시지 기능 -->
+		<script>
+ 	  	 $(function(){ //페이지 로드 완료되면 ajax 실행
+    			$.ajax({
+   	 				url: "${pageContext.request.contextPath}/message/newMessage", //요청 전송 url
+    				success : function(data){
+    					if(data > 0){ // 읽지 않은 메시지 수가 0보다 큰 경우
+    						$("#newMessage").html(data);
+    					}else if(data == 0){ 
+    						$("#newMessage").css('display', 'none');
+    					}
+    				}	
+    			});//ajax end
+    	});
+       </script>
+     	 <img src="${pageContext.request.contextPath}/resources/image/new_message.png" alt="새 메세지" width="40px">
+     	 <span id="newMessage"></span>
+     	 <!-- Dropdown -->
+     	 <li>
+       	   <div class="dropdown">
+           <button id="message_box" class="dropbtn nav-link px-2 link-danger">메시지함</button>
+        	 <div class="dropdown-content">
+        	   <a class="nav-link px-2 link-danger" href="${pageContext.request.contextPath}/message/receiveMessageList">받은 메시지</a>
+        	   <a class="nav-link px-2 link-danger" href="${pageContext.request.contextPath}/message/sendMessageList">보낸 메시지</a>
+	         </div>
+	       </div>
+         </li>
+		<!-- 메시지 기능 끝 -->
 			<sec:authentication property="principal" var="pinfo" />
 			<li class="nav-item">
-				<form action="${pageContext.request.contextPath }/member/logout" method = "post">
+				<form id="form_logout" action="${pageContext.request.contextPath }/member/logout" method = "post">
 					<a class="nav-link" href="#" id ="logout">
 					<span id = "loginid" style="color:#dc3545">${pinfo.username} 님(로그아웃)</span></a>
 					<input type="hidden" name ="${_csrf.parameterName }" value = "${_csrf.token }">

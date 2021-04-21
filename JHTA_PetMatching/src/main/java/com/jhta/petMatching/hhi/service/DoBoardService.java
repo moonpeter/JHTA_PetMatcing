@@ -2,6 +2,7 @@ package com.jhta.petMatching.hhi.service;
 
 import java.util.List;
 
+import com.jhta.petMatching.hhi.domain.Board;
 import com.jhta.petMatching.hhi.domain.DoBoard;
 
 
@@ -42,5 +43,10 @@ public interface DoBoardService {
 	public List<String> getDeleteFileList();
 
 	public int insert_deleteFile(String before_file);
+
+	// 서치 리스트
+	public List<Board> getSearchList(String index, String search_word, int page, int limit);
+
+	public int getSearchListCount(String index, String search_word);
 	
 }

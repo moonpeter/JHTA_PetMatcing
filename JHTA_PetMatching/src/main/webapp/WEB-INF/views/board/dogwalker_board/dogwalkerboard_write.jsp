@@ -17,7 +17,8 @@
 <body>
 	<div class = "container">
 		<form action = "add" method = "post" enctype="multipart/form-data"
-			  name = "boardform"> 
+			  name = "boardform">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">		   
 		<p class="text-danger">
 		  <font size = 4>산책 신청 게시판 (산책러)</font>
 		</p>
@@ -26,7 +27,7 @@
 		
 		<div class = "form-group">
 			<label for = "board_name">글쓴이</label>
-			<input name = "BOARD_NAME" id="board_name" value="${id}" readOnly
+			<input name = "BOARD_NAME" id="board_name" value="${loginid}" readOnly
 			       type="text" maxlength="30"	class="form-control">
 		</div>
 		<div class = "form-group">

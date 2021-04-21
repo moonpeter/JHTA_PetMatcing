@@ -10,6 +10,10 @@
 		</layout>
 	</appender>
 	
+	<logger name="ShopBoards">
+		<level value="trace" />
+	</logger>
+	
 	<!-- Application Loggers -->
 	<logger name="com.jhta.petMatching">
 		<level value="info" />
@@ -33,6 +37,10 @@
 	</logger>
 
 	<logger name="DoComments">
+		<level value="trace" />
+	</logger>
+	
+	<logger name="Boards">
 		<level value="trace" />
 	</logger>
 

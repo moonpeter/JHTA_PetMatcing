@@ -15,7 +15,7 @@
 			alert("비밀번호가 일치하지 않습니다.")
 		}
 		$(function(){
-			$("form").submit(function(){
+			$("form_delete").submit(function(){
 				if($("#board_pass").val()==''){
 					alert("비밀번호를 입력하세요");
 					$("#board_pass").focus();
@@ -23,6 +23,14 @@
 				}
 			})
 		})
+		
+	//메시지 보내기 버튼 클릭
+	function messagePopUp(){
+	var receiver = "${boarddata.BOARD_NAME}"; 
+
+	window.open("${pageContext.request.contextPath}/message/send?receiver_id="+receiver,
+			    "post", "width=600, height=700, scrollbars=yes");
+	};
 	</script>
 <style>
 	body > div > table > tbody >tr:nth-child(1) {
@@ -71,6 +79,8 @@ body > div > div:nth-child(4),body > div > div:nth-child(5) > textarea{padding-b
 body > div > div:nth-child(6){padding-bottom:0.53em;}
 
 body > div > div:nth-child(6){color:#dc3545}
+#send{background-color:white; color:#dc3545;  height:40px;
+      border-radius:10px; border: 2px solid #dc3545;}
 </style>
 </head>
 <body>
@@ -105,6 +115,13 @@ body > div > div:nth-child(6){color:#dc3545}
 				</c:if> </div>
 			</c:if>	
 			
+			<button id="send" class="btn btn-info" onClick="messagePopUp()">
+  				<img id="image1" src="${pageContext.request.contextPath}/resources/image/reply_message.png" alt="메시지  보내기" width="30px">              
+    			메시지 보내기
+			</button>
+			
+			
+			
 				<div class = "center">
 				 		<button id = "comment">댓글</button>
 				 		<span id="count">${count}</span>
@@ -134,7 +151,7 @@ body > div > div:nth-child(6){color:#dc3545}
 		 	<div class = "modal-content">
 		 		<%-- Modal body --%>
 		 	<div class = "modal-body">
-		 		<form name = "deleteForm" action="delete" method = "post">
+		 		<form id="form_delete" name = "deleteForm" action="delete" method = "post">
 		 			<%-- http://localhost:8088/Board/BoardDetailAction.bo?num=22
 		 				 주소를 보면 num을 파라미터로 넘기고 있습니다.
 		 				 이 값을 가져와서 %{param.num}를 사용

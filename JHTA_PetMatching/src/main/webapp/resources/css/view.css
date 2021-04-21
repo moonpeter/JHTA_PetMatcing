@@ -32,7 +32,9 @@
 	margin-left: 2em;
 }
 
-
+#myModal {
+	display: none
+}
 
 #main thead > tr > td:nth-child(2), #main thead > tr > td:nth-child(3) { font-weight: bold; }
 

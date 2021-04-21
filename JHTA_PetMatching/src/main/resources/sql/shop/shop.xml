@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Shops">
+	<insert id="insert" parameterType="Shop">
+		insert into 
+		shop_board
+		values (
+				shop_seq_num.nextval, 
+				#{shop_category}, 
+				#{shop_title}, 
+				#{shop_price}, 
+				#{shop_country_of_origin}, 
+				#{shop_brand},
+				#{shop_thumnail},
+				#{shop_thumnail_original},
+				0,
+				#{shop_img_content},
+				#{shop_img_content_original},
+				#{shop_img_content_2},
+				#{shop_img_content_original_2},
+				#{shop_img_content_3},
+				#{shop_img_content_original_3},
+				#{shop_img_content_4},
+				#{shop_img_content_original_4},
+				#{shop_img_content_5},
+				#{shop_img_content_original_5},    
+				#{shop_text_content}
+				)
+	</insert>
+	
+	<select id="mainList" parameterType="map" resultType="shop">
+		select * from 
+		(select rownum rnum, shop.* 
+		from (select * from 
+		shop_board order by shop_num desc) shop
+		)
+		where rnum >= 
+		#{start} and rnum &lt;= #{end}
+	</select>
+	
+	<select id="detail" parameterType="int" resultType="Shop">
+		select * from shop_board where shop_num = #{shop_num}
+	</select>
+	
+	<select id="listCount" resultType="int">
+		select count(*) from shop_board
+	</select>
+	
+	<select id="categoryListCount" parameterType="String" resultType="int">
+		select count(*) from shop_board where shop_category = #{category}
+	</select>
+	
+	<select id="categoryList" parameterType="map" resultType="shop">
+		select * from 
+		(select rownum rnum, shop.* 
+		from (select * from 
+		shop_board where shop_category = #{category} order by shop_num desc) shop
+		)
+		where rnum >= #{start} and rnum &lt;= #{end}
+	</select>
+</mapper>

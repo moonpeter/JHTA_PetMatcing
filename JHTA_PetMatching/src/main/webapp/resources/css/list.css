@@ -61,11 +61,12 @@
 
 #write_btn{background:#dc3545; color:white; border:none; margin-right:3em}
 
-#search {
+#search, body > div.container > div.container > div > div > form > input[type=text] {
     border: solid #dc3545 0.5px;
     border-radius: 5px;
     height: 30px;
 }
+
 
 .search  {
     display: inline-block;
@@ -173,7 +174,7 @@ input::placeholder {
     transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
 }
 
-#addressRegion, #addressDo, #addressSiGunGu, #searchField {
+#addressRegion, #addressDo, #addressSiGunGu, #viewcount {
     font-style: italic;
     font-size: 1rem;
     height: 31px;

@@ -18,6 +18,7 @@
 	<security:intercept-url pattern="/member/joinProcess" access="permitAll" />
 	<security:intercept-url pattern="/member/list" access="hasRole('ROLE_ADMIN')" />
 	<security:intercept-url pattern="/**" access="hasAnyRole('ROLE_MEMBER', 'ROLE_ADMIN')" />
+	<!-- <security:intercept-url pattern="/**" access="permitAll" /> -->
 	
 		<security:form-login login-page="/member/login"
 							 default-target-url="/home/main"

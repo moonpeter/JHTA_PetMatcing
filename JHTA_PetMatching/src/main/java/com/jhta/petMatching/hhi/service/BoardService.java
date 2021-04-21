@@ -42,4 +42,9 @@ public interface BoardService {
 
 	public int insert_deleteFile(String before_file);
 	
+	// search_list
+	public List<Board> getSearchList(String index, String search_word, int page, int limit);
+	
+	public int getSearchListCount(String index, String search_word);
+	
 }
