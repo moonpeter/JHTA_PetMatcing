@@ -103,7 +103,7 @@
 				</form>
 			</li>
 			<li class="nav-item"><a class="nav-link"
-				href="${pageContext.request.contextPath}/member/update" style="color:#dc3545">정보수정</a></li>
+				href="${pageContext.request.contextPath}/member/info?id=${pinfo.username}" style="color:#dc3545">내정보</a></li>
 
 			<c:if test="${pinfo.username=='admin'}">
 				<!-- Dropdown -->
