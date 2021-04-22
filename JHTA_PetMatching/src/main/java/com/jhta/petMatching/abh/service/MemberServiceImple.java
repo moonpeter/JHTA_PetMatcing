@@ -1,10 +1,11 @@
 package com.jhta.petMatching.abh.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.jhta.petMatching.abh.dao.MemberDAO;
+import com.jhta.petMatching.abh.domain.Destination;
 import com.jhta.petMatching.abh.domain.Member;
 
 @Service
@@ -39,5 +40,25 @@ public class MemberServiceImple implements MemberService{
 			}
 		}
 		return result;
+	}
+	
+	@Override
+	public Member member_info(String id) { //회원정보
+		return dao.member_info(id);
+	}
+	
+	@Override
+	public void delete(String id) { //회원삭제
+		dao.delete(id);
+	}
+	
+	@Override
+	public int update(Member m) { //정보수정
+		return dao.update(m);
+	}
+
+	@Override
+	public int insert(Destination d) { //배송지입력
+		return dao.insert(d);
 	}
 }

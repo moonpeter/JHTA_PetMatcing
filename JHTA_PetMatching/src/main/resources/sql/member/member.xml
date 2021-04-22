@@ -4,13 +4,41 @@
 
 <mapper namespace="Members">
 	<select id="idcheck" resultType="member" parameterType="String">
-		Select*
+		Select *
 		from members
 		where id = #{id}
 	</select>
 	
 	<insert id="insert" parameterType="member">
-		insert into members
+		Insert into members
 		values(#{id}, #{password}, #{name}, #{phone}, #{gender}, #{position}, #{auth})
 	</insert>
+	
+	<delete id="delete" parameterType="member">
+		Delete From members
+		Where id = #{id}
+	</delete>
+	
+	<update id="update" parameterType="member">
+		Update members
+		Set id = #{id},
+		password = #{password},
+		name = #{name},
+		phone = #{phone},
+		gender = #{gender},
+		position = #{position},
+		auth = #{auth}
+		Where id = #{id}
+	</update>
+	
+	<insert id="insert2" parameterType="destination">
+		Insert into destination
+		values(#{name}, #{post}, #{address}, #{phone}, #{request})
+	</insert>
+	
+	<select id="desticheck" resultType="destination" parameterType="String">
+		select *
+		from destination
+		where name = #{name}
+	</select>
 </mapper>
