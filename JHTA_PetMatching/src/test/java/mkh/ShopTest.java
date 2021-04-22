@@ -184,7 +184,7 @@ public class ShopTest {
 		logger.info("detail() end!!!");
 	}
 	
-	@Test
+//	@Test
 	public void getListCount() {
 		logger.info("getListCount() start!!!");
 		int listCount = sqlSession.selectOne("Shops.listCount");
@@ -192,10 +192,10 @@ public class ShopTest {
 		logger.info("getListCount() end!!!");
 	}
 	
-	@Test
+//	@Test
 	public void getCategoryListCount() {
 		logger.info("getCategoryListCount() start!!!");
-		int categoryListCount = sqlSession.selectOne("Shops.categoryListCount", "외출용");
+		int categoryListCount = sqlSession.selectOne("Shops.categoryListCount", "외출용품");
 		logger.info("categoryListCount ===== " + categoryListCount);
 		logger.info("getCategoryListCount() end!!!");
 	}
@@ -226,6 +226,38 @@ public class ShopTest {
 			logger.info("category : " + shop.getShop_category());
 		}
 		logger.info("categoryList() end!!!");
+	}
+	
+	@Test
+	public void category_list_ajax() {
+		logger.info("category_list_ajax() start!!!");
+				
+		int page = 2;
+		int limit = 9; // 한 페이지에 보여줄 게시글의 수 
+		int listCount = sqlSession.selectOne("Shops.categoryListCount", "장난감");  
+		int maxPage = (listCount + limit -1) / limit;
+		int startPage = ((page-1) / 9) * 9 + 1;
+		int endPage = startPage + 9 -1;
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
+		
+		logger.info("!!!!!!!!!! : " + endPage +" / " + listCount);
+		
+		int startRow = (page - 1) * limit +1;
+		int endRow = startRow + limit -1;
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("start", String.valueOf(startRow));
+		map.put("end", String.valueOf(endRow));
+		map.put("category", "장난감");
+		List<Shop> list = sqlSession.selectList("Shops.categoryList", map);
+		for(Shop shop : list) {
+			logger.info("title : " + shop.getShop_title());
+			logger.info("title : " + shop.getShop_category());
+		}
+		
+		logger.info("category_list_ajax() end!!!");
 	}
 	
 }

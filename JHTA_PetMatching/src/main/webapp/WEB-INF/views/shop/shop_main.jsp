@@ -68,21 +68,36 @@
 	<script>
 	    $(document).ready(function () {
 	            var page = 1;
-	            
-	            if(${listCount} == 0) {
+	            var category = "${category}"
+	            var listCount = ${listCount};
+	            	            
+	            if(listCount == 0) {
                 	$(".pageInc").hide();
                 	alert("해당 게시물이 존재하지 않습니다.");
                 }
 	            
 	            $('.pageInc').click(function () {
-	                page += 1;
-	                $.get("/shop/list_ajax", {"page": page},
-	                    function (data) {
-	                        $("#testAjax").append(data);
-	                        if(page == ${endPage}) {
-	                        	$(".pageInc").hide();
-	                        }
-	                    })
+	            	if (category == "") {
+	            		page += 1;
+		                $.get("/shop/list_ajax", {"page": page},
+		                    function (data) {
+		                        $("#testAjax").append(data);
+		        	            var endPage = ${endPage};
+		                        if(page == endPage) {
+		                        	$(".pageInc").hide();
+		                        }
+		                    })
+	            	} else {
+		                $.get("/shop/category_list_ajax", {"category": category},
+		                    function (data) {
+		                        $("#testAjax").append(data);
+		        	            var endPage = ${endPage};
+			            		page += 1;
+		                        if(page == endPage) {
+		                        	$(".pageInc").hide();
+		                        }
+		                    })
+	            	}
 	            })
 	        }
 	    )
