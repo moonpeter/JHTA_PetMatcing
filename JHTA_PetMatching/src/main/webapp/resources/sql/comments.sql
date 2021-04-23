@@ -5,7 +5,7 @@ drop table freeboard_comments cascade constraints;
 
 CREATE TABLE freeboard_comments(
 	num 		number			primary key,
-	id			varchar2(30)	references member2(id),
+	id			varchar2(30)	references members(id),
 	content		varchar2(200),
 	reg_date	date,
 	board_num	number references free_board(board_num)
@@ -27,7 +27,7 @@ drop table doboard_comments cascade constraints;
 
 CREATE TABLE doboard_comments(
 	num 		number			primary key,
-	id			varchar2(30)	references member2(id),
+	id			varchar2(30)	references members(id),
 	content		varchar2(200),
 	reg_date	date,
 	board_num	number references do_board(board_num)
@@ -51,7 +51,7 @@ drop table dwboard_comments cascade constraints;
 
 CREATE TABLE dwboard_comments(
 	num 		number			primary key,
-	id			varchar2(30)	references member2(id),
+	id			varchar2(30)	references members(id),
 	content		varchar2(200),
 	reg_date	date,
 	board_num	number references dw_board(board_num)

@@ -17,17 +17,21 @@ public class CommentServiceImpl implements CommentService {
 	private CommentDAO dao;
 
 	@Override
-	public int getListCount(int board_num) {
-		return dao.getListCount(board_num);
+	public int getListCount(int board_num, String table_name) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("board_num", board_num);
+		map.put("table_name", table_name);
+		return dao.getListCount(map);
 	}
 
 	@Override
-	public List<Comment> getCommentList(int board_num, int page) {
+	public List<Comment> getCommentList(int board_num, int page, String table_name) {
 		int startrow =  1;
 		int endrow = page * 3;
 		
-		Map<String, Integer> map = new HashMap<String, Integer>();
+		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("board_num", board_num);
+		map.put("table_name", table_name);
 		map.put("start", startrow);
 		map.put("end", endrow);
 		return dao.getCommentList(map);
@@ -39,8 +43,8 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public int commentsDelete(int num) {
-		return dao.commentsDelete(num);
+	public int commentsDelete(Comment c) {
+		return dao.commentsDelete(c);
 	}
 
 	@Override

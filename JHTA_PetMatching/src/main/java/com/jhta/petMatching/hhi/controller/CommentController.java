@@ -28,10 +28,10 @@ public class CommentController {
 	
 	@ResponseBody
 	@RequestMapping(value="/list")
-	public Map<String, Object> CommentList(int board_num, int page) {
+	public Map<String, Object> CommentList(int board_num, int page, String table_name) {
 		
-		List<Comment> list = commentService.getCommentList(board_num, page);
-		int listcount = commentService.getListCount(board_num);
+		List<Comment> list = commentService.getCommentList(board_num, page, table_name);
+		int listcount = commentService.getListCount(board_num, table_name);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("list", list);
 		map.put("listcount", listcount);
@@ -41,14 +41,16 @@ public class CommentController {
 	@PostMapping(value = "/add")
 	public void CommentAdd(Comment co, HttpServletResponse response)
 		throws Exception {
+		logger.info("id = " + co.getId());
+		System.out.print("id=" + co.getId());
 		int ok = commentService.commentsInsert(co);
 		response.getWriter().print(ok);
 	}
 	
 	@PostMapping(value = "/delete")
-	public void CommentDelete(int num, HttpServletResponse response)
+	public void CommentDelete(Comment co, HttpServletResponse response)
 		throws Exception {
-		int result = commentService.commentsDelete(num);
+		int result = commentService.commentsDelete(co);
 		response.getWriter().print(result);
 	}
 	

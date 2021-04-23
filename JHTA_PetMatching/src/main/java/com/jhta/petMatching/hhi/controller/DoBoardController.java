@@ -3,6 +3,7 @@ package com.jhta.petMatching.hhi.controller;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.security.Principal;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -14,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
@@ -31,7 +31,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -84,6 +83,7 @@ public class DoBoardController {
 		mv.addObject("listcount", listcount);
 		mv.addObject("boardlist", boardlist);
 		mv.addObject("limit", limit);
+		
 		
 		return mv;
 	}
@@ -142,7 +142,7 @@ public class DoBoardController {
 						if(endpage > maxpage)
 							endpage = maxpage;
 						
-						mv.setViewName("board/free_board/board_list");
+						mv.setViewName("board/do_board/board_list");
 						mv.addObject("page", page);			
 						mv.addObject("maxpage", maxpage);
 						mv.addObject("startpage", startpage);
@@ -158,7 +158,7 @@ public class DoBoardController {
 				
 	    // detail?num=9 요청 시 파라미터 num의 값을 int num에 저장합니다.
 		@GetMapping("/detail")
-		public ModelAndView doDetail(int num, ModelAndView mv, HttpServletRequest request) {
+		public ModelAndView doDetail(int num, ModelAndView mv, HttpServletRequest request, Principal principal, Model model) {
 			
 			DoBoard board = boardService.getDetail(num);
 			// board null;	// error 페이지 이동 확인하고자 임의로 지정합니다.
@@ -169,10 +169,15 @@ public class DoBoardController {
 				mv.addObject("message", "상세보기 실패입니다.");
 			} else {
 				logger.info("상세보기 성공");
-				int count = commentService.getListCount(num);
+				int count = commentService.getListCount(num, "doboard_comments");
 				mv.setViewName("board/dogowner_board/dogownerboard_view");
 				mv.addObject("count", count);
 				mv.addObject("boarddata", board);
+				
+				String loginid = principal.getName();
+				model.addAttribute("loginid", loginid);
+				
+				model.addAttribute("table_name", "doboard_comments");
 			}
 			return mv;
 		}
@@ -210,7 +215,9 @@ public class DoBoardController {
 		
 	//글쓰기
 	@GetMapping(value="/write")
-	public String doboard_wirte(){
+	public String doboard_wirte(Principal principal, Model model){
+		String loginid = principal.getName();
+		model.addAttribute("loginid", loginid);
 	 		return "board/dogowner_board/dogownerboard_write";
 	}
 
@@ -316,17 +323,17 @@ public class DoBoardController {
 				}
 			}
 			return url;
-			
 		}
 	
-	
-	
-	// @RequestMapping(value="/add", method=RequestMethod.POST)
 	@PostMapping("/add")
 	public String doadd(DoBoard board) throws Exception {
-		
-		MultipartFile dog_uploadfile = board.getDog_uploadfile();
-	
+				
+		MultipartFile dog_uploadfile  = board.getDog_uploadfile();
+		MultipartFile dog_uploadfile2 = board.getDog_uploadfile2();
+		MultipartFile dog_uploadfile3 = board.getDog_uploadfile3();
+		MultipartFile dog_uploadfile4 = board.getDog_uploadfile4();
+		MultipartFile dog_uploadfile5 = board.getDog_uploadfile5();
+
 		if (!dog_uploadfile.isEmpty()) {
 			String fileName = dog_uploadfile.getOriginalFilename(); // 원래 파일 명
 //			board.setDOG_PHOTO(fileName); // 원래 파일명 저장
@@ -336,12 +343,52 @@ public class DoBoardController {
 			
 			String fileDBName = fileDBName(fileName, saveFolder);
 			logger.info("fileDBName = " + fileDBName);
-			
+			board.setDOG_PHOTO_ORIGINAL(fileName);
 			// transferTO(File path) : 업로드한 파일을 매개변수의 경로에 저장합니다.
 			dog_uploadfile.transferTo(new File(saveFolder + fileDBName));
 			
 			// 바뀐 파일명으로 저장
 			board.setDOG_PHOTO(fileDBName);
+		}
+		
+		if (!dog_uploadfile2.isEmpty()) {
+			String fileName = dog_uploadfile2.getOriginalFilename(); // 원래 파일 명
+			board.setDOG_PHOTO_ORIGINAL2(fileName);
+			String fileDBName = fileDBName(fileName, saveFolder);
+			logger.info("fileDBName = " + fileDBName);
+			
+			dog_uploadfile2.transferTo(new File(saveFolder + fileDBName));
+			board.setDOG_PHOTO2(fileDBName);
+		}
+		
+		if (!dog_uploadfile3.isEmpty()) {
+			String fileName = dog_uploadfile3.getOriginalFilename(); // 원래 파일 명
+			board.setDOG_PHOTO_ORIGINAL3(fileName);
+			String fileDBName = fileDBName(fileName, saveFolder);
+			logger.info("fileDBName = " + fileDBName);
+			
+			dog_uploadfile3.transferTo(new File(saveFolder + fileDBName));
+			board.setDOG_PHOTO3(fileDBName);
+		}
+		
+		if (!dog_uploadfile4.isEmpty()) {
+			String fileName = dog_uploadfile4.getOriginalFilename(); // 원래 파일 명
+			board.setDOG_PHOTO_ORIGINAL4(fileName);
+			String fileDBName = fileDBName(fileName, saveFolder);
+			logger.info("fileDBName = " + fileDBName);
+			
+			dog_uploadfile4.transferTo(new File(saveFolder + fileDBName));
+			board.setDOG_PHOTO4(fileDBName);
+		}
+		
+		if (!dog_uploadfile5.isEmpty()) {
+			String fileName = dog_uploadfile5.getOriginalFilename(); // 원래 파일 명
+			board.setDOG_PHOTO_ORIGINAL5(fileName);
+			String fileDBName = fileDBName(fileName, saveFolder);
+			logger.info("fileDBName = " + fileDBName);
+			
+			dog_uploadfile5.transferTo(new File(saveFolder + fileDBName));
+			board.setDOG_PHOTO5(fileDBName);
 		}
 		
 		boardService.insertBoard(board); // 저장메서드 호출
@@ -439,11 +486,6 @@ public class DoBoardController {
 //		
 //		}
 		
-		
-		
-		
-		
-	
 	@PostMapping("/delete")
 	public String doBoardDeleteActioin(String BOARD_PASS, int num, Model mv, RedirectAttributes rattr, HttpServletRequest request) throws Exception {
 		// 글 삭제 명령을 요청한 사용자가 글을 작성한 사용자인지 판단하기 위해

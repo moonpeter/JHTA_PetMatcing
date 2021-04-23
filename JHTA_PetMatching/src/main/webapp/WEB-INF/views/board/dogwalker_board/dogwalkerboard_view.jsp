@@ -84,9 +84,10 @@ body > div > div:nth-child(6){color:#dc3545}
 </style>
 </head>
 <body>
-	<input type="hidden" id="loginid" value="${id}" name="loginid">
+	<input type="hidden" id="id" value="${loginid}" name="loginid">
 	<div class = "container">
 		<p class="text-danger">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">	
 		  <font size = 4>산책 신청 게시판&nbsp;&nbsp;&nbsp;</font>
 		</p>
 		<hr class="text-danger"> 
@@ -125,7 +126,7 @@ body > div > div:nth-child(6){color:#dc3545}
 				<div class = "center">
 				 		<button id = "comment">댓글</button>
 				 		<span id="count">${count}</span>
-				<c:if test = "${boarddata.BOARD_NAME == id || id == 'admin' }">
+				<c:if test = "${boarddata.BOARD_NAME == loginid || loginid == 'admin' }">
 				 <a href = "modifyView?num=${boarddata.BOARD_NUM}">
 				 	<button id="viewbtn">수정</button>
 				 </a>

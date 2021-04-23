@@ -3,6 +3,7 @@ package com.jhta.petMatching.hhi.controller;
 
 import java.io.File;
 import java.io.UnsupportedEncodingException;
+import java.security.Principal;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -158,7 +159,7 @@ public class FreeBoardController {
 	
 	    // detail?num=9 요청 시 파라미터 num의 값을 int num에 저장합니다.
 		@GetMapping("/detail")
-		public ModelAndView freeDetail(int num, ModelAndView mv, HttpServletRequest request) {
+		public ModelAndView freeDetail(int num, ModelAndView mv, HttpServletRequest request, Principal principal, Model model) {
 			
 			Board board = boardService.getDetail(num);
 			// board null;	// error 페이지 이동 확인하고자 임의로 지정합니다.
@@ -169,10 +170,15 @@ public class FreeBoardController {
 				mv.addObject("message", "상세보기 실패입니다.");
 			} else {
 				logger.info("상세보기 성공");
-				int count = commentService.getListCount(num);
+				int count = commentService.getListCount(num, "freeboard_comments");
 				mv.setViewName("board/free_board/board_view");
 				mv.addObject("count", count);
 				mv.addObject("boarddata", board);
+				
+				String loginid = principal.getName();
+				model.addAttribute("loginid", loginid);
+				
+				model.addAttribute("table_name", "freeboard_comments");
 			}
 			return mv;
 		}
@@ -211,7 +217,9 @@ public class FreeBoardController {
 	
 	//글쓰기
 	@GetMapping(value="/write")
-	public String write(){
+	public String write(Principal principal, Model model){
+			String loginid = principal.getName();
+			model.addAttribute("loginid", loginid);
 	 		return "board/free_board/board_write";
 	}
 
