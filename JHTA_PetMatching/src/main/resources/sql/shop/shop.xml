@@ -48,4 +48,17 @@
 	<select id="listCount" resultType="int">
 		select count(*) from shop_board
 	</select>
+	
+	<select id="categoryListCount" parameterType="String" resultType="int">
+		select count(*) from shop_board where shop_category = #{category}
+	</select>
+	
+	<select id="categoryList" parameterType="map" resultType="shop">
+		select * from 
+		(select rownum rnum, shop.* 
+		from (select * from 
+		shop_board where shop_category = #{category} order by shop_num desc) shop
+		)
+		where rnum >= #{start} and rnum &lt;= #{end}
+	</select>
 </mapper>

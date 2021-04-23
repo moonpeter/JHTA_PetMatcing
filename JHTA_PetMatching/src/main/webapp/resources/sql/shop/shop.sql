@@ -32,11 +32,3 @@ drop sequence shop_seq_num;
 
 create sequence shop_seq_num
 increment by 1;
-
-select * from 
-		(select rownum rnum, shop.* 
-		from (select * from 
-		shop_board order by shop_num desc) shop
-		)
-		where rnum >= 
-		1 and rnum <= 9;

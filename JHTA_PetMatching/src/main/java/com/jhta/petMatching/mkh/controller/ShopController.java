@@ -179,10 +179,33 @@ public class ShopController {
 		}
 		
 		List<Shop> shopList = shopService.getShopList(page, limit);
-		
-		logger.info("!!!!!!!!!!! shoptList : " + shopList.toString() );
-		
+				
 		mv.setViewName("shop/shop_main");
+		mv.addObject("page", page);
+		mv.addObject("maxPage", maxPage);
+		mv.addObject("startPage", startPage);
+		mv.addObject("endPage", endPage);
+		mv.addObject("listCount", listCount);
+		mv.addObject("limit", limit);
+		mv.addObject("shopList", shopList);
+		return mv;
+	}
+	
+	@GetMapping("/list_ajax")
+	public ModelAndView shopListAjax(int page, ModelAndView mv) {
+		
+		int limit = 9; // 한 페이지에 보여줄 게시글의 수 
+		int listCount = shopService.getListCount(); // 총 게시글의 수를 받아옴  
+		int maxPage = (listCount + limit -1) / limit;
+		int startPage = ((page-1) / 9) * 9 + 1;
+		int endPage = startPage + 9 -1;
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
+		
+		List<Shop> shopList = shopService.getShopList(page, limit);
+				
+		mv.setViewName("shop/shop_list_ajax");
 		mv.addObject("page", page);
 		mv.addObject("maxPage", maxPage);
 		mv.addObject("startPage", startPage);
@@ -204,4 +227,56 @@ public class ShopController {
 		return mv;
 	}
 	
+	@GetMapping("/category_list")
+	public ModelAndView shopCategoryList(@RequestParam(value="page", defaultValue="1", required=false) int page, ModelAndView mv, String category) {
+		
+		int limit = 9; // 한 페이지에 보여줄 게시글의 수 
+		int listCount = shopService.getCategoryListCount(category); // 총 게시글의 수를 받아옴  
+		int maxPage = (listCount + limit -1) / limit;
+		int startPage = ((page-1) / 9) * 9 + 1;
+		int endPage = startPage + 9 -1;
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
+		
+		List<Shop> shopList = shopService.getShopCategoryList(page, limit, category);
+				
+		mv.setViewName("shop/shop_main");
+		mv.addObject("category", category);
+		mv.addObject("page", page);
+		mv.addObject("maxPage", maxPage);
+		mv.addObject("startPage", startPage);
+		mv.addObject("endPage", endPage);
+		mv.addObject("listCount", listCount);
+		mv.addObject("limit", limit);
+		mv.addObject("shopList", shopList);
+		return mv;
+	}
+	
+	@GetMapping("/category_list_ajax")
+	public ModelAndView shopCategoryListAjax(@RequestParam(value="page", defaultValue="1", required=false) int page, ModelAndView mv, String category) {
+		
+		page += 1;
+		int limit = 9; // 한 페이지에 보여줄 게시글의 수 
+		int listCount = shopService.getCategoryListCount(category); // 총 게시글의 수를 받아옴  
+		int maxPage = (listCount + limit -1) / limit;
+		int startPage = ((page-1) / 9) * 9 + 1;
+		int endPage = startPage + 9 -1;
+		if(endPage > maxPage) {
+			endPage = maxPage;
+		}
+		
+		List<Shop> shopList = shopService.getShopCategoryList(page, limit, category);
+				
+		mv.setViewName("shop/shop_list_ajax");
+		mv.addObject("category", category);
+		mv.addObject("page", page);
+		mv.addObject("maxPage", maxPage);
+		mv.addObject("startPage", startPage);
+		mv.addObject("endPage", endPage);
+		mv.addObject("listCount", listCount);
+		mv.addObject("limit", limit);
+		mv.addObject("shopList", shopList);
+		return mv;
+	}
 }

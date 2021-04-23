@@ -13,12 +13,6 @@
   	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-	
-	
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 		
 </head>
 <style>
@@ -152,7 +146,7 @@
 				</form>
 			</li>
 			<li class="nav-item"><a class="nav-link"
-				href="${pageContext.request.contextPath}/member/update" style="color:#dc3545">정보수정</a></li>
+				href="${pageContext.request.contextPath}/member/info?id=${pinfo.username}" style="color:#dc3545">내정보</a></li>
 
 			<c:if test="${pinfo.username=='admin'}">
 				<!-- Dropdown -->

@@ -31,4 +31,12 @@ public class ShopDAO {
 		return sqlSession.selectOne("Shops.listCount");
 	}
 
+	public List<Shop> shopCategoryList(HashMap<String, String> map) {
+		return sqlSession.selectList("Shops.categoryList", map);
+	}
+
+	public int getCategoryListCount(String category) {
+		return sqlSession.selectOne("Shops.categoryListCount", category);
+	}
+
 }
