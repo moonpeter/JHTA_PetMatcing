@@ -61,4 +61,19 @@ public class MemberServiceImple implements MemberService{
 	public int insert(Destination d) { //배송지입력
 		return dao.insert(d);
 	}
+
+	@Override
+	public Destination desti_info(String id) {
+		return dao.desti_info(id);
+	}
+
+	@Override
+	public int update(Destination d) {
+		return dao.update(d);
+	}
+	
+	@Override
+	public void desti_delete(String id) {
+		dao.desti_delete(id);
+	}
 }

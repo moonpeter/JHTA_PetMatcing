@@ -26,10 +26,136 @@ public class DoBoard {
 	private String DOG_NAME;
 	private int DOG_AGE;
 	private String DOG_BREED;
-	private String DOG_PHOTO;
 	private String DOG_SPECIAL_NOTE;
 	
+	
+	private String DOG_PHOTO;
 	private MultipartFile dog_uploadfile;	
+	private String DOG_PHOTO_ORIGINAL;
+	
+	private String DOG_PHOTO2;
+	private MultipartFile dog_uploadfile2;
+	private String DOG_PHOTO_ORIGINAL2;
+	
+	private String DOG_PHOTO3;
+	private MultipartFile dog_uploadfile3;
+	private String DOG_PHOTO_ORIGINAL3;
+	
+	private String DOG_PHOTO4;
+	private MultipartFile dog_uploadfile4;
+	private String DOG_PHOTO_ORIGINAL4;
+	
+	private String DOG_PHOTO5;
+	private MultipartFile dog_uploadfile5;
+	private String DOG_PHOTO_ORIGINAL5;
+	
+	
+	
+	public String getDOG_PHOTO_ORIGINAL() {
+		return DOG_PHOTO_ORIGINAL;
+	}
+
+	public void setDOG_PHOTO_ORIGINAL(String dOG_PHOTO_ORIGINAL) {
+		DOG_PHOTO_ORIGINAL = dOG_PHOTO_ORIGINAL;
+	}
+
+	public String getDOG_PHOTO_ORIGINAL2() {
+		return DOG_PHOTO_ORIGINAL2;
+	}
+
+	public void setDOG_PHOTO_ORIGINAL2(String dOG_PHOTO_ORIGINAL2) {
+		DOG_PHOTO_ORIGINAL2 = dOG_PHOTO_ORIGINAL2;
+	}
+
+	public String getDOG_PHOTO_ORIGINAL3() {
+		return DOG_PHOTO_ORIGINAL3;
+	}
+
+	public void setDOG_PHOTO_ORIGINAL3(String dOG_PHOTO_ORIGINAL3) {
+		DOG_PHOTO_ORIGINAL3 = dOG_PHOTO_ORIGINAL3;
+	}
+
+	public String getDOG_PHOTO_ORIGINAL4() {
+		return DOG_PHOTO_ORIGINAL4;
+	}
+
+	public void setDOG_PHOTO_ORIGINAL4(String dOG_PHOTO_ORIGINAL4) {
+		DOG_PHOTO_ORIGINAL4 = dOG_PHOTO_ORIGINAL4;
+	}
+
+	public String getDOG_PHOTO_ORIGINAL5() {
+		return DOG_PHOTO_ORIGINAL5;
+	}
+
+	public void setDOG_PHOTO_ORIGINAL5(String dOG_PHOTO_ORIGINAL5) {
+		DOG_PHOTO_ORIGINAL5 = dOG_PHOTO_ORIGINAL5;
+	}
+
+	public String getDOG_PHOTO2() {
+		return DOG_PHOTO2;
+	}
+	
+	public void setDOG_PHOTO2(String dOG_PHOTO2) {
+		DOG_PHOTO2 = dOG_PHOTO2;
+	}
+
+	public MultipartFile getDog_uploadfile2() {
+		return dog_uploadfile2;
+	}
+
+	public void setDog_uploadfile2(MultipartFile dog_uploadfile2) {
+		this.dog_uploadfile2 = dog_uploadfile2;
+	}
+
+	public String getDOG_PHOTO3() {
+		return DOG_PHOTO3;
+	}
+
+	public void setDOG_PHOTO3(String dOG_PHOTO3) {
+		DOG_PHOTO3 = dOG_PHOTO3;
+	}
+
+	public MultipartFile getDog_uploadfile3() {
+		return dog_uploadfile3;
+	}
+
+	public void setDog_uploadfile3(MultipartFile dog_uploadfile3) {
+		this.dog_uploadfile3 = dog_uploadfile3;
+	}
+
+	public String getDOG_PHOTO4() {
+		return DOG_PHOTO4;
+	}
+
+	public void setDOG_PHOTO4(String dOG_PHOTO4) {
+		DOG_PHOTO4 = dOG_PHOTO4;
+	}
+
+	public MultipartFile getDog_uploadfile4() {
+		return dog_uploadfile4;
+	}
+
+	public void setDog_uploadfile4(MultipartFile dog_uploadfile4) {
+		this.dog_uploadfile4 = dog_uploadfile4;
+	}
+
+	public String getDOG_PHOTO5() {
+		return DOG_PHOTO5;
+	}
+
+	public void setDOG_PHOTO5(String dOG_PHOTO5) {
+		DOG_PHOTO5 = dOG_PHOTO5;
+	}
+
+	public MultipartFile getDog_uploadfile5() {
+		return dog_uploadfile5;
+	}
+
+	public void setDog_uploadfile5(MultipartFile dog_uploadfile5) {
+		this.dog_uploadfile5 = dog_uploadfile5;
+	}
+
+	
 	
 	
 	public MultipartFile getDog_uploadfile() {
