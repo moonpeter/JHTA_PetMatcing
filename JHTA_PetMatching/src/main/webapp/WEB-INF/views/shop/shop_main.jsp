@@ -1,6 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
+
 
 <style>
 	.container {
@@ -25,15 +27,24 @@
       <li><a href="/shop/category_list?category=장난감" class="nav-link px-3 link-danger">장난감</a></li>
       <li><a href="/shop/category_list?category=생활용품" class="nav-link px-3 link-danger">생활용품</a></li>
     </ul>
-  	<button class="btn btn-danger" type="submit" onclick="location.href='/shop/writeForm'">글작성</button>
-  	<button id="categoryName" class="btn btn-danger"> 카테고리 : ${category} </button>
+  	<button id="categoryName" class="btn btn-danger"> 카테고리 : ${category} </button>    
+    <sec:authentication property="principal" var="pinfo" />
+    <c:if test="${pinfo.username == 'admin'}">
+  		<button class="btn btn-primary" type="submit" onclick="location.href='/shop/writeForm'">글작성</button>
+  	</c:if>
 </div>
 
 <div class="container">
-	<form class="d-flex">
-	    <input class="form-control me-2" type="search" placeholder="검색어를 입력하세요." aria-label="Search">
+	<form class="d-flex" method="GET" action="search">
+	    <input class="form-control me-2" name="search_word" type="search" placeholder="검색어를 입력하세요." aria-label="Search">
 	    <button class="btn btn-danger" type="submit">Search</button>
     </form>
+    
+    <c:if test="${searchListCount > 0}">
+    	<h4>"${search_word }"에 대한 검색 결과 : ${searchListCount}개</h4>
+    </c:if>
+    <hr>
+    
     
     <div class="row" id="row">
         <c:forEach var="shop" items="${shopList}">
@@ -72,8 +83,8 @@
 	            var listCount = ${listCount};
 	            	            
 	            if(listCount == 0) {
-                	$(".pageInc").hide();
                 	alert("해당 게시물이 존재하지 않습니다.");
+                	$(".pageInc").hide();
                 }
 	            
 	            $('.pageInc').click(function () {

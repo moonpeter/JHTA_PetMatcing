@@ -4,8 +4,8 @@ create table shop_board(
 	shop_num						number(10)	primary key,	-- 판매글 번호
 	shop_category					varchar2(20) not null,		-- 카테고리
 	shop_title						varchar2(50) not null,		-- 제목
-	shop_price						varchar2(10) not null,		-- 가격
-	shop_country_of_origin			varchar2(10) not null,		-- 원산지
+	shop_price						varchar2(15) not null,		-- 가격
+	shop_country_of_origin			varchar2(20) not null,		-- 원산지
 	shop_brand						varchar2(20) not null,		-- 브랜드
 	
 	shop_thumnail					varchar2(100) not null,		-- 썸네일

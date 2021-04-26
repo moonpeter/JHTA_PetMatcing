@@ -1,5 +1,8 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
+
 
 <style>
 	.container {
@@ -99,8 +102,16 @@
 </div>
 
 <div class="container d-flex flex-row-reverse bd-highlight">
+	<sec:authentication property="principal" var="pinfo" />
+    <c:if test="${pinfo.username == 'admin'}">
+  		<button class="btn btn-primary" type="submit" onclick="location.href='/shop/delete?shop_num=${shop.shop_num}'">삭 제</button> 
+  		<button class="btn btn-info" type="submit" onclick="location.href='/shop/modify?shop_num=${shop.shop_num}'">수 정</button>
+  	</c:if>
+</div>
+
+<div class="container d-flex flex-row-reverse bd-highlight">
 	<button type="button" class="btn btn-danger me-2">장바구니</button>
-	<button type="button" class="btn btn-outline-danger">바로구매</button>
+	<button type="button" class="btn btn-outline-danger">바로 구매</button>
 </div>
 
 <div class="container">

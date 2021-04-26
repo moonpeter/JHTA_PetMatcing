@@ -85,7 +85,7 @@ public class ShopTest {
 //	@Test
 	public void testWrite() throws Exception {
 		logger.info("testWrite() start!!!");
-		FileInputStream fis_thumnail = new FileInputStream("/Users/moonpeter/Desktop/mediatest/image/onion.jpeg");
+		FileInputStream fis_thumnail = new FileInputStream("/Users/moonpeter/Desktop/mediatest/image/naverlogo.jpg");
 		FileInputStream fis = new FileInputStream("/Users/moonpeter/Desktop/mediatest/image/tomato.jpeg");
 		FileInputStream fis2 = new FileInputStream("/Users/moonpeter/projects/portfolio/sts_springTest/uploadformail/image/images123123.jpeg");
 		FileInputStream fis3 = new FileInputStream("/Users/moonpeter/Desktop/mediatest/image/tomato.jpeg");
@@ -229,7 +229,6 @@ public class ShopTest {
 		logger.info("categoryList() end!!!");
 	}
 	
-
 	@Test
 	public void category_list_ajax() {
 		logger.info("category_list_ajax() start!!!");
@@ -260,6 +259,27 @@ public class ShopTest {
 		}
 		
 		logger.info("category_list_ajax() end!!!");
+	}
+	
+//	@Test
+	public void searchList() {
+		logger.info("searchList() start!!!");
+		String searchWord = "건강";
+		int listCount = sqlSession.selectOne("Shops.searchListCount", searchWord);
+		List<Shop> list = sqlSession.selectList("Shops.searchList", searchWord);
+		for (Shop shop : list) {
+			logger.info("title : " + shop.getShop_title());
+		}
+		logger.info("listCount ==== " + listCount);
+		logger.info("searchList() end!!!");
+	}
+	
+	@Test
+	public void shopDelete() {
+		logger.info("shopDelete() start!!!");
+		int result = sqlSession.delete("Shops.shopDelete", 56);
+		logger.info("result === " + result);
+		logger.info("shopDelete() end!!!");
 	}
 	
 }

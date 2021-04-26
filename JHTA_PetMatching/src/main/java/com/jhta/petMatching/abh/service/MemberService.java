@@ -4,14 +4,14 @@ import com.jhta.petMatching.abh.domain.Destination;
 import com.jhta.petMatching.abh.domain.Member;
 
 public interface MemberService {
-		public int isId(String id);	//¾ÆÀÌµğ Áßº¹°Ë»ç
-		public int insert(Member m); //È¸¿ø°¡ÀÔ(DBµî·Ï)
-		public int isId(String id, String password); //·Î±×ÀÎ
-		public Member member_info(String id); //È¸¿ø Á¤º¸
-		public void delete(String id); //È¸¿øÅ»Åğ
-		public int update(Member m); //Á¤º¸ ¼öÁ¤
-		public int insert(Destination d); //¹è¼ÛÁö ÀÔ·Â
-		public Destination desti_info(String id); //¹è¼ÛÁö Á¤º¸
-		public int update(Destination d); //¹è¼ÛÁö ¼öÁ¤
+		public int isId(String id);	//ì•„ì´ë”” ì¤‘ë³µê²€ì‚¬
+		public int insert(Member m); //íšŒì›ê°€ì…(DBë“±ë¡)
+		public int isId(String id, String password); //ë¡œê·¸ì¸
+		public Member member_info(String id); //íšŒì› ì •ë³´
+		public void delete(String id); //íšŒì›íƒˆí‡´
+		public int update(Member m); //ì •ë³´ ìˆ˜ì •
+		public int insert(Destination d); //ë°°ì†¡ì§€ ì…ë ¥
+		public Destination desti_info(String id); //ë°°ì†¡ì§€ ì •ë³´
+		public int update(Destination d); //ë°°ì†¡ì§€ ìˆ˜ì •
 		public void desti_delete(String id);
 }
