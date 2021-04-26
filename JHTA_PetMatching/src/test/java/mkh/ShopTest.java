@@ -229,7 +229,6 @@ public class ShopTest {
 		logger.info("categoryList() end!!!");
 	}
 	
-
 	@Test
 	public void category_list_ajax() {
 		logger.info("category_list_ajax() start!!!");
