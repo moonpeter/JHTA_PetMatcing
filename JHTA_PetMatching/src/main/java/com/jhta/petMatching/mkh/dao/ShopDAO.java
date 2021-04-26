@@ -39,4 +39,16 @@ public class ShopDAO {
 		return sqlSession.selectOne("Shops.categoryListCount", category);
 	}
 
+	public int getSearchListCount(String search_word) {
+		return sqlSession.selectOne("Shops.searchListCount", search_word);
+	}
+
+	public List<Shop> getSearchList(String search_word) {
+		return sqlSession.selectList("Shops.searchList", search_word);
+	}
+
+	public int shopDelete(int shop_num) {
+		return sqlSession.delete("Shops.shopDelete", shop_num);
+	}
+
 }
