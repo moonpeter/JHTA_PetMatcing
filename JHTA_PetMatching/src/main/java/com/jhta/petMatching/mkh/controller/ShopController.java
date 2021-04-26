@@ -279,4 +279,41 @@ public class ShopController {
 		mv.addObject("shopList", shopList);
 		return mv;
 	}
+	
+	@GetMapping("/search")
+	public ModelAndView searchList(ModelAndView mv, String search_word) {
+		int searchListCount = shopService.getSearchListCount(search_word);
+		
+		List<Shop> shopList = shopService.getSearchList(search_word);
+		
+		mv.addObject("searchListCount", searchListCount);
+		mv.addObject("shopList", shopList);
+		mv.addObject("search_word", search_word);
+		mv.setViewName("shop/shop_main");
+		return mv;
+	}
+	
+	@GetMapping("/delete")
+	public String shopDelete(int shop_num) {
+		int result = shopService.shopDelete(shop_num);
+		return "redirect:list";
+	}
+	
+	@GetMapping("/modifyForm")
+	public ModelAndView shopModifyForm(ModelAndView mv, int shop_num) {
+		
+		Shop shopBoard = shopService.getShopDetail(shop_num);
+		mv.addObject("shopBoard", shopBoard);
+		mv.setViewName("shop/shop_modify");
+		return mv;
+	}
+	
+	@PostMapping("/modify")
+	public String shopModify(Shop shop) {
+		
+		int result = shopService.shopModify(shop);
+
+		return "redirect:list";	
+	}
+
 }

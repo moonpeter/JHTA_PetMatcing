@@ -61,4 +61,32 @@
 		)
 		where rnum >= #{start} and rnum &lt;= #{end}
 	</select>
+	
+	<select id="searchListCount" parameterType="String" resultType="int">
+		select count(*) from shop_board where shop_title like '%'||#{search_word}||'%'
+	</select>
+	
+	<select id="searchList" parameterType="map" resultType="shop">
+		select * from 
+		(select rownum rnum, shop.* 
+		from (select * from 
+		shop_board where shop_title like  '%'||#{search_word}||'%' order by shop_num desc) shop
+		)
+		<!-- where rnum >= #{start} and rnum &lt;= #{end} -->
+	</select>
+	
+	<delete id="shopDelete" parameterType="int">
+		delete from shop_board where shop_num = #{shop_num}
+	</delete>
+	
+	<update id="shopModify">
+		update shop_board set
+		shop_category = #{shop_category},
+		shop_title = #{shop_title},
+		shop_price = #{shop_price},
+		shop_country_of_origin = #{shop_country_of_origin},
+		shop_brand = #{shop_brand},
+		shop_text_content = #{shop_text_content} 
+		where shop_num = #{shop_num}
+	</update>
 </mapper>

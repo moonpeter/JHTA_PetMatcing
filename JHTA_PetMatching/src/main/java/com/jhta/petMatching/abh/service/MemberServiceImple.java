@@ -18,47 +18,47 @@ public class MemberServiceImple implements MemberService{
 	private PasswordEncoder passwordEncoder;
 
 	@Override
-	public int isId(String id) {			//È¸¿ø°¡ÀÔ ½Ã ¾ÆÀÌµğ Áßº¹°Ë»ç
-		Member rmember = dao.isId(id);		//-1Àº ¾ÆÀÌµğ°¡ Á¸ÀçÇÏÁö ¾ÊÀ½
-		return (rmember==null) ? -1 : 1;	//1Àº ¾ÆÀÌµğ°¡ Á¸Àç
+	public int isId(String id) {			//íšŒì›ê°€ì… ì‹œ ì•„ì´ë”” ì¤‘ë³µê²€ì‚¬
+		Member rmember = dao.isId(id);		//-1ì€ ì•„ì´ë””ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŒ
+		return (rmember==null) ? -1 : 1;	//1ì€ ì•„ì´ë””ê°€ ì¡´ì¬
 	}
 
 	@Override
-	public int insert(Member m) {	//È¸¿ø°¡ÀÔ ÀÛ¼º¿Ï·á
-		return dao.insert(m);		//insert Ã³¸®¹®
+	public int insert(Member m) {	//íšŒì›ê°€ì… ì‘ì„±ì™„ë£Œ
+		return dao.insert(m);		//insert ì²˜ë¦¬ë¬¸
 	}
 
 	@Override
-	public int isId(String id, String password) {	//·Î±×ÀÎ ½Ãµµ
+	public int isId(String id, String password) {	//ë¡œê·¸ì¸ ì‹œë„
 		Member rmember = dao.isId(id);
-		int result = -1;	//¾ÆÀÌµğ°¡ Á¸ÀçÇÏÁö ¾ÊÀº °æ¿ì -> rmember°¡ nullÀÎ °æ¿ì
-		if(rmember != null) {//¾Æµğµğ°¡ Á¸ÀçÇÏ´Â °æ¿ì
+		int result = -1;	//ì•„ì´ë””ê°€ ì¡´ì¬í•˜ì§€ ì•Šì€ ê²½ìš° -> rmemberê°€ nullì¸ ê²½ìš°
+		if(rmember != null) {//ì•„ë””ë””ê°€ ì¡´ì¬í•˜ëŠ” ê²½ìš°
 			if(passwordEncoder.matches(password, rmember.getPassword())) {
-				result = 1;	//¾ÆÀÌµğ¿Í ºñ¹Ğ¹øÈ£ ÀÏÄ¡
+				result = 1;	//ì•„ì´ë””ì™€ ë¹„ë°€ë²ˆí˜¸ ì¼ì¹˜
 			}else {
-				result = 0;	//¾ÆÀÌµğ´Â Á¸Àç, ºñ¹Ğ¹øÈ£ ºÒÀÏÄ¡
+				result = 0;	//ì•„ì´ë””ëŠ” ì¡´ì¬, ë¹„ë°€ë²ˆí˜¸ ë¶ˆì¼ì¹˜
 			}
 		}
 		return result;
 	}
 	
 	@Override
-	public Member member_info(String id) { //È¸¿øÁ¤º¸
+	public Member member_info(String id) { //íšŒì›ì •ë³´
 		return dao.member_info(id);
 	}
 	
 	@Override
-	public void delete(String id) { //È¸¿ø»èÁ¦
+	public void delete(String id) { //íšŒì›ì‚­ì œ
 		dao.delete(id);
 	}
 	
 	@Override
-	public int update(Member m) { //Á¤º¸¼öÁ¤
+	public int update(Member m) { //ì •ë³´ìˆ˜ì •
 		return dao.update(m);
 	}
 
 	@Override
-	public int insert(Destination d) { //¹è¼ÛÁöÀÔ·Â
+	public int insert(Destination d) { //ë°°ì†¡ì§€ì…ë ¥
 		return dao.insert(d);
 	}
 

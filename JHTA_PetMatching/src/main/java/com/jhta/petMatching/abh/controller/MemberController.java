@@ -37,50 +37,50 @@ public class MemberController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET) //·Î±×ÀÎ È­¸é
+	@RequestMapping(value = "/login", method = RequestMethod.GET) //ï¿½Î±ï¿½ï¿½ï¿½ È­ï¿½ï¿½
 	public String loginPage(ModelAndView mv, @CookieValue(value = "remember", required = false) Cookie readCookie,
 			Model model, HttpSession session, Principal principal) {
 		model.addAttribute("loginFailMsg", session.getAttribute("loginFailMsg"));
 		session.removeAttribute("loginFailMsg");
 		if (readCookie != null) {
-			logger.info("ÀúÀåµÈ ¾ÆÀÌµð = " + principal.getName());
+			logger.info("ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ = " + principal.getName());
 		}
 		return "member/member_login";
 	}
 
-	@RequestMapping(value = "/join", method = RequestMethod.GET) //È¸¿ø°¡ÀÔ È­¸é
+	@RequestMapping(value = "/join", method = RequestMethod.GET) //È¸ï¿½ï¿½ï¿½ï¿½ È­ï¿½ï¿½
 	public String joinPage() {
 		return "member/member_join";
 	}
 
-	@RequestMapping(value = "/joinProcess", method = RequestMethod.POST) //È¸¿ø°¡ÀÔ ÇÁ·Î¼¼½º
+	@RequestMapping(value = "/joinProcess", method = RequestMethod.POST) //È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Î¼ï¿½ï¿½ï¿½
 	public String joinProcess(Member member, RedirectAttributes rattr, Model model, HttpServletRequest request)
 			throws Exception {
-		// ºñ¹Ð¹øÈ£ ¾ÏÈ£È­
+		// ï¿½ï¿½Ð¹ï¿½È£ ï¿½ï¿½È£È­
 		String encPassword = passwordEncoder.encode(member.getPassword());
 		logger.info(encPassword);
 		member.setPassword(encPassword);
 
 		int result = memberService.insert(member);
 
-		// »ðÀÔ ¼º°ø
+		// ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		if (result == 1) {
 			rattr.addFlashAttribute("result", "joinSuccess");
 			return "redirect:login";
 		} else {
 			model.addAttribute("url", request.getRequestURL());
-			model.addAttribute("message", "È¸¿ø°¡ÀÔ ½ÇÆÐ");
+			model.addAttribute("message", "È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
 			return "error/error";
 		}
 	}
 
-	@RequestMapping(value = "/logout", method = {RequestMethod.GET, RequestMethod.POST}) //·Î±×¾Æ¿ô
+	@RequestMapping(value = "/logout", method = {RequestMethod.GET, RequestMethod.POST}) //ï¿½Î±×¾Æ¿ï¿½
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:login";
 	}
 
-	@RequestMapping(value = "/idcheck", method = RequestMethod.GET) //¾ÆÀÌµð Áßº¹°Ë»ç
+	@RequestMapping(value = "/idcheck", method = RequestMethod.GET) //ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ßºï¿½ï¿½Ë»ï¿½
 	public void idcheck(@RequestParam("id") String id, HttpServletResponse response) throws Exception {
 		int result = memberService.isId(id);
 		response.setContentType("text/html;charset=utf-8");
@@ -88,7 +88,7 @@ public class MemberController {
 		out.print(result);
 	}
 
-	@RequestMapping(value = "/info", method = RequestMethod.GET) //³»Á¤º¸ º¸±â
+	@RequestMapping(value = "/info", method = RequestMethod.GET) //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public ModelAndView member_info(@RequestParam("id") String id, ModelAndView mv, HttpServletRequest request) {
 		Member m = memberService.member_info(id);
 		if (m != null) {
@@ -97,7 +97,7 @@ public class MemberController {
 		} else {
 			mv.setViewName("error/error");
 			mv.addObject("url", request.getRequestURL());
-			mv.addObject("message", "ÇØ´ç Á¤º¸°¡ ¾ø½À´Ï´Ù.");
+			mv.addObject("message", "ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½.");
 		}
 		
 		Destination d = memberService.desti_info(id);
@@ -106,7 +106,7 @@ public class MemberController {
 		return mv;
 	}
 
-	@RequestMapping(value = "/update") //³»Á¤º¸ ¼öÁ¤ È­¸é
+	@RequestMapping(value = "/update") //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ È­ï¿½ï¿½
 	public ModelAndView member_update(Member member, ModelAndView mv, Principal principal) { 
 		String id = (String) principal.getName();
 		String password = member.getPassword();
@@ -123,7 +123,7 @@ public class MemberController {
 		return mv;
 	}
 
-	@RequestMapping(value = "/updateProcess", method = RequestMethod.POST) //³»Á¤º¸ ¼öÁ¤ ÇÁ·Î¼¼½º
+	@RequestMapping(value = "/updateProcess", method = RequestMethod.POST) //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Î¼ï¿½ï¿½ï¿½
 	public String updateProcess(Member member, Model model, HttpServletRequest request, RedirectAttributes rattr) {
 		String encPassword = passwordEncoder.encode(member.getPassword());
 		logger.info(encPassword);
@@ -135,19 +135,19 @@ public class MemberController {
 			return "redirect:/home/main";
 		} else {
 			model.addAttribute("url", request.getRequestURL());
-			model.addAttribute("message", "¼öÁ¤¿¡ ½ÇÆÐÇÏ¿´½À´Ï´Ù");
+			model.addAttribute("message", "ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½Ï´ï¿½");
 			return "error/error";
 		}
 	}
 
-	@RequestMapping(value = "/delete", method = {RequestMethod.GET, RequestMethod.POST}) //È¸¿øÅ»Åð
+	@RequestMapping(value = "/delete", method = {RequestMethod.GET, RequestMethod.POST}) //È¸ï¿½ï¿½Å»ï¿½ï¿½
 	public String member_delete(Principal principal) {
 		memberService.delete(principal.getName());
 		memberService.desti_delete(principal.getName());
 		return "redirect:logout";
 	}
 
-	@RequestMapping(value = "/destination") //¹è¼ÛÁö ÀÔ·Â È­¸é
+	@RequestMapping(value = "/destination") //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ È­ï¿½ï¿½
 	public ModelAndView desti_Page(ModelAndView mv, Principal principal) {
 		String id = (String) principal.getName();
 		if (id == null) {
@@ -160,7 +160,7 @@ public class MemberController {
 		return mv;
 	}
 
-	@RequestMapping(value = "/desti_Process", method = RequestMethod.POST) //¹è¼ÛÁö ÀÔ·Â ÇÁ·Î¼¼½º
+	@RequestMapping(value = "/desti_Process", method = RequestMethod.POST) //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ ï¿½ï¿½Î¼ï¿½ï¿½ï¿½
 	public String desti_Process(Destination d, RedirectAttributes rattr, Model model, HttpServletRequest request)
 			throws Exception {
 		int result = memberService.insert(d);
@@ -170,29 +170,29 @@ public class MemberController {
 			return "redirect:/home/main";
 		} else {
 			model.addAttribute("url", request.getRequestURL());
-			model.addAttribute("message", "¹è¼ÛÁö ÀÔ·Â ½ÇÆÐ");
+			model.addAttribute("message", "ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ô·ï¿½ ï¿½ï¿½ï¿½ï¿½");
 			return "error/error";
 		}
 	}
 
-	@RequestMapping(value = "/desti_info") //¹è¼ÛÁö Á¤º¸ È­¸é
+	@RequestMapping(value = "/desti_info") //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ È­ï¿½ï¿½
 	public ModelAndView desti_info(@RequestParam(value="id", required=false) String id, ModelAndView mv,
 					Principal principal,
 					HttpServletRequest request) {
 		Destination d = memberService.desti_info(principal.getName());
-		logger.info("dÀÇ °ª : " + d);
+		logger.info("dï¿½ï¿½ ï¿½ï¿½ : " + d);
 		if (d != null) {
 			mv.setViewName("member/member_desti");
 			mv.addObject("destiinfo", d);
 		} else {
 			mv.setViewName("error/error");
 			mv.addObject("url", request.getRequestURL());
-			mv.addObject("message", "ÇØ´ç Á¤º¸°¡ ¾ø½À´Ï´Ù.");
+			mv.addObject("message", "ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ï´ï¿½.");
 		}
 		return mv;
 	}
 	
-	@RequestMapping(value = "/desti_update") //¹è¼ÛÁö ¼öÁ¤ È­¸é
+	@RequestMapping(value = "/desti_update") //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ È­ï¿½ï¿½
 	public ModelAndView destiProcess(ModelAndView mv, Principal principal) {
 		String id = (String) principal.getName();
 		if (id == null) {
@@ -205,7 +205,7 @@ public class MemberController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/desti_updateProcess", method = RequestMethod.POST) //¹è¼ÛÁö ¼öÁ¤ ÇÁ·Î¼¼½º
+	@RequestMapping(value = "/desti_updateProcess", method = RequestMethod.POST) //ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½Î¼ï¿½ï¿½ï¿½
 	public String desti_updateProcess(Destination d, Model model, HttpServletRequest request, RedirectAttributes rattr) {
 		int result = memberService.update(d);
 		
@@ -214,7 +214,7 @@ public class MemberController {
 			return "redirect:/home/main";
 		} else {
 			model.addAttribute("url", request.getRequestURL());
-			model.addAttribute("message", "¼öÁ¤¿¡ ½ÇÆÐÇÏ¿´½À´Ï´Ù");
+			model.addAttribute("message", "ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ï¿½ï¿½Ï´ï¿½");
 			return "error/error";
 		}
 	}
