@@ -51,9 +51,6 @@ public class DwBoardController {
 	@Autowired
 	private CommentService commentService;
 
-	@Value("${savefoldername_dw}")
-	private String saveFolder;
-
 	// List 출력
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView dwboardList(@RequestParam(value = "page", defaultValue = "1", required = false) int page,
@@ -239,6 +236,8 @@ public class DwBoardController {
 	public String dwBoardModifyAction(DwBoard boarddata, String check, Model mv, HttpServletRequest request,
 			RedirectAttributes rattr) throws Exception {
 
+		String saveFolder =request.getSession().getServletContext().getRealPath("resources")+"/dwboard_upload/";
+		
 		String before_file = boarddata.getBOARD_FILE();
 
 		boolean usercheck = boardService.isBoardWriter(boarddata.getBOARD_NUM(), boarddata.getBOARD_PASS());
@@ -308,8 +307,10 @@ public class DwBoardController {
 	}
 
 	@PostMapping("/add")
-	public String add(DwBoard board) throws Exception {
+	public String add(DwBoard board, HttpServletRequest request) throws Exception {
 
+		String saveFolder =request.getSession().getServletContext().getRealPath("resources")+"/dwboard_upload/";
+		
 		MultipartFile uploadfile = board.getUploadfile();
 
 		if (!uploadfile.isEmpty()) {
@@ -406,10 +407,9 @@ public class DwBoardController {
 	@GetMapping(value = "/down", produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
 
 	public ResponseEntity<Resource> dwdownloadFile(String original, String filename, HttpServletRequest request) {
-
-		// String saveFolder =
-		// request.getSession().getServletContext().getRealPath("resources") +
-		// "/upload/";
+		
+		String saveFolder =request.getSession().getServletContext().getRealPath("resources")+"/dwboard_upload/";
+		
 		logger.info(saveFolder);
 		Resource resource = new FileSystemResource(saveFolder + filename);
 
