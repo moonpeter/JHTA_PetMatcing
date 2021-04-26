@@ -27,6 +27,8 @@ function ajax(sdata){
 			$("#viewcount").val(data.limit);
 			$("table").find("font").text("글 갯수 : " + data.listcount);
 			
+//			$("#count").text(data.listcount);
+			
 			if(data.listcount > 0){	// 총 갯수가 0보다 큰 경우
 				$("tbody").remove();
 				var num = data.listcount - (data.page - 1) * data.limit;
@@ -50,7 +52,8 @@ function ajax(sdata){
 						
 						output += "<td><div>" + blank + img
 						output += '<a href = "detail?num=' + item.board_NUM + '">'
-						output += subject + '</a></div></td>'
+						output += subject 
+						output += data.count + '</a></div></td>'
 						output += '<td><div>' + item.board_NAME + '</div></td>'
 						output += '<td><div>' + item.board_DATE + '</div></td>'
 						output += '<td><div>' + item.board_READCOUNT + '</div></td></tr>'

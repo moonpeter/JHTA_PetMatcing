@@ -22,7 +22,7 @@
 					return false;
 				}
 			})
-		})
+		}) 
 	</script>
 <style>
 	body > div > table > tbody >tr:nth-child(1) {text-align: center}
@@ -58,8 +58,7 @@ body > div > div:nth-child(6){color:#dc3545}
 	<input type="hidden" id="id" value="${loginid}" name="loginid"> 
 	<input type="hidden" id="table_name" value="${table_name}"> 
 	<div class = "container">
-		<p class="text-danger">
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">	
+		<p class="text-danger">	
 		  <font size = 4>자유게시판&nbsp;&nbsp;&nbsp;</font>
 		</p>
 		<hr class="text-danger"> 
@@ -132,6 +131,7 @@ body > div > div:nth-child(6){color:#dc3545}
 		 		</div>
 		 		<button type = "submit" class = "btn btn-primary">전송</button>
 		 		<button type = "button" class = "btn btn-danger" data-dismiss = "modal">취소</button>
+		 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 		 		
 		 		</form>
 		 	</div>

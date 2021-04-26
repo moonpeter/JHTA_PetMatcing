@@ -22,8 +22,18 @@ public class DwBoard {
 	private String BOARD_ORIGINAL;		// 첨부될 파일의 이름
 	private String BOARD_DATE;
 	
+	private int cnt;
 	
 	
+	
+	public int getCnt() {
+		return cnt;
+	}
+
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
+
 	public int getBOARD_NUM() {
 		return BOARD_NUM;
 	}

@@ -130,7 +130,7 @@ public class DoBoardController {
 						@RequestParam(value="search_field", defaultValue="", required=false) String index,
 						@RequestParam(value="search_word", defaultValue="", required=false) String search_word
 						) {
-						List<Board> list = null;
+						List<DoBoard> list = null;
 						int listcount = 0;
 						
 						list = boardService.getSearchList(index, search_word, page, limit);
@@ -142,7 +142,7 @@ public class DoBoardController {
 						if(endpage > maxpage)
 							endpage = maxpage;
 						
-						mv.setViewName("board/do_board/board_list");
+						mv.setViewName("board/dogowner_board/dogownerboard_list");
 						mv.addObject("page", page);			
 						mv.addObject("maxpage", maxpage);
 						mv.addObject("startpage", startpage);
@@ -276,7 +276,7 @@ public class DoBoardController {
 			} else {
 				
 				// if(!uploadfile.isEmpty()) { // 2. 파일 변경한 경우
-				if(uploadfile!=null && uploadfile.isEmpty()) {
+				if(uploadfile!=null && !uploadfile.isEmpty()) {
 					logger.info("파일 변경되었습니다.");
 					// 답변 글을 수정할 경우 <input type="file" id="upfile" name="uploadfile" > 엘리먼트가 존재하지 않아
 					// private MultipartFile uploadfile; 에서 uploadfile은 null 입니다.

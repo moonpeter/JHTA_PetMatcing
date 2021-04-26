@@ -8,7 +8,8 @@
 		select count(*) from dw_board
 	</select>
 
-	<select id="list" parameterType="java.util.Map" resultType="Dwboard">
+	<!-- 기존 list 쿼리문  -->
+	<!-- <select id="list" parameterType="java.util.Map" resultType="Dwboard">
 		select * from
 			( select rownum rnum, b.*
 				from
@@ -17,6 +18,20 @@
 					 BOARD_RE_SEQ asc) b
 			)
 			where rnum &gt;= #{start} and rnum &lt;= #{end}
+	</select> -->
+	
+	<!--  댓글 갯수 count list 쿼리문  -->
+	<select id="list" parameterType="java.util.Map" resultType="Dwboard">
+		select * from
+		( select rownum rnum, b.*
+		from
+		(select dw_board.* ,(select count(*) as cnt from dwboard_comments where
+		dwboard_comments.board_num=dw_board.board_num) as cnt
+		from dw_board
+		order by BOARD_RE_REF desc,
+		BOARD_RE_SEQ asc) b
+		)
+		where rnum &gt;= #{start} and rnum &lt;= #{end}
 	</select>
 	
 	<select id="getSearchList" parameterType="map" resultType="Dwboard">

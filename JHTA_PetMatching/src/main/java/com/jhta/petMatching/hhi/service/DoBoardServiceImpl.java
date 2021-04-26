@@ -112,7 +112,7 @@ public class DoBoardServiceImpl implements DoBoardService {
 	}
 
 	@Override
-	public List<Board> getSearchList(String index, String search_word, int page, int limit) {
+	public List<DoBoard> getSearchList(String index, String search_word, int page, int limit) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(!index.equals("")) {
 			String[] search_field = index.split("");

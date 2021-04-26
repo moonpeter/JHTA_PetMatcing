@@ -2,7 +2,7 @@
 <%@ taglib prefix = "c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-	<title>MVC 게시판</title>
+	<title>자유게시판</title>
 	<jsp:include page = "/WEB-INF/views/common/header.jsp"/>
 	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.js"></script>
 	<script src = "${pageContext.request.contextPath}/resources/js/modifyform.js"></script>
@@ -25,10 +25,11 @@
 	<div class = "container">
 		<form action = "modifyAction" method = "post" name = "modifyform"
 				enctype="multipart/form-data">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 			<input type = "hidden" name = "BOARD_NUM" value = "${boarddata.BOARD_NUM}">
 			<input type = "hidden" name = "BOARD_FILE" value = "${boarddata.BOARD_FILE}">
 			<p class="text-danger">
-			  <font size = 4>산책 신청 게시판&nbsp;&nbsp;&nbsp;</font>
+			  <font size = 4>자유게시판 (수정)&nbsp;&nbsp;&nbsp;</font>
 			</p>
 			<hr class="text-danger">
 			
