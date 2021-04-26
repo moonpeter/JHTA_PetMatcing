@@ -18,8 +18,10 @@
 		 <typeAlias alias="Docomments" type="com.jhta.petMatching.hhi.domain.Comment" />
 		 <typeAlias alias="member" type="com.jhta.petMatching.abh.domain.Member" />
 		 <typeAlias alias="destination" type="com.jhta.petMatching.abh.domain.Destination" />
- 		 <typeAlias alias="message" type="com.jhta.petMatching.ahnyh.domain.Message" />		 
  		 <typeAlias alias="shop" type="com.jhta.petMatching.mkh.domain.Shop" />		 
+ 		 <typeAlias alias="message" type="com.jhta.petMatching.ahnyh.domain.Message" />
+ 		 <typeAlias alias="imageboard" type="com.jhta.petMatching.ahnyh.domain.ImageBoard" />
+         <typeAlias alias="imageboardcomment" type="com.jhta.petMatching.ahnyh.domain.ImageBoardComment" />		 
 	</typeAliases>
 
 	<mappers>
@@ -31,7 +33,9 @@
 		    <mapper resource="sql/comment/comment_do.xml" />
 		    <mapper resource="sql/member/member.xml" />
 		    <mapper resource="sql/shop/shop.xml" />
-		    <mapper resource="sql/message.xml" />
+		    <mapper resource="sql/message/message.xml" />
+		    <mapper resource="sql/imageboard/imageboard.xml" />
+		    <mapper resource="sql/imageboard/imageboard_comment.xml" />
 	</mappers>
 	
 	

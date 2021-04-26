@@ -38,49 +38,6 @@ function messagePopUp(){
 };
 </script>
 <style>
-body > div > table > tbody >tr:nth-child(1) {
-	text-align: center
-}
-
-td:nth-child(1) {
-	width: 20%
-}
-
-a {
-	color: white
-}
-
-body > div > table > tbody >tr:nth-child(5)>td:nth-child(2)>a {
-	color: black
-}
-
-body > div > table > tbody tr:last-child {
-	text-align: center;
-}
-
-.btn-primary {
-	background-color: #4f97e5
-}
-
-
-
-#myModal {
-	display: none
-}
-
-#comment > table > tbody > tr > td:nth-child(2){
- width:60%
-}
-#count{
- position: relative;
-    top: -10px;
-    left: -10px;
-    background: orange;
-    color: white;
-    border-radius: 30%;
-}
-
-textarea{resize:none}
 #send{background-color:white; color:#dc3545;  height:40px;
         border-radius:10px; border: 2px solid #dc3545;}
 #image1{margin-top:-2%}
