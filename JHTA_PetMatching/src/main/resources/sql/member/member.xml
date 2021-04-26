@@ -33,12 +33,28 @@
 	
 	<insert id="insert2" parameterType="destination">
 		Insert into destination
-		values(#{name}, #{post}, #{address}, #{phone}, #{request})
+		values(#{id}, #{name}, #{post}, #{address}, #{phone}, #{request})
 	</insert>
 	
 	<select id="desticheck" resultType="destination" parameterType="String">
-		select *
+		Select *
 		from destination
-		where name = #{name}
+		where id = #{id}
 	</select>
+	
+	<update id="destiupdate" parameterType="destination">
+		Update destination
+		Set id = #{id},
+		name = #{name},
+		post = #{post},
+		address = #{address},
+		phone = #{phone},
+		request = #{request}
+		where id = #{id}
+	</update>
+	
+	<delete id="destidelete" parameterType="destination">
+		Delete From destination
+		Where id = #{id}
+	</delete>
 </mapper>

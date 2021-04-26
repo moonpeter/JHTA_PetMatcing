@@ -3,13 +3,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>배송지 입력</title>
+<title>배송지 수정</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 </head>
 <style>
 .container {
@@ -79,37 +78,37 @@ li > a {
 }
 </style>
 <body>
-	<jsp:include page="/WEB-INF/views/common/header.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/views/common/header.jsp" />
 	<div class="container text-danger">
 		<div class="container-wrapper">
 			<div class="logo">
-				<h3>배송지 입력</h3>
+				<h3>배송지 수정</h3>
 				<b>*안에 내용은 반드시 작성해주세요!</b>
 			</div>
-			<form action="desti_Process" method="post">
-				<input class="form-control" type="hidden" name="id" id="id" value = "${memberinfo.id }"> <!--ID를 통해 배송지,내정보 공유 -->
+			<form action="desti_updateProcess" method="post">
+				<input class="form-control" type="hidden" name="id" id="id" value = "${destiinfo.id }"> <!--ID를 통해 배송지,내정보 공유 -->
 				
 				<label for="name">받는사람*</label> <span id = "message"></span> <!-- *은 필수입력이라는 표시 -->
-				<input class="form-control" type="text" name="name" id="name" required>
+				<input class="form-control" type="text" name="name" id="name" value = "${destiinfo.name }" required>
 				
 				
 				<label for="post">우편번호*</label> <input type="button" value="우편검색" id="post1">
-				<input class="form-control" type="text" name="post" id="post" readonly required>
+				<input class="form-control" type="text" name="post" id="post" value = "${destiinfo.post }" readonly required>
 				
 				<label for="address">주소* [동, 호수까지 정확하게 게시]</label>
-				<input class="form-control" type="text" name="address" id="address" required>
+				<input class="form-control" type="text" name="address" id="address" value = "${destiinfo.address }" required>
 				
 				
 				<label for="phone">핸드폰 번호* [예) 010-1234-5678]</label> <span id = "message2"></span>
-				<input class="form-control"	type="text" name="phone" id="phone" required>
+				<input class="form-control"	type="text" name="phone" id="phone" value = "${destiinfo.phone }" required>
 
 				<label for="request">요청사항 [예) 공동현관 비밀번호, 부재시 문 앞]</label> 
-				<input class="form-control" type="text" name="request" id="request">
+				<input class="form-control" type="text" name="request" id="request" value = "${destiinfo.request }">
 					
 
 				<div class="form-group">
 					<button type="button" id="cencelbtn">취소</button>
-					<button type="submit" id="submitbtn">작성완료</button>
+					<button type="submit" id="submitbtn">수정완료</button>
 				</div>
 				<input type = "hidden" name = "${_csrf.parameterName}" value = "${_csrf.token}">
 			</form>
@@ -119,9 +118,9 @@ li > a {
 </body>
 <script>
 $(document).ready(function (){
-var checkname = false;
-var checkphone = false;
-	
+	var checkname = false;
+	var checkphone = false;
+		
 	//가입하기 눌렀을 때
 	$('form').submit(function(){
 		if(!checkname){
@@ -129,14 +128,14 @@ var checkphone = false;
 			$("#name").val('').focus();
 			return false;
 		}
-	
+		
 		if(!checkphone){
 			alert("핸드폰번호를 양식대로 입력해주세요");
 			$("#phone").val('').focus();
 			return false;
 		}
 	});
-	
+		
 	//이름 검사
 	$("#name").on('keyup', function(){
 		checkname = true;
@@ -149,7 +148,7 @@ var checkphone = false;
 			return;
 		}
 	})
-	
+		
 	//핸드폰번호 검사
 	$("#phone").on('keyup', function(){
 		checkphone = true;
@@ -162,13 +161,14 @@ var checkphone = false;
 			return;
 		}
 	})
-	
+		
 	//취소버튼 클릭 시 뒤로가기
 	$("#cencelbtn").click(function() {
 		history.back();
 	});
 })
-
+	
+	
 //우편검색 클릭 시
 $('#post1').click(function() {
     new daum.Postcode({
