@@ -5,6 +5,7 @@
 <html>
 <head>
 <title>로그인</title>
+<link rel="shortcut icon" href="#">
 <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -69,15 +70,6 @@ input[type=password]{
 	color:red;
 }
 
-#naver_btn{
-	width:270px;
-	height:50px;
-	background-color:#81c147;
-	color:white;
-	border:0;
-	margin-top:15px;
-}
-
 .form-group-wrapper{
 	margin:30px 0 0 16%;
 }
@@ -124,7 +116,6 @@ input[type=password]{
 					<div class="form-group-wrapper">
 						<button type="submit" id="login_btn">로그인하기</button>
 						<button type="button" id="join_btn">회원가입</button>
-						<button type="button" id="naver_btn">네이버로 로그인하기2</button>
 					</div>
 				</div>
 				<input type = "hidden" name = "${_csrf.parameterName}" value = "${_csrf.token}">

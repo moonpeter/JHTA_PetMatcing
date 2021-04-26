@@ -8,6 +8,6 @@ last_used timestamp not null
 select *
 from login_token;
 
-delete login_token;
+delete login_token;x
 
 drop table login_token;

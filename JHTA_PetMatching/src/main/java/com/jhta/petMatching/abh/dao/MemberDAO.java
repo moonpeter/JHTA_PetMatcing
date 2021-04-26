@@ -37,4 +37,16 @@ public class MemberDAO {
 	public int insert(Destination d) {
 		return sqlSession.insert("Members.insert2", d);
 	}
+	
+	public Destination desti_info(String id) {
+		return sqlSession.selectOne("Members.desticheck", id);
+	}
+
+	public int update(Destination d) {
+		return sqlSession.update("Members.destiupdate", d);
+	}
+	
+	public void desti_delete(String id) {
+		sqlSession.delete("Members.destidelete", id);
+	}
 }

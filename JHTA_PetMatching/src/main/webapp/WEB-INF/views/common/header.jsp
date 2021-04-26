@@ -83,7 +83,7 @@
     </a>
 
     <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-      <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
+      <li><a href="/home/main" class="nav-link px-2 link-secondary">Home</a></li>
 	  <li>
        <div class="dropdown">
        <button class="dropbtn nav-link px-2 link-danger">산책 신청</button>
@@ -93,7 +93,7 @@
 	        </div>
 	       </div>
       </li>
-      <li><a href="#" class="nav-link px-2 link-danger">산책로 추천</a></li>
+      <li><a href="/image_board/list" class="nav-link px-2 link-danger">산책로 추천</a></li>
       <li><a href="/free_board/list" class="nav-link px-2 link-danger">자유게시판</a></li>
       <li><a href="/shop/list" class="nav-link px-2 link-danger">쇼핑몰</a></li>
     </ul>
@@ -141,7 +141,7 @@
 			<li class="nav-item">
 				<form id="form_logout" action="${pageContext.request.contextPath }/member/logout" method = "post">
 					<a class="nav-link" href="#" id ="logout">
-					<span id = "loginid" style="color:#dc3545">${pinfo.username} 님(로그아웃)</span></a>
+					<span id = "loginid" style="color:#dc3545">${pinfo.username}</span><span style="color:#dc3545">님(로그아웃)</span></a>
 					<input type="hidden" name ="${_csrf.parameterName }" value = "${_csrf.token }">
 				</form>
 			</li>

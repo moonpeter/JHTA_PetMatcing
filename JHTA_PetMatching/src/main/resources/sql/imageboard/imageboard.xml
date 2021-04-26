@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  SQL 맴퍼 파일은 xml이기 때문에 제일 먼저 xml 선언이 옵니다.-->
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="ImageBoards">
+    
+  <select id="list" parameterType="java.util.Map" resultType="imageboard">
+     select * from
+                  ( select rownum rnum, b.*
+                    from
+                        ( select * from image_board
+                          <include refid="search_ImageBoard" />
+                          order by BOARD_DATE desc
+                          ) b
+                  )
+                  where rnum &gt;= #{start} and rnum &lt;= #{end}
+  </select>
+   
+
+  <sql id="search_ImageBoard"> 
+    <if test="search_field!=null">
+      where
+      <foreach collection="search_field" separator="or" item="index">
+        <choose>                            
+          <when test='index=="N"'>BOARD_NAME</when> 
+          <when test='index=="S"'>BOARD_SUBJECT</when>    
+          <when test='index=="C"'>BOARD_CONTENT</when>
+        </choose>
+      like #{search_word}
+      </foreach>
+    </if>
+  </sql>
+  
+  <select id="count" parameterType="map" resultType="int">
+    select count(*) from image_board
+    <include refid="search_ImageBoard" /> 
+  </select>
+   
+   
+   
+   
+   
+  
+  <insert id="insert" parameterType="imageboard">
+
+      insert into image_board
+      (BOARD_NUM,
+       BOARD_NAME, BOARD_PASS, BOARD_SUBJECT, BOARD_CONTENT,
+       BOARD_FILE1, BOARD_ORIGINAL1,
+       BOARD_FILE2, BOARD_ORIGINAL2,
+       BOARD_FILE3, BOARD_ORIGINAL3,
+       BOARD_FILE4, BOARD_ORIGINAL4
+       )
+       values
+       (image_board_seq.nextval,
+        #{BOARD_NAME}, #{BOARD_PASS}, #{BOARD_SUBJECT}, #{BOARD_CONTENT},
+        #{BOARD_FILE1, jdbcType=VARCHAR}, #{BOARD_ORIGINAL1, jdbcType=VARCHAR},
+        #{BOARD_FILE2, jdbcType=VARCHAR}, #{BOARD_ORIGINAL2, jdbcType=VARCHAR},
+        #{BOARD_FILE3, jdbcType=VARCHAR}, #{BOARD_ORIGINAL3, jdbcType=VARCHAR},
+        #{BOARD_FILE4, jdbcType=VARCHAR}, #{BOARD_ORIGINAL4, jdbcType=VARCHAR}
+        )
+  </insert>
+    
+    
+                    
+  <select id="detail" parameterType="int" resultType="imageboard">
+      select*from image_board where BOARD_NUM = #{number}
+  </select>
+     
+  <update id="readCountUpdate" parameterType="int" >
+      update image_board
+      set BOARD_READCOUNT=BOARD_READCOUNT+1
+      where BOARD_NUM = #{number}
+  </update>
+    
+ 
+  
+  <select id="boardWriter" parameterType="map" resultType="imageboard">
+      select*from image_board
+      where BOARD_NUM=#{num}
+      and BOARD_PASS=#{pass}
+  </select>
+    
+    
+    
+  <delete id="delete" parameterType="int">
+      delete image_board
+      where BOARD_NUM=#{num}
+  </delete>
+    
+    
+    
+  <insert id="insert_deleteFile" parameterType="String">
+   	  insert into imageboard_deleteFile
+   	  values(#{file})
+  </insert>
+    
+    
+    
+  <select id="deleteFileList" resultType="String">
+   	  select board_file from imageboard_deleteFile
+  </select>
+   	
+   	
+  <update id="modify" parameterType="imageboard">
+      update image_board
+      set
+        BOARD_SUBJECT=#{BOARD_SUBJECT},
+        BOARD_CONTENT=#{BOARD_CONTENT},
+        BOARD_FILE1=#{BOARD_FILE1, jdbcType=VARCHAR},
+        BOARD_ORIGINAL1=#{BOARD_ORIGINAL1, jdbcType=VARCHAR},
+        BOARD_FILE2=#{BOARD_FILE2, jdbcType=VARCHAR},
+        BOARD_ORIGINAL2=#{BOARD_ORIGINAL2, jdbcType=VARCHAR},
+        BOARD_FILE3=#{BOARD_FILE3, jdbcType=VARCHAR},
+        BOARD_ORIGINAL3=#{BOARD_ORIGINAL3, jdbcType=VARCHAR},
+        BOARD_FILE4=#{BOARD_FILE4, jdbcType=VARCHAR},
+        BOARD_ORIGINAL4=#{BOARD_ORIGINAL4, jdbcType=VARCHAR}
+      where BOARD_NUM=#{BOARD_NUM}
+  </update>
+   	
+   	
+  <update id="reply_count_update" parameterType="map">
+   	  update image_board
+   	  set
+   	    REPLY_COUNT = #{reply_listcount}
+   	  where BOARD_NUM=#{board_num}  
+  </update>
+   	
+   	
+  <select id="getRecommend_User_List" parameterType="int" resultType="String">
+   	  select RECOMMEND_USER_LIST
+   	  from image_board
+   	  where BOARD_NUM=#{num}
+  </select>
+   	
+   	
+  <update id="insertRecommend_User_List" parameterType="map">
+   	  update image_board
+   	  set RECOMMEND_USER_LIST = CONCAT(RECOMMEND_USER_LIST, #{loginid})
+   	  where BOARD_NUM=#{board_num}
+  </update>
+   	
+  <update id="updateRecommend_Count" parameterType="int" >
+      update image_board
+      set RECOMMEND_COUNT=RECOMMEND_COUNT+1
+      where BOARD_NUM = #{board_num}
+  </update>
+   	
+  <!-- 추천수 높은 순으로 3개 선택.-->
+  <select id="getBestBoardList" resultType="imageboard">
+     select * from
+                  ( select rownum rnum, b.*
+                    from
+                        ( select * from image_board
+                          order by RECOMMEND_COUNT desc
+                          ) b
+                  )
+                  where rnum &gt;= 1 and rnum &lt;= 3 and RECOMMEND_COUNT &gt; 0
+  </select>
+    
+    
+  <select id="getBestBoardListCount" resultType="int">
+      select count(*) from image_board
+      where RECOMMEND_COUNT &gt; 0
+  </select>
+    
+    
+    
+</mapper>
