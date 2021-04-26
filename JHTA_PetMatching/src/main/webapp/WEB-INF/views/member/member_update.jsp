@@ -80,7 +80,7 @@ input[type=password] {
 				
 				
 				<label for="password">비밀번호*</label>
-				<input class="form-control" type="password" name="password" id="password" value="${memberinfo.password }" required>
+				<input class="form-control" type="password" name="password" id="password" required>
 				
 				
 				<label for="password2">비밀번호 확인*</label> <span id = "message2"></span>
@@ -116,8 +116,8 @@ input[type=password] {
 	</div>
 <script>
 $(document).ready(function() {
-	var checkname = false;
-	var checkphone = false;
+	var checkname = true;
+	var checkphone = true;
 
 		//가입하기 눌렀을 때
 		$('form').submit(function(){
@@ -174,7 +174,7 @@ $(document).ready(function() {
 		})
 	});
 
-	var checkpassword = false;
+	var checkpassword = true;
 	//비밀번호 확인
 	function password_Check(){
 		var pass1 = $("#password").val();

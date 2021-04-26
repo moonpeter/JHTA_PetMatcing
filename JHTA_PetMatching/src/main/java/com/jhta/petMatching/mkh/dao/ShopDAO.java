@@ -51,4 +51,8 @@ public class ShopDAO {
 		return sqlSession.delete("Shops.shopDelete", shop_num);
 	}
 
+	public int shopModify(Shop shop) {
+		return sqlSession.update("Shops.shopModify", shop);
+	}
+
 }

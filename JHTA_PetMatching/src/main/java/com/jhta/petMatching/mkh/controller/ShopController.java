@@ -298,4 +298,22 @@ public class ShopController {
 		int result = shopService.shopDelete(shop_num);
 		return "redirect:list";
 	}
+	
+	@GetMapping("/modifyForm")
+	public ModelAndView shopModifyForm(ModelAndView mv, int shop_num) {
+		
+		Shop shopBoard = shopService.getShopDetail(shop_num);
+		mv.addObject("shopBoard", shopBoard);
+		mv.setViewName("shop/shop_modify");
+		return mv;
+	}
+	
+	@PostMapping("/modify")
+	public String shopModify(Shop shop) {
+		
+		int result = shopService.shopModify(shop);
+
+		return "redirect:list";	
+	}
+
 }

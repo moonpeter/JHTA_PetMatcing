@@ -29,52 +29,20 @@
 
 <div class="container" id="category-bar">
 	<ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-      <li><a href="#" class="nav-link px-3 link-danger">사료</a></li>
-      <li><a href="#" class="nav-link px-3 link-danger">간식/건강</a></li>
-      <li><a href="#" class="nav-link px-3 link-danger">미용/목욕</a></li>
-      <li><a href="#" class="nav-link px-3 link-danger">외출용품</a></li>
-      <li><a href="#" class="nav-link px-3 link-danger">의류/악세사리</a></li>
-      <li><a href="#" class="nav-link px-3 link-danger">장난감</a></li>
-      <li><a href="#" class="nav-link px-3 link-danger">생활용품</a></li>
+      <li><a href="/shop/category_list?category=사료" class="nav-link px-3 link-danger">사료</a></li>
+      <li><a href="/shop/category_list?category=간식/건강" class="nav-link px-3 link-danger">간식/건강</a></li>
+      <li><a href="/shop/category_list?category=미용/목욕" class="nav-link px-3 link-danger">미용/목욕</a></li>
+      <li><a href="/shop/category_list?category=외출용품" class="nav-link px-3 link-danger">외출용품</a></li>
+      <li><a href="/shop/category_list?category=의류/악세사리" class="nav-link px-3 link-danger">의류/악세사리</a></li>
+      <li><a href="/shop/category_list?category=장난감" class="nav-link px-3 link-danger">장난감</a></li>
+      <li><a href="/shop/category_list?category=생활용품" class="nav-link px-3 link-danger">생활용품</a></li>
     </ul>
 </div>
 
 <div class="container">
   <div class="row">
     <div class="col-4">
-			
-			<!-- 슬라이드 이미지 -->
-			<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-			  <div class="carousel-inner">
-			    <div class="carousel-item active">
-			      <img src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_thumnail }" class="d-block w-100" alt="thumnail">
-			    </div>
-			    <div class="carousel-item">
-			      <img src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_img_content }" class="d-block w-100" alt="1">
-			    </div>
-			    <div class="carousel-item">
-			      <img src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_img_content_2 }" class="d-block w-100" alt="2">
-			    </div>
-			    <div class="carousel-item">
-			      <img src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_img_content_3 }" class="d-block w-100" alt="3">
-			    </div>
-			    <div class="carousel-item">
-			      <img src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_img_content_4 }" class="d-block w-100" alt="4">
-			    </div>
-			    <div class="carousel-item">
-			      <img src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_img_content_5 }" class="d-block w-100" alt="5">
-			    </div>
-			  </div>
-			  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-			    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-			    <span class="visually-hidden">Previous</span>
-			  </button>
-			  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-			    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-			    <span class="visually-hidden">Next</span>
-			  </button>
-			</div>
-			
+    	<img src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_thumnail }" class="d-block w-100" alt="thumnail">
     </div>
     
     <div class="col-8">
@@ -104,8 +72,8 @@
 <div class="container d-flex flex-row-reverse bd-highlight">
 	<sec:authentication property="principal" var="pinfo" />
     <c:if test="${pinfo.username == 'admin'}">
-  		<button class="btn btn-primary" type="submit" onclick="location.href='/shop/delete?shop_num=${shop.shop_num}'">삭 제</button> 
-  		<button class="btn btn-info" type="submit" onclick="location.href='/shop/modify?shop_num=${shop.shop_num}'">수 정</button>
+  		<button class="btn btn-primary" type="submit" onclick="delete_button()">삭 제</button> 
+  		<button class="btn btn-info" type="submit" onclick="location.href='/shop/modifyForm?shop_num=${shop.shop_num}'">수 정</button>
   	</c:if>
 </div>
 
@@ -116,13 +84,13 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-sm bg-warning">상품설명</div>
-    <div class="col-sm bg-success">상품리뷰(2)</div>
-    <div class="col-sm bg-warning">배송/교환/환불</div>
+    <div class="col-sm ">상품설명</div>
+    <div class="col-sm ">상품리뷰(2)</div>
+    <div class="col-sm ">배송/교환/환불</div>
   </div>
 </div>
 
-<div class="container bg-secondary">
+<div class="container ">
 	<img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_img_content }">
 	<img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_img_content_2 }">
 	<img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_img_content_3 }">
@@ -132,30 +100,40 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-md-7 bg-warning">상품후기</div>
-    <div class="col-sm bg-success">최신순</div>
-    <div class="col-sm bg-warning">별점 높은순</div>
-    <div class="col-sm bg-success">별점 낮은순</div>    
+    <div class="col-md-7 ">상품후기</div>
+    <div class="col-sm ">최신순</div>
+    <div class="col-sm ">별점 높은순</div>
+    <div class="col-sm ">별점 낮은순</div>    
   </div>
-  <div class="row bg-danger">
-      <div class="col-md-2 bg-warning">Best</div><div class="col-sm bg-secondary">맛있습니다.</div>
+  <div class="row ">
+      <div class="col-md-2 ">Best</div><div class="col-sm ">맛있습니다.</div>
   </div>
-  <div class="row bg-danger">
-      <div class="col-md-2 bg-warning">Best</div><div class="col-sm bg-secondary">맛있습니다.</div>
+  <div class="row ">
+      <div class="col-md-2 ">Best</div><div class="col-sm ">맛있습니다.</div>
   </div>
-  <div class="row bg-danger">
-      <div class="col-md-2 bg-warning">Best</div><div class="col-sm bg-secondary">맛있습니다.</div>
+  <div class="row ">
+      <div class="col-md-2 ">Best</div><div class="col-sm ">맛있습니다.</div>
   </div>
 
-  <div class="row bg-danger">
+  <div class="row ">
 	<p>페이징 처리할 곳</p>
   </div>
 
-  <div class="row bg-danger">
-	<div class="container bg-info d-flex flex-row-reverse bd-highlight">
+  <div class="row ">
+	<div class="container  d-flex flex-row-reverse bd-highlight">
 		<button type="button" class="btn btn-danger me-2">리뷰작성</button>
 	</div>
   </div>
   
 </div>
 
+<script>
+	function delete_button() {
+		var Del = confirm("정말 삭제하시겠습니까?")
+		if(Del == true) {
+			location.href="/shop/delete?shop_num=${shop.shop_num}"
+		} else {
+			alert("취소되었습니다.")
+		}
+	}
+</script>

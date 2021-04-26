@@ -135,33 +135,33 @@ var checkphone = false;
 			$("#phone").val('').focus();
 			return false;
 		}
+		
+		//이름 검사
+		$("#name").on('keyup', function(){
+			checkname = true;
+			$("#message").empty();
+			var pattern = /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]*$/;
+			var name = $("#name").val();
+			if (!pattern.test(name)){
+				$("#message").css('color', 'blue').html("이름은 한글만 입력 가능합니다.")
+				checkname = false;
+				return;
+			}
+		})
+		
+		//핸드폰번호 검사
+		$("#phone").on('keyup', function(){
+			checkphone = true;
+			$("#message2").empty();
+			var pattern = /^01([0|1])-([0-9]{3,4})-([0-9]{4})$/;
+			var phone = $("#phone").val();
+			if (!pattern.test(phone)){
+				$("#message2").css('color', 'blue').html("핸드폰번호를 예시대로 입력해주세요.")
+				checkphone = false;
+				return;
+			}
+		})
 	});
-	
-	//이름 검사
-	$("#name").on('keyup', function(){
-		checkname = true;
-		$("#message").empty();
-		var pattern = /^[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]*$/;
-		var name = $("#name").val();
-		if (!pattern.test(name)){
-			$("#message").css('color', 'blue').html("이름은 한글만 입력 가능합니다.")
-			checkname = false;
-			return;
-		}
-	})
-	
-	//핸드폰번호 검사
-	$("#phone").on('keyup', function(){
-		checkphone = true;
-		$("#message2").empty();
-		var pattern = /^01([0|1])-([0-9]{3,4})-([0-9]{4})$/;
-		var phone = $("#phone").val();
-		if (!pattern.test(phone)){
-			$("#message2").css('color', 'blue').html("핸드폰번호를 예시대로 입력해주세요.")
-			checkphone = false;
-			return;
-		}
-	})
 	
 	//취소버튼 클릭 시 뒤로가기
 	$("#cencelbtn").click(function() {

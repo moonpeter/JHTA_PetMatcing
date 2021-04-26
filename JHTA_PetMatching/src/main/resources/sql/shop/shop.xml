@@ -78,4 +78,15 @@
 	<delete id="shopDelete" parameterType="int">
 		delete from shop_board where shop_num = #{shop_num}
 	</delete>
+	
+	<update id="shopModify">
+		update shop_board set
+		shop_category = #{shop_category},
+		shop_title = #{shop_title},
+		shop_price = #{shop_price},
+		shop_country_of_origin = #{shop_country_of_origin},
+		shop_brand = #{shop_brand},
+		shop_text_content = #{shop_text_content} 
+		where shop_num = #{shop_num}
+	</update>
 </mapper>
