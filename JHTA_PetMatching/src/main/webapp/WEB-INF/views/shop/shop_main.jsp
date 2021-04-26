@@ -1,4 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
+
+
 <style>
 	.container {
 /* 		background-color : pink; */
@@ -11,98 +16,102 @@
 </style>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp" ></jsp:include>
+
 <div class="container" id="category-bar">
 	<ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-      <li><a href="#" class="nav-link px-3 link-danger">사료</a></li>
-      <li><a href="#" class="nav-link px-3 link-danger">간식/건강</a></li>
-      <li><a href="#" class="nav-link px-3 link-danger">미용/목욕</a></li>
-      <li><a href="#" class="nav-link px-3 link-danger">외출용품</a></li>
-      <li><a href="#" class="nav-link px-3 link-danger">의류/악세사리</a></li>
-      <li><a href="#" class="nav-link px-3 link-danger">장난감</a></li>
-      <li><a href="#" class="nav-link px-3 link-danger">생활용품</a></li>
+      <li><a href="/shop/category_list?category=사료" class="nav-link px-3 link-danger">사료</a></li>
+      <li><a href="/shop/category_list?category=간식/건강" class="nav-link px-3 link-danger">간식/건강</a></li>
+      <li><a href="/shop/category_list?category=미용/목욕" class="nav-link px-3 link-danger">미용/목욕</a></li>
+      <li><a href="/shop/category_list?category=외출용품" class="nav-link px-3 link-danger">외출용품</a></li>
+      <li><a href="/shop/category_list?category=의류/악세사리" class="nav-link px-3 link-danger">의류/악세사리</a></li>
+      <li><a href="/shop/category_list?category=장난감" class="nav-link px-3 link-danger">장난감</a></li>
+      <li><a href="/shop/category_list?category=생활용품" class="nav-link px-3 link-danger">생활용품</a></li>
     </ul>
+  	<button id="categoryName" class="btn btn-danger"> 카테고리 : ${category} </button>    
+    <sec:authentication property="principal" var="pinfo" />
+    <c:if test="${pinfo.username == 'admin'}">
+  		<button class="btn btn-primary" type="submit" onclick="location.href='/shop/writeForm'">글작성</button>
+  	</c:if>
 </div>
 
 <div class="container">
-	<form class="d-flex">
-	    <input class="form-control me-2" type="search" placeholder="검색어를 입력하세요." aria-label="Search">
+	<form class="d-flex" method="GET" action="search">
+	    <input class="form-control me-2" name="search_word" type="search" placeholder="검색어를 입력하세요." aria-label="Search">
 	    <button class="btn btn-danger" type="submit">Search</button>
     </form>
     
-    <div class="row" id="row">
+    <c:if test="${searchListCount > 0}">
+    	<h4>"${search_word }"에 대한 검색 결과 : ${searchListCount}개</h4>
+    </c:if>
+    <hr>
     
+    
+    <div class="row" id="row">
+        <c:forEach var="shop" items="${shopList}">
         <div class="col-lg-4 col-md-6 mb-4">
             <div class="card h-100">
-                <a href="BoardDetailAction.bo?board_num=${board.board_num}">
-                    <img class="card-img-top" src="${pageContext.request.contextPath}/resources/image/mainPage_icon.png" alt="" height="200px">
+                <a href="detail?shop_num=${shop.shop_num}">
+                    <img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_thumnail }" alt="" height="200px">
                 </a>
                 <div class="card-body">
                     <h4 class="card-title">
-                        <a href="BoardDetailAction.bo?board_num=${board.board_num}">Test Subject${board.board_subject}</a>
+                        <a href="detail?shop_num=${shop.shop_num}">${shop.shop_title}</a>
                     </h4>
-                    <h5 style="text-align: right"><fmt:formatNumber value="${board.board_price}" pattern="###,###,###"/> <strong class="text-danger">10,000원</strong></h5>
-                    <p class="card-text" style="overflow: hidden; line-height: 1.2; height: 3.6em; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">&nbsp&nbspTest Content${board.board_content}</p>
+                    <h5 style="text-align: right"><strong><fmt:formatNumber value="${shop.shop_price}" pattern="###,###,###원"/></strong></h5>
+                    <p class="card-text" style="overflow: hidden; line-height: 1.2; height: 3.6em; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">&nbsp&nbsp${shop.shop_text_content}</p>
                 </div>
                 <div class="card-footer">
 					<small class="text-danger">평점 : &#9733; &#9733; &#9733; &#9733; &#9733;</small>
                 </div>
             </div>
         </div>
-
-		        <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-                <a href="BoardDetailAction.bo?board_num=${board.board_num}">
-                    <img class="card-img-top" src="${pageContext.request.contextPath}/resources/image/mainPage_icon.png" alt="" height="200px">
-                </a>
-                <div class="card-body">
-                    <h4 class="card-title">
-                        <a href="BoardDetailAction.bo?board_num=${board.board_num}">${board.board_subject}</a>
-                    </h4>
-                    <h5 style="text-align: right"><fmt:formatNumber value="${board.board_price}" pattern="###,###,###"/> <strong class="text-danger">10,000원</strong></h5>
-                    <p class="card-text" style="overflow: hidden; line-height: 1.2; height: 3.6em; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">&nbsp&nbsp${board.board_content}</p>
-                </div>
-                <div class="card-footer">
-					<small class="text-danger">평점 : &#9733; &#9733; &#9733; &#9733; &#9733;</small>
-                </div>
-            </div>
-        </div>
-        
-                <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-                <a href="BoardDetailAction.bo?board_num=${board.board_num}">
-                    <img class="card-img-top" src="boardupload/${board.board_thumbnail}" alt="" height="200px">
-                </a>
-                <div class="card-body">
-                    <h4 class="card-title">
-                        <a href="BoardDetailAction.bo?board_num=${board.board_num}">${board.board_subject}</a>
-                    </h4>
-                    <h5 style="text-align: right"><fmt:formatNumber value="${board.board_price}" pattern="###,###,###"/> <strong class="text-danger">10,000원</strong></h5>
-                    <p class="card-text" style="overflow: hidden; line-height: 1.2; height: 3.6em; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">&nbsp&nbsp${board.board_content}</p>
-                </div>
-                <div class="card-footer">
-					<small class="text-danger">평점 : &#9733; &#9733; &#9733; &#9733; &#9733;</small>
-                </div>
-            </div>
-        </div>
-        
-                <div class="col-lg-4 col-md-6 mb-4">
-            <div class="card h-100">
-                <a href="BoardDetailAction.bo?board_num=${board.board_num}">
-                    <img class="card-img-top" src="boardupload/${board.board_thumbnail}" alt="" height="200px">
-                </a>
-                <div class="card-body">
-                    <h4 class="card-title">
-                        <a href="BoardDetailAction.bo?board_num=${board.board_num}">${board.board_subject}</a>
-                    </h4>
-                    <h5 style="text-align: right"><fmt:formatNumber value="${board.board_price}" pattern="###,###,###"/> <strong class="text-danger">10,000원</strong></h5>
-                    <p class="card-text" style="overflow: hidden; line-height: 1.2; height: 3.6em; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">&nbsp&nbsp${board.board_content}</p>
-                </div>
-                <div class="card-footer">
-					<small class="text-danger">평점 : &#9733; &#9733; &#9733; &#9733; &#9733;</small>
-                </div>
-            </div>
-        </div>
+        </c:forEach>
 	</div>
 	
+	<div class="row" id="testAjax"></div>
+	
+	<c:if test="${page != endPage}">
+		<div class="d-grid gap-2 col-6 mx-auto">
+		    <button class="pageInc btn btn-danger btn-lg" style="width: 300px">더보기</button>
+		</div>
+	</c:if>
+	
+	<script>
+	    $(document).ready(function () {
+	            var page = 1;
+	            var category = "${category}"
+	            var listCount = ${listCount};
+	            	            
+	            if(listCount == 0) {
+                	alert("해당 게시물이 존재하지 않습니다.");
+                	$(".pageInc").hide();
+                }
+	            
+	            $('.pageInc').click(function () {
+	            	if (category == "") {
+	            		page += 1;
+		                $.get("/shop/list_ajax", {"page": page},
+		                    function (data) {
+		                        $("#testAjax").append(data);
+		        	            var endPage = ${endPage};
+		                        if(page == endPage) {
+		                        	$(".pageInc").hide();
+		                        }
+		                    })
+	            	} else {
+		                $.get("/shop/category_list_ajax", {"category": category},
+		                    function (data) {
+		                        $("#testAjax").append(data);
+		        	            var endPage = ${endPage};
+			            		page += 1;
+		                        if(page == endPage) {
+		                        	$(".pageInc").hide();
+		                        }
+		                    })
+	            	}
+	            })
+	        }
+	    )
+	</script>
 
 </div>

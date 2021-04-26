@@ -3,11 +3,40 @@
 "http://mybatis.org/dtd/mybatis-3-config.dtd">
 
 <configuration>
+
+	<settings>
+		<setting name="jdbcTypeForNull" value="NULL" />
+	</settings>
+	
+	
 	<typeAliases>
-		<!-- <typeAlias alias="board" type="com.jhta.petMatching.domain.Board" /> -->
+		 <typeAlias alias="board" type="com.jhta.petMatching.hhi.domain.Board" />
+		 <typeAlias alias="Dwboard" type="com.jhta.petMatching.hhi.domain.DwBoard" />
+		 <typeAlias alias="Doboard" type="com.jhta.petMatching.hhi.domain.DoBoard" />
+		 <typeAlias alias="comment" type="com.jhta.petMatching.hhi.domain.Comment" />
+		 <typeAlias alias="Dwcomments" type="com.jhta.petMatching.hhi.domain.Comment" />
+		 <typeAlias alias="Docomments" type="com.jhta.petMatching.hhi.domain.Comment" />
+		 <typeAlias alias="member" type="com.jhta.petMatching.abh.domain.Member" />
+		 <typeAlias alias="destination" type="com.jhta.petMatching.abh.domain.Destination" />
+ 		 <typeAlias alias="shop" type="com.jhta.petMatching.mkh.domain.Shop" />		 
+ 		 <typeAlias alias="message" type="com.jhta.petMatching.ahnyh.domain.Message" />
+ 		 <typeAlias alias="imageboard" type="com.jhta.petMatching.ahnyh.domain.ImageBoard" />
+         <typeAlias alias="imageboardcomment" type="com.jhta.petMatching.ahnyh.domain.ImageBoardComment" />		 
 	</typeAliases>
 
 	<mappers>
-<!-- 		<mapper resource="sql/member.xml" /> -->
+		    <mapper resource="sql/board/board_free.xml" /> 
+		    <mapper resource="sql/board/board_owner.xml" /> 
+		    <mapper resource="sql/board/board_walker.xml" /> 
+		    <mapper resource="sql/comment/comment_free.xml" />
+		    <mapper resource="sql/comment/comment_dw.xml" />
+		    <mapper resource="sql/comment/comment_do.xml" />
+		    <mapper resource="sql/member/member.xml" />
+		    <mapper resource="sql/shop/shop.xml" />
+		    <mapper resource="sql/message/message.xml" />
+		    <mapper resource="sql/imageboard/imageboard.xml" />
+		    <mapper resource="sql/imageboard/imageboard_comment.xml" />
 	</mappers>
+	
+	
 </configuration>

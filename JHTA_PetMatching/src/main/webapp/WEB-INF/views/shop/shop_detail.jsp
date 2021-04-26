@@ -1,4 +1,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="sec"	uri="http://www.springframework.org/security/tags"%>
+
+
 <style>
 	.container {
 /* 		background-color : pink; */
@@ -8,6 +13,16 @@
 	#category-bar {
 		border-bottom: solid 1px #dc3545;
 	}
+	
+	#detail_title{
+		font-size: 45px;
+		border-bottom: solid 1px #dc3545;		
+	}
+	
+	#detail_info_table{
+		font-size: 20px;
+	}
+	td{width : 50%}
 </style>
 
 <jsp:include page="/WEB-INF/views/common/header.jsp" ></jsp:include>
@@ -26,22 +41,77 @@
 
 <div class="container">
   <div class="row">
-    <div class="col-4 bg-secondary">
-		<img class="card-img-top" src="${pageContext.request.contextPath}/resources/image/mainPage_icon.png" alt="" height="200px">
+    <div class="col-4">
+			
+			<!-- 슬라이드 이미지 -->
+			<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+			  <div class="carousel-inner">
+			    <div class="carousel-item active">
+			      <img src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_thumnail }" class="d-block w-100" alt="thumnail">
+			    </div>
+			    <div class="carousel-item">
+			      <img src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_img_content }" class="d-block w-100" alt="1">
+			    </div>
+			    <div class="carousel-item">
+			      <img src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_img_content_2 }" class="d-block w-100" alt="2">
+			    </div>
+			    <div class="carousel-item">
+			      <img src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_img_content_3 }" class="d-block w-100" alt="3">
+			    </div>
+			    <div class="carousel-item">
+			      <img src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_img_content_4 }" class="d-block w-100" alt="4">
+			    </div>
+			    <div class="carousel-item">
+			      <img src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_img_content_5 }" class="d-block w-100" alt="5">
+			    </div>
+			  </div>
+			  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+			    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			    <span class="visually-hidden">Previous</span>
+			  </button>
+			  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+			    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+			    <span class="visually-hidden">Next</span>
+			  </button>
+			</div>
+			
     </div>
-    <div class="col-8 bg-primary">
-    	<div class="bg-success">Test Subject</div>
-    	<div class="bg-warning">판매가격 </div>
-    	<div class="bg-success">원산지 </div>
-    	<div class="bg-warning">브랜드 </div>
-    	<div class="bg-success"><small class="text-danger">평점 : &#9733; &#9733; &#9733; &#9733; &#9733;</small></div>
+    
+    <div class="col-8">
+    	<div id="detail_title" class="">${shop.shop_title }</div>
+    	<table id="detail_info_table">
+    		<tr>
+    			<td class="text-danger">판매가격</td>
+    			<td><fmt:formatNumber value="${shop.shop_price}" pattern="###,###,###원"/></td>
+    		</tr>
+    		<tr>
+    			<td class="text-danger">원산지</td>
+    			<td>${shop.shop_country_of_origin }</td>
+    		</tr>
+    		<tr>
+    			<td class="text-danger">브랜드</td>
+    			<td>${shop.shop_brand }</td>
+    		</tr>
+    		<tr>
+    			<td class="text-danger">평점</td>
+    			<td><small class="text-danger">&#9733; &#9733; &#9733; &#9733; &#9733;</small></td>
+    		</tr>
+    	</table>
     </div>
   </div>
 </div>
 
-<div class="container bg-info d-flex flex-row-reverse bd-highlight">
+<div class="container d-flex flex-row-reverse bd-highlight">
+	<sec:authentication property="principal" var="pinfo" />
+    <c:if test="${pinfo.username == 'admin'}">
+  		<button class="btn btn-primary" type="submit" onclick="location.href='/shop/delete?shop_num=${shop.shop_num}'">삭 제</button> 
+  		<button class="btn btn-info" type="submit" onclick="location.href='/shop/modify?shop_num=${shop.shop_num}'">수 정</button>
+  	</c:if>
+</div>
+
+<div class="container d-flex flex-row-reverse bd-highlight">
 	<button type="button" class="btn btn-danger me-2">장바구니</button>
-	<button type="button" class="btn btn-outline-danger">바로구매</button>
+	<button type="button" class="btn btn-outline-danger">바로 구매</button>
 </div>
 
 <div class="container">
@@ -53,9 +123,11 @@
 </div>
 
 <div class="container bg-secondary">
-	<img class="card-img-top" src="${pageContext.request.contextPath}/resources/image/mainPage_icon.png" alt="" height="300px">
-	<img class="card-img-top" src="${pageContext.request.contextPath}/resources/image/mainPage_icon.png" alt="" height="300px">
-	<img class="card-img-top" src="${pageContext.request.contextPath}/resources/image/mainPage_icon.png" alt="" height="300px">
+	<img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_img_content }">
+	<img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_img_content_2 }">
+	<img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_img_content_3 }">
+	<img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_img_content_4 }">
+	<img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_img_content_5 }">
 </div>
 
 <div class="container">
