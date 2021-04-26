@@ -184,7 +184,7 @@ public class ShopTest {
 		logger.info("detail() end!!!");
 	}
 	
-	@Test
+//	@Test
 	public void getListCount() {
 		logger.info("getListCount() start!!!");
 		int listCount = sqlSession.selectOne("Shops.listCount");
@@ -229,7 +229,7 @@ public class ShopTest {
 		logger.info("categoryList() end!!!");
 	}
 	
-	@Test
+//	@Test
 	public void category_list_ajax() {
 		logger.info("category_list_ajax() start!!!");
 				
@@ -274,12 +274,27 @@ public class ShopTest {
 		logger.info("searchList() end!!!");
 	}
 	
-	@Test
+//	@Test
 	public void shopDelete() {
 		logger.info("shopDelete() start!!!");
 		int result = sqlSession.delete("Shops.shopDelete", 56);
 		logger.info("result === " + result);
 		logger.info("shopDelete() end!!!");
+	}
+	
+//	@Test
+	public void shopModifyForm() {
+		logger.info("shopModifyForm() start!!!");
+		Shop list = sqlSession.selectOne("Shops.shopModify", 50);
+		logger.info(list.getShop_title());
+		logger.info("shopModifyForm() end!!!");
+	}
+	
+	@Test
+	public void shopModify() {
+		logger.info("shopModify() start!!!");
+		int result = sqlSession.update("Shops.shopModify", 46);
+		logger.info("shopModify() end!!!");
 	}
 	
 }
