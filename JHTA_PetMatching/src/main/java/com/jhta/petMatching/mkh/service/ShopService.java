@@ -37,5 +37,19 @@ public class ShopService {
 		return dao.getListCount();
 	}
 
+	public List<Shop> getShopCategoryList(int page, int limit, String category) {
+		HashMap<String, String> map = new HashMap<String, String>();
+		int startRow = (page - 1) * limit + 1;
+		int endRow = startRow + limit -1;
+		map.put("start", String.valueOf(startRow));
+		map.put("end", String.valueOf(endRow));
+		map.put("category", category);
+		return dao.shopCategoryList(map);
+	}
+
+	public int getCategoryListCount(String category) {
+		return dao.getCategoryListCount(category);
+	}
+
 
 }
