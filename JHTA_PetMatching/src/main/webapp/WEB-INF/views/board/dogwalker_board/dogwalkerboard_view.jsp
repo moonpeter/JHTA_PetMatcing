@@ -162,7 +162,7 @@ body > div > div:nth-child(6){color:#dc3545}
 				<div style="padding-right:0px">
 				<c:if test = "${!empty boarddata.BOARD_FILE}">
 					<img class="demo cursor"
-						 src="${pageContext.request.contextPath}/resources/upload/dwBoard${boarddata.BOARD_FILE}">
+						 src="${pageContext.request.contextPath}/resources/dwboard_upload${boarddata.BOARD_FILE}">
 				</c:if>
 				<c:if test = "${empty boarddata.BOARD_FILE}">
 				</c:if> 

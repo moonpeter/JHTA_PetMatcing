@@ -119,7 +119,7 @@ body > div.container > div.container > div > form > div{height:50px}
 	<div class="responsive">
 	  <div class="gallery">
 	    <a href="detail?num=${b.BOARD_NUM}">
-	      <img src="${pageContext.request.contextPath}/resources/upload/doBoard${b.DOG_PHOTO}" alt="dog" >
+	      <img src="${pageContext.request.contextPath}/resources/doboard_upload${b.DOG_PHOTO}" alt="dog" >
 	    </a>
 	    <span id="desc">${b.BOARD_SUBJECT}</span>
 	    <span id="count">
