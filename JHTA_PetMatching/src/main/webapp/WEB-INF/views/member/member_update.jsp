@@ -80,7 +80,7 @@ input[type=password] {
 				
 				
 				<label for="password">비밀번호*</label>
-				<input class="form-control" type="password" name="password" id="password" required>
+				<input class="form-control" type="password" name="password" id="password" value="${memberinfo.password }" required>
 				
 				
 				<label for="password2">비밀번호 확인*</label> <span id = "message2"></span>
