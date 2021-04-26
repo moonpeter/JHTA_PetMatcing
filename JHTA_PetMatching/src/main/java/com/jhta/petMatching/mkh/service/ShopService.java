@@ -63,5 +63,9 @@ public class ShopService {
 		return dao.shopDelete(shop_num);
 	}
 
+	public int shopModify(Shop shop) {
+		return dao.shopModify(shop);
+	}
+
 
 }
