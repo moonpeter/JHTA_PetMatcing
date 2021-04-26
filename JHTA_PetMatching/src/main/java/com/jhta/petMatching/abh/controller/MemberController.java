@@ -37,50 +37,50 @@ public class MemberController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET) //로그인 화면
+	@RequestMapping(value = "/login", method = RequestMethod.GET) //�α��� ȭ��
 	public String loginPage(ModelAndView mv, @CookieValue(value = "remember", required = false) Cookie readCookie,
 			Model model, HttpSession session, Principal principal) {
 		model.addAttribute("loginFailMsg", session.getAttribute("loginFailMsg"));
 		session.removeAttribute("loginFailMsg");
 		if (readCookie != null) {
-			logger.info("저장된 아이디 = " + principal.getName());
+			logger.info("����� ���̵� = " + principal.getName());
 		}
 		return "member/member_login";
 	}
 
-	@RequestMapping(value = "/join", method = RequestMethod.GET) //회원가입 화면
+	@RequestMapping(value = "/join", method = RequestMethod.GET) //ȸ���� ȭ��
 	public String joinPage() {
 		return "member/member_join";
 	}
 
-	@RequestMapping(value = "/joinProcess", method = RequestMethod.POST) //회원가입 프로세스
+	@RequestMapping(value = "/joinProcess", method = RequestMethod.POST) //ȸ���� ��μ���
 	public String joinProcess(Member member, RedirectAttributes rattr, Model model, HttpServletRequest request)
 			throws Exception {
-		// 비밀번호 암호화
+		// ��й�ȣ ��ȣȭ
 		String encPassword = passwordEncoder.encode(member.getPassword());
 		logger.info(encPassword);
 		member.setPassword(encPassword);
 
 		int result = memberService.insert(member);
 
-		// 삽입 성공
+		// ���� ����
 		if (result == 1) {
 			rattr.addFlashAttribute("result", "joinSuccess");
 			return "redirect:login";
 		} else {
 			model.addAttribute("url", request.getRequestURL());
-			model.addAttribute("message", "회원가입 실패");
+			model.addAttribute("message", "ȸ���� ����");
 			return "error/error";
 		}
 	}
-  
-	@RequestMapping(value = "/logout", method = {RequestMethod.GET, RequestMethod.POST}) //로그아웃
+
+	@RequestMapping(value = "/logout", method = {RequestMethod.GET, RequestMethod.POST}) //�α׾ƿ�
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:login";
 	}
 
-	@RequestMapping(value = "/idcheck", method = RequestMethod.GET) //아이디 중복검사
+	@RequestMapping(value = "/idcheck", method = RequestMethod.GET) //���̵� �ߺ��˻�
 	public void idcheck(@RequestParam("id") String id, HttpServletResponse response) throws Exception {
 		int result = memberService.isId(id);
 		response.setContentType("text/html;charset=utf-8");
@@ -88,7 +88,7 @@ public class MemberController {
 		out.print(result);
 	}
 
-  @RequestMapping(value = "/info", method = RequestMethod.GET) //내정보 보기
+	@RequestMapping(value = "/info", method = RequestMethod.GET) //����� ����
 	public ModelAndView member_info(@RequestParam("id") String id, ModelAndView mv, HttpServletRequest request) {
 		Member m = memberService.member_info(id);
 		if (m != null) {
@@ -97,7 +97,7 @@ public class MemberController {
 		} else {
 			mv.setViewName("error/error");
 			mv.addObject("url", request.getRequestURL());
-			mv.addObject("message", "해당 정보가 없습니다.");
+			mv.addObject("message", "�ش� ����� ���ϴ�.");
 		}
 		
 		Destination d = memberService.desti_info(id);
@@ -106,9 +106,13 @@ public class MemberController {
 		return mv;
 	}
 
-	@RequestMapping(value = "/update") //내정보 수정 화면
-	public ModelAndView member_update(ModelAndView mv, Principal principal) {
+	@RequestMapping(value = "/update") //����� ��� ȭ��
+	public ModelAndView member_update(Member member, ModelAndView mv, Principal principal) { 
 		String id = (String) principal.getName();
+		String password = member.getPassword();
+		logger.info(password);
+		member.setPassword(password);
+		
 		if (id == null) {
 			mv.setViewName("redirect:login");
 		} else {
@@ -119,31 +123,31 @@ public class MemberController {
 		return mv;
 	}
 
-  @RequestMapping(value = "/updateProcess", method = RequestMethod.POST) //내정보 수정 프로세스
+	@RequestMapping(value = "/updateProcess", method = RequestMethod.POST) //����� ��� ��μ���
 	public String updateProcess(Member member, Model model, HttpServletRequest request, RedirectAttributes rattr) {
 		String encPassword = passwordEncoder.encode(member.getPassword());
 		logger.info(encPassword);
 		member.setPassword(encPassword);
 
-    int result = memberService.update(member);
+		int result = memberService.update(member);
 		if (result == 1) {
 			rattr.addFlashAttribute("result", "updateSuccess");
 			return "redirect:/home/main";
 		} else {
 			model.addAttribute("url", request.getRequestURL());
-			model.addAttribute("message", "수정에 실패하였습니다");
+			model.addAttribute("message", "����� �����Ͽ���ϴ�");
 			return "error/error";
 		}
 	}
 
-	@RequestMapping(value = "/delete", method = {RequestMethod.GET, RequestMethod.POST}) //회원탈퇴
+	@RequestMapping(value = "/delete", method = {RequestMethod.GET, RequestMethod.POST}) //ȸ��Ż��
 	public String member_delete(Principal principal) {
 		memberService.delete(principal.getName());
 		memberService.desti_delete(principal.getName());
 		return "redirect:logout";
 	}
 
-	@RequestMapping(value = "/destination") //배송지 입력 화면
+	@RequestMapping(value = "/destination") //����� �Է� ȭ��
 	public ModelAndView desti_Page(ModelAndView mv, Principal principal) {
 		String id = (String) principal.getName();
 		if (id == null) {
@@ -156,7 +160,7 @@ public class MemberController {
 		return mv;
 	}
 
-	@RequestMapping(value = "/desti_Process", method = RequestMethod.POST) //배송지 입력 프로세스
+	@RequestMapping(value = "/desti_Process", method = RequestMethod.POST) //����� �Է� ��μ���
 	public String desti_Process(Destination d, RedirectAttributes rattr, Model model, HttpServletRequest request)
 			throws Exception {
 		int result = memberService.insert(d);
@@ -166,29 +170,29 @@ public class MemberController {
 			return "redirect:/home/main";
 		} else {
 			model.addAttribute("url", request.getRequestURL());
-			model.addAttribute("message", "배송지 입력 실패");
+			model.addAttribute("message", "����� �Է� ����");
 			return "error/error";
 		}
 	}
 
-	@RequestMapping(value = "/desti_info") //배송지 정보 화면
+	@RequestMapping(value = "/desti_info") //����� ��� ȭ��
 	public ModelAndView desti_info(@RequestParam(value="id", required=false) String id, ModelAndView mv,
 					Principal principal,
 					HttpServletRequest request) {
 		Destination d = memberService.desti_info(principal.getName());
-		logger.info("d의 값 : " + d);
+		logger.info("d�� �� : " + d);
 		if (d != null) {
 			mv.setViewName("member/member_desti");
 			mv.addObject("destiinfo", d);
 		} else {
 			mv.setViewName("error/error");
 			mv.addObject("url", request.getRequestURL());
-			mv.addObject("message", "해당 정보가 없습니다.");
+			mv.addObject("message", "�ش� ����� ���ϴ�.");
 		}
 		return mv;
 	}
 	
-	@RequestMapping(value = "/desti_update") //배송지 수정 화면
+	@RequestMapping(value = "/desti_update") //����� ��� ȭ��
 	public ModelAndView destiProcess(ModelAndView mv, Principal principal) {
 		String id = (String) principal.getName();
 		if (id == null) {
@@ -201,7 +205,7 @@ public class MemberController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "/desti_updateProcess", method = RequestMethod.POST) //배송지 수정 프로세스
+	@RequestMapping(value = "/desti_updateProcess", method = RequestMethod.POST) //����� ��� ��μ���
 	public String desti_updateProcess(Destination d, Model model, HttpServletRequest request, RedirectAttributes rattr) {
 		int result = memberService.update(d);
 		
@@ -210,7 +214,7 @@ public class MemberController {
 			return "redirect:/home/main";
 		} else {
 			model.addAttribute("url", request.getRequestURL());
-			model.addAttribute("message", "수정에 실패하였습니다");
+			model.addAttribute("message", "����� �����Ͽ���ϴ�");
 			return "error/error";
 		}
 	}
