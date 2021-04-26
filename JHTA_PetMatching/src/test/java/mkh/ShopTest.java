@@ -184,7 +184,7 @@ public class ShopTest {
 		logger.info("detail() end!!!");
 	}
 	
-//	@Test
+	@Test
 	public void getListCount() {
 		logger.info("getListCount() start!!!");
 		int listCount = sqlSession.selectOne("Shops.listCount");
@@ -192,6 +192,7 @@ public class ShopTest {
 		logger.info("getListCount() end!!!");
 	}
 	
+
 //	@Test
 	public void getCategoryListCount() {
 		logger.info("getCategoryListCount() start!!!");
@@ -228,7 +229,7 @@ public class ShopTest {
 		logger.info("categoryList() end!!!");
 	}
 	
-//	@Test
+	@Test
 	public void category_list_ajax() {
 		logger.info("category_list_ajax() start!!!");
 				

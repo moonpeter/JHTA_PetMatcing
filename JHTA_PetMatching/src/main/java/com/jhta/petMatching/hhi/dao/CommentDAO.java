@@ -17,11 +17,11 @@ public class CommentDAO {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	
-	public int getListCount(int board_num) {
-		return sqlSession.selectOne("Comments.count", board_num);
+	public int getListCount(Map<String, Object> map) {
+		return sqlSession.selectOne("Comments.count", map);
 	}
 
-	public List<Comment> getCommentList(Map<String, Integer> map) {
+	public List<Comment> getCommentList(Map<String, Object> map) {
 		return sqlSession.selectList("Comments.getList", map);
 	}
 
@@ -29,8 +29,8 @@ public class CommentDAO {
 		return sqlSession.insert("Comments.insert", c);
 	}
 
-	public int commentsDelete(int num) {
-		return sqlSession.delete("Comments.delete",num);
+	public int commentsDelete(Comment c) {
+		return sqlSession.delete("Comments.delete",c);
 	}
 
 	public int commentsUpdate(Comment co) {

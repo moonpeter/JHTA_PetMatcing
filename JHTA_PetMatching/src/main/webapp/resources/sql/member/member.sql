@@ -1,3 +1,5 @@
+drop table members;
+
 create table members(
 id 		 varchar2(20),
 password varchar2(60),
@@ -16,21 +18,17 @@ where id = 'admin';
 select *
 from members
 
-drop table members;
+drop table destination;
 
 create table destination(
+id		varchar2(30),
 name	varchar2(30),
 post	number,
 address	varchar2(300),
 phone	varchar2(60),
-request varchar2(300)
+request varchar2(300),
+PRIMARY KEY(id)
 );
 
 select *
 from destination;
-
-drop table destination;
-
-ALTER table destination modify address varchar2(300);
-ALTER table destination modify request varchar2(300);
-ALTER table destination modify name varchar2(30);

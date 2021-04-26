@@ -89,6 +89,7 @@ body > div.container > div.container{margin-bottom:3em;}
 	      <img src="${pageContext.request.contextPath}/resources/upload/doBoard${b.DOG_PHOTO}" alt="dog" width="600" height="400">
 	    </a>
 	    <div id="desc">${b.BOARD_SUBJECT}</div>
+	    
 	  </div>
 	</div>
 </c:forEach>

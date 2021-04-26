@@ -13,14 +13,15 @@
 </head>
 <style>
 .container-menu{
-	display:inline-block;
-	margin-left:30px;
+	margin-left:-230px;
+	margin-right:150px;
 	width:20%;
+	float:left;
 }
 
 li{
 	list-style:none;
-	margin-bottom:5px;
+	margin-bottom:10px;
 	}
 
 a {
@@ -33,7 +34,7 @@ a {
 		<div class="category">
 		<ul>
 			<li><b><a href="${pageContext.request.contextPath}/member/destination" id="destination">배송지 입력</a></b></li>
-			<li><b><a href="#" id="post_update">배송지 보기/수정</a></b></li>
+			<li><b><a href="${pageContext.request.contextPath}/member/desti_info" id="desti_info">배송지 보기/수정</a></b></li>
 			<li><b><a href="${pageContext.request.contextPath}/member/info?id=${memberinfo.id}" id="member_info">내정보 보기/수정</a></b></li>
 			<li><b><a href="${pageContext.request.contextPath}/member/delete" id="delete">회원탈퇴</a></b></li>
 		</ul>
@@ -41,12 +42,27 @@ a {
 	</div>
 </body>
 <script>
+$(function() {
 	$("#delete").click(function(){
 		if(confirm("정말 삭제하시겠습니까?")){
-			return true;	
+			return true;
 		}else {
 			return false;
 		}
 	});
+	
+	var destiinfo = "${destiinfo}";
+	console.log("destiinfo 값 : " + destiinfo);
+	
+	if(destiinfo != ""){
+		document.querySelector("#destination").removeAttribute('href');
+		$("#destination").css('opacity', '0.3');
+	};
+	
+	if(destiinfo == ""){
+		document.querySelector("#desti_info").removeAttribute('href');
+		$("#desti_info").css('opacity', '0.3');
+	};
+})
 </script>
 </html>

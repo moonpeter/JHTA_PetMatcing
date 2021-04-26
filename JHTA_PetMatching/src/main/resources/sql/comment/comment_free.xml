@@ -4,14 +4,32 @@
 
 <mapper namespace="Comments"> 
 
-	<select id="count" resultType="int" parameterType="int">
+	<select id="count" resultType="int" parameterType="map">
 		select count(*)
-		from freeboard_comments
+		from 
+		<if test="table_name == 'freeboard_comments'">
+			freeboard_comments
+		</if>
+		<if test="table_name == 'dwboard_comments'">
+			dwboard_comments
+		</if>
+		<if test="table_name == 'doboard_comments'">
+			doboard_comments
+		</if>
 		where board_num = #{board_num}
 	</select>
 	
 	<insert id="insert" parameterType="comment">
-		insert into freeboard_comments
+		insert into 
+		<if test="table_name == 'freeboard_comments'">
+			freeboard_comments
+		</if>
+		<if test="table_name == 'dwboard_comments'">
+			dwboard_comments
+		</if>
+		<if test="table_name == 'doboard_comments'">
+			doboard_comments
+		</if>
 		values(com_seq.nextval, #{id}, #{content}, sysdate, #{board_num})
 	</insert>
 	
@@ -20,7 +38,16 @@
 		from (select rownum rnum, num, id, content, reg_date, board_num
 				from (
 					select num, id, content, reg_date, board_num
-					from freeboard_comments
+					from 
+					<if test="table_name == 'freeboard_comments'">
+						freeboard_comments
+					</if>
+					<if test="table_name == 'dwboard_comments'">
+						dwboard_comments
+					</if>
+					<if test="table_name == 'doboard_comments'">
+						doboard_comments
+					</if>
 					where board_num = #{board_num}
 					order by reg_date desc
 				)

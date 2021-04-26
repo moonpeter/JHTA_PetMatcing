@@ -10,6 +10,62 @@
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
 <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
+<style>
+.container {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 50px;
+}
+
+.logo {
+	margin-bottom: 20px;
+}
+
+label {
+	margin-bottom: 10px;
+}
+
+input[type=text] {
+	width: 100%;
+	height: 40px;
+	border: 1px solid red;
+	margin-bottom: 10px;
+}
+
+input[type=password] {
+	width: 100%;
+	height: 40px;
+	border: 1px solid red;
+	margin-bottom: 10px;
+}
+
+#submitbtn {
+	width: 270px;
+	height: 50px;
+	background-color: red;
+	color: white;
+	border: 0;
+	margin-bottom: 15px;
+}
+
+#cencelbtn {
+	border: 2px solid red;
+	width: 270px;
+	height: 50px;
+	background-color: white;
+	color: red;
+}
+
+#submitbtn:focus, #cencelbtn:focus{
+	outline:none;
+}
+
+.span-right {
+	margin-right: 230px;
+}
+</style>
 <body>
 	<jsp:include page="/WEB-INF/views/common/header.jsp" />
 <div class="container text-danger">
