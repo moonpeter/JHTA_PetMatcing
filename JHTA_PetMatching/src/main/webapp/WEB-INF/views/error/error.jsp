@@ -17,9 +17,11 @@ body {
 </head>
 <body>
 죄송합니다.<br>
-<img src="${pageContext.request.contextPath}/resource/image/tear3.png" width="100px"><br>
+<img src="${pageContext.request.contextPath}/resource/image/tear.png" width="100px"><br>
 요청하신 <b>${url}</b> 처리에 오류가 발생했습니다.
-<hr>
-${message}
+${message}<br><br>
+<a href = "list">
+	<button id="viewbtn">목록으로 돌아가기</button>
+</a>
 </body>
 </html>

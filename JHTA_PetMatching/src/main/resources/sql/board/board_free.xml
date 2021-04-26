@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" ?><!-- SQL 맵퍼 파일은 xml이기 때문에 제일 먼저 xml 선언이 옵니다. -->
+<?xml version="1.0" encoding="UTF-8" ?><!-- SQL 맵퍼 파일은 xml이기 때문에 제일 먼저 xml 
+	선언이 옵니다. -->
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
@@ -8,27 +9,32 @@
 		select count(*) from free_board
 	</select>
 
-	<select id="list" parameterType="java.util.Map" resultType="board">
+	<select id="list" parameterType="java.util.Map"
+		resultType="board">
 		select * from
-			( select rownum rnum, b.*
-				from
-					(select * from free_board
-					 order by BOARD_RE_REF desc,
-					 BOARD_RE_SEQ asc) b
-			)
-			where rnum &gt;= #{start} and rnum &lt;= #{end}
+		( select rownum rnum, b.*
+		from
+		(select free_board.* ,(select count(*) as cnt from freeboard_comments where
+		freeboard_comments.board_num=free_board.board_num) as cnt
+		from free_board
+		order by BOARD_RE_REF desc,
+		BOARD_RE_SEQ asc) b
+		)
+		where rnum &gt;= #{start} and rnum &lt;= #{end}
 	</select>
-	
-	<select id="getSearchList" parameterType="map" resultType="board">
+
+
+	<select id="getSearchList" parameterType="map"
+		resultType="board">
 		select *
-		from 
-			(select rownum rnum, b.*
-				from 
-				(select *
-				   from free_board
-				   
-				<include refid="search" />
-			)b
+		from
+		(select rownum rnum, b.*
+		from
+		(select *
+		from free_board
+
+		<include refid="search" />
+		)b
 		)
 		where rnum &gt;=#{start} and rnum &lt;= #{end}
 	</select>
@@ -36,28 +42,20 @@
 	<select id="searchCount" parameterType="map" resultType="int">
 		select count(*)
 		from free_board
-		<include refid="search"/>
+		<include refid="search" />
 	</select>
 
-<!-- 	<sql id="search">
-		<if test="search_field!=null">
-			and
-			<foreach collection="search_field" separator="or" item="index">
-				<choose>
-					<when test='index=="S"'>subject</when>
-					<when test='index=="C"'>content</when>
-					<when test='index=="W"'>writer</when>
-					<when test='index=="SC"'>subject+content</when>
-				</choose>
-				like #{search_word}
-			</foreach>
-		</if>
-	</sql> -->
-	
+	<!-- <sql id="search"> <if test="search_field!=null"> and <foreach collection="search_field" 
+		separator="or" item="index"> <choose> <when test='index=="S"'>subject</when> 
+		<when test='index=="C"'>content</when> <when test='index=="W"'>writer</when> 
+		<when test='index=="SC"'>subject+content</when> </choose> like #{search_word} 
+		</foreach> </if> </sql> -->
+
 	<sql id="search">
 		<if test="search_field!=null">
 			where
-			<foreach collection="search_field" separator="or" item="index">
+			<foreach collection="search_field" separator="or"
+				item="index">
 				<choose>
 					<when test="index=='S'.toString()">BOARD_SUBJECT</when>
 					<when test="index=='C'.toString()">BOARD_CONTENT</when>
@@ -67,78 +65,83 @@
 			</foreach>
 		</if>
 	</sql>
-	
-	<insert id = "insert" parameterType="board">
-		<selectKey resultType="int"		order="BEFORE"	keyProperty="BOARD_NUM">
+
+	<insert id="insert" parameterType="board">
+		<selectKey resultType="int" order="BEFORE"
+			keyProperty="BOARD_NUM">
 			select nvl(max(BOARD_NUM),0)+1 from free_board
 		</selectKey>
 		insert into free_board
-		(BOARD_NUM, BOARD_NAME, BOARD_PASS, BOARD_SUBJECT,
-		 BOARD_CONTENT, BOARD_FILE, BOARD_ORIGINAL,
-		 BOARD_RE_REF,
-		 BOARD_RE_LEV, BOARD_RE_SEQ, BOARD_READCOUNT,
-		 BOARD_DATE)
-		 values
-		 (#{BOARD_NUM},
-		  #{BOARD_NAME}, #{BOARD_PASS}, #{BOARD_SUBJECT},
-		  #{BOARD_CONTENT}, #{BOARD_FILE, jdbcType=VARCHAR},
-		  #{BOARD_ORIGINAL, jdbcType=VARCHAR}, 
-		  #{BOARD_NUM},
-		  #{BOARD_RE_LEV}, #{BOARD_RE_SEQ}, #{BOARD_READCOUNT},
-		  sysdate)
+		(BOARD_NUM, BOARD_NAME, BOARD_PASS,
+		BOARD_SUBJECT,
+		BOARD_CONTENT, BOARD_FILE, BOARD_ORIGINAL,
+		BOARD_RE_REF,
+		BOARD_RE_LEV, BOARD_RE_SEQ, BOARD_READCOUNT,
+		BOARD_DATE)
+		values
+		(#{BOARD_NUM},
+		#{BOARD_NAME}, #{BOARD_PASS}, #{BOARD_SUBJECT},
+		#{BOARD_CONTENT}, #{BOARD_FILE, jdbcType=VARCHAR},
+		#{BOARD_ORIGINAL, jdbcType=VARCHAR},
+		#{BOARD_NUM},
+		#{BOARD_RE_LEV}, #{BOARD_RE_SEQ}, #{BOARD_READCOUNT},
+		sysdate)
 	</insert>
-	
-	<update id = "readCountUpdate" parameterType="int">
+
+	<update id="readCountUpdate" parameterType="int">
 		update free_board
-		set BOARD_READCOUNT = BOARD_READCOUNT + 1
+		set
+		BOARD_READCOUNT = BOARD_READCOUNT + 1
 		where BOARD_NUM = #{number}
-	</update> 
-	
-	<select id="detail" parameterType="int" resultType="board" >
+	</update>
+
+	<select id="detail" parameterType="int" resultType="board">
 		select * from free_board where BOARD_NUM = #{number}
 	</select>
-	
-	
+
+
 	<update id="modify" parameterType="board">
 		update free_board
 		set
-			BOARD_SUBJECT=#{BOARD_SUBJECT},
-			BOARD_CONTENT=#{BOARD_CONTENT},
-			BOARD_FILE=#{BOARD_FILE, jdbcType=VARCHAR},
-			BOARD_ORIGINAL=#{BOARD_ORIGINAL, jdbcType=VARCHAR}
+		BOARD_SUBJECT=#{BOARD_SUBJECT},
+		BOARD_CONTENT=#{BOARD_CONTENT},
+		BOARD_FILE=#{BOARD_FILE, jdbcType=VARCHAR},
+		BOARD_ORIGINAL=#{BOARD_ORIGINAL, jdbcType=VARCHAR}
 		where BOARD_NUM=#{BOARD_NUM}
 	</update>
-	
-	
-	<select id="boardWriter" parameterType="map"
-		resultType="board">
-			select * from free_board
-			where BOARD_NUM=#{num}
-			and BOARD_PASS=#{pass}
-		</select>
-	
+
+
+	<select id="boardWriter" parameterType="map" resultType="board">
+		select * from free_board
+		where BOARD_NUM=#{num}
+		and BOARD_PASS=#{pass}
+	</select>
+
 	<update id="reply_update" parameterType="board">
-		update 	 free_board 
-		set		 BOARD_RE_SEQ = BOARD_RE_SEQ+1
-		where 	 BOARD_RE_REF = #{BOARD_RE_REF}
-		and 	 BOARD_RE_SEQ <![CDATA[>]]> #{BOARD_RE_SEQ}
+		update free_board
+		set BOARD_RE_SEQ = BOARD_RE_SEQ+1
+		where BOARD_RE_REF = #{BOARD_RE_REF}
+		and
+		BOARD_RE_SEQ <![CDATA[>]]>
+		#{BOARD_RE_SEQ}
 	</update>
-	
-	
+
+
 	<insert id="reply_insert" parameterType="board">
-	   <selectKey resultType="int" order="BEFORE" keyProperty="BOARD_NUM">
-	      select nvl(max(BOARD_NUM),0)+1 from free_board
-	    </selectKey>
-	   insert into free_board 
-	   (BOARD_NUM,BOARD_NAME,BOARD_PASS, BOARD_SUBJECT,
-	    BOARD_CONTENT, BOARD_RE_REF, BOARD_RE_LEV,BOARD_RE_SEQ,
-		BOARD_READCOUNT,BOARD_DATE) 
+		<selectKey resultType="int" order="BEFORE"
+			keyProperty="BOARD_NUM">
+			select nvl(max(BOARD_NUM),0)+1 from free_board
+		</selectKey>
+		insert into free_board
+		(BOARD_NUM,BOARD_NAME,BOARD_PASS, BOARD_SUBJECT,
+		BOARD_CONTENT, BOARD_RE_REF, BOARD_RE_LEV,BOARD_RE_SEQ,
+		BOARD_READCOUNT,BOARD_DATE)
 		values(#{BOARD_NUM},
 		#{BOARD_NAME},#{BOARD_PASS},#{BOARD_SUBJECT},
 		#{BOARD_CONTENT}, #{BOARD_RE_REF},#{BOARD_RE_LEV},
 		#{BOARD_RE_SEQ},#{BOARD_READCOUNT},sysdate)
 	</insert>
-	
+
 	<delete id="delete" parameterType="board">
 	<![CDATA[	
 		delete from	 free_board 
@@ -157,16 +160,18 @@
 								  )
 		]]>
 	</delete>
-	
-	
+
+
 	<insert id="insert_deleteFile" parameterType="String">
-		insert into delete_file
+		insert into
+		delete_file
 		values(#{file})
 	</insert>
-	
+
 	<select id="deleteFileList" resultType="String">
-		select board_file from delete_file
+		select board_file from
+		delete_file
 	</select>
-	
-	
+
+
 </mapper>

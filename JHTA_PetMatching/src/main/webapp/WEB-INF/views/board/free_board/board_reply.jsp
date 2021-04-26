@@ -17,7 +17,11 @@
 </head>
 <body>
 		<div class = "container">
-		<form action = "add" method = "post" name = "boardform"> 
+		<form action = "replyAction" method = "post" name = "boardform"> 
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
+		<input type="hidden" name="BOARD_RE_REF" value="${boarddata.BOARD_RE_REF}">
+		<input type="hidden" name="BOARD_RE_LEV" value="${boarddata.BOARD_RE_LEV}">
+		<input type="hidden" name="BOARD_RE_SEQ" value="${boarddata.BOARD_RE_SEQ}">
 		<p class="text-danger">
 		  <font size = 4>자유게시판 - 답변</font>
 		</p>

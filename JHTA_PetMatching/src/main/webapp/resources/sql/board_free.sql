@@ -23,3 +23,16 @@ select * from free_board;
 
 --ALTER TABLE FREE_BOARD ADD COLUMN COMMENT_CNT int DEFAULT 0
 
+
+--select *  from
+--		( select rownum rnum, b.*
+--		from
+--		(select free_board.* ,
+--			(select count(*) 
+--				from freeboard_comments where
+--				    	freeboard_comments.board_num=free_board.board_num) as cnt
+--							from free_board
+--							order by BOARD_RE_REF desc,
+--							BOARD_RE_SEQ asc) b
+--						)
+--		where rnum <= 4 and rnum >= 1

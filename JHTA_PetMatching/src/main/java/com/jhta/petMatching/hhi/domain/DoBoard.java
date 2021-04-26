@@ -49,8 +49,16 @@ public class DoBoard {
 	private MultipartFile dog_uploadfile5;
 	private String DOG_PHOTO_ORIGINAL5;
 	
+	private int cnt;
 	
-	
+	public int getCnt() {
+		return cnt;
+	}
+
+	public void setCnt(int cnt) {
+		this.cnt = cnt;
+	}
+
 	public String getDOG_PHOTO_ORIGINAL() {
 		return DOG_PHOTO_ORIGINAL;
 	}

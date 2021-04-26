@@ -56,14 +56,32 @@
 	</select>
 	
 	<update id="update" parameterType="comment">
-		update	 freeboard_comments
+		update	 
+		<if test="table_name == 'freeboard_comments'">
+			freeboard_comments
+		</if>
+		<if test="table_name == 'dwboard_comments'">
+			dwboard_comments
+		</if>
+		<if test="table_name == 'doboard_comments'">
+			doboard_comments
+		</if>		
 		set		 content = #{content}
 		where	 num = #{num}
 	</update> 
 
 
 	<delete id="delete" parameterType="comment">
-		delete	 freeboard_comments
+		delete	 
+		<if test="table_name == 'freeboard_comments'">
+			freeboard_comments
+		</if>
+		<if test="table_name == 'dwboard_comments'">
+			dwboard_comments
+		</if>
+		<if test="table_name == 'doboard_comments'">
+			doboard_comments
+		</if>		
 		where 	 num = #{num}
 	</delete>
 </mapper>

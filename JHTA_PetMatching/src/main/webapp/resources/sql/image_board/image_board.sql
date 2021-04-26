@@ -21,7 +21,7 @@ BOARD_READCOUNT        NUMBER default 0, --글의 조회수
 BOARD_DATE             DATE default sysdate, --글의 작성 날짜
 REPLY_COUNT            NUMBER default 0, --댓글 수
 RECOMMEND_USER_LIST    VARCHAR2(4000) default ',', --게시글을 추천한 유저의 id 목록. varchar2는 최대 4000byte이므로 용량을 확장하고 싶으면 LONG (최대 2GB), CLOB(최대 4GB)을 사용할 것.   
-RECOMMEND_COUNT        default 0,
+RECOMMEND_COUNT        NUMBER default 0,
 PRIMARY KEY(BOARD_NUM)
 );
 
