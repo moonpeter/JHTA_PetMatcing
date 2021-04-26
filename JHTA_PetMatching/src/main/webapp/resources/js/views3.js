@@ -51,8 +51,7 @@ $(function() {
 															+ "<input type='hidden' value='"
 															+ this.num + "'>";
 												}
-												output += "<tr><td>" + this.id
-														+ "</td>";
+												output += "<tr><td>" + this.id + "<label><input type='radio' style='visibility:hidden' value='"+ this.id +"' id='sendMessage' name='sendMessage' onClick='messagePopUp2()'><img src='../resources/image/send_message.png' alt='메세지 보내기' width='30px'></label></td>";
 												output += "<td>" + this.content + "</td>";
 												output += "<td>"
 														+ this.reg_date + img
