@@ -7,32 +7,33 @@
 	<script src="${pageContext.request.contextPath}/resources/js/list.js"></script>
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/list.css">
 	<script>
-		$(function(){
-			var selectedValue = '${search_field}'
-			if(selectedValue != '')
-				$("#viewcount").val(selectedValue);
-		})
-		
-		$("#search_button").click(function(){
-			var word = $(".search input").val();
-			if(word == ''){
-				alert("검색어를 입력하세요.");
-				return false;
-			}
-		});
 		
 		var result = "${result}";
 		if(result == 'deleteSucess'){
 			alert("삭제 성공입니다.")
-		} else if(result == 'updateSuccess'){
+		} else if(result=='updateSuccess'){
 			alert("수정되었습니다.")
 		}
+		
+		
+		$(function(){
+			var selectedValue = '${search_field}'
+			if(selectedValue != '')
+				$("#viewcount").val(selectedValue);
+		
+		$("button").click(function(){
+			var word=$(".input-group input").val();
+			if(word==''){
+				alert("검색어를 입력하세요.");
+				$("input").focus();
+				return false;
+			}
+		});
+		})
 	</script>
-	
-<style>
-#speechbubble{float:right;}
-#count {position: relative;color: #dc3545;}
-</style>
+	<style>
+		#count{float:right; color:#dc3545}
+	</style>
 <title>자유게시판</title>
 </head>
 <body>
@@ -69,10 +70,10 @@
 				</select> &nbsp;
 				
 				<div class="search">
-					<input  class="form-control" type="text" id="search" name="search_word" placeholder=" 검색어를 입력하세요." value="${search_word}">&nbsp;
+					<input  class="form-control" type="text" id="search" name="search_word" placeholder=" 검색어를 입력하세요." value="${search_word}">
+				</div>&nbsp;
 					<button id="search_button" type="submit">
 					<img src="${pageContext.request.contextPath}/resources/image/search.png" width="15px"></button>
-				</div>
 				</div>
 			  </form>
 		     </div>
@@ -98,10 +99,6 @@
 			</td>
 			<td> <%-- 제목 --%>
 				<div>
-					<%-- 답변 글 제목 앞에 여백 처리 부분
-						 BOARD_RE_LEV, BOARD_NUM,
-						 BOARD_SUBJECT, BOARD_NAME, BOARD_DATE,
-						 BOARD_READCOUNT : property 이름 --%>
 				<c:if test = "${b.BOARD_RE_LEV != 0 }"> <!-- 답글인 경우 -->
 					<c:forEach var = "a" begin = "0" end = "${b.BOARD_RE_LEV*2}" step = "1">
 					&nbsp;
@@ -118,7 +115,7 @@
 					<%-- escapeXml = "true" : HTML 태그를 화면에 그대로 보여줍니다. --%>
 				</a>
 				<span id="count">
-				<img id="speechbubble" src ="${pageContext.request.contextPath}/resources/image/speechbubble.png" width="30px">${count}</span>
+				<img id="speechbubble" src ="${pageContext.request.contextPath}/resources/image/speechbubble.png" width="30px">(${b.cnt})</span>
 				<%-- <span class="badge bg-danger"><i class="fa fa-comment-o"></i> + ${count}</span> --%>
 			</div>
 			</td>
@@ -175,14 +172,57 @@
 </c:if> <%-- c:if test = "${listcount > 0}"> end --%>
 
 <%-- 게시글이 없는 경우 --%>
-<c:if test = "${listcount == 0 }">
+<%-- <c:if test = "${listcount == 0 }">
 	<font size = 5>등록된 글이 없습니다.</font>
-</c:if>
+</c:if> --%>
 
 <c:if test = "${listcount == 0 && !empty search_word }">
-	<font size = 5>검색 결과가 없습니다.</font>
-</c:if>
+	
+		<!-- 게시판 타이틀 -->
+		<p class="text-danger">
+		  <font size = 4>자유게시판&nbsp;&nbsp;&nbsp;</font>
+		  <em id="listcount" class="text-danger"> ${listcount}개의 게시물</em>
+		</p>
+		<hr class="text-danger"> 
+		
+		
+		<!-- 게시판 리스트 기능 메뉴 -->
+		<div class="container">
+				<select class = "form-control">
+					<option value="5">5개씩 보기</option>
+					<option value="10" selected>10개씩 보기</option>
+					<option value="15">15개씩 보기</option>
+				</select>
+
+		<!-- 검색창 -->
+			<div class="search">
+				<form action="search_list">
+				<div class="input-group">
+				<select id="viewcount" name="search_field">
+					<option value="S">제목</option>
+					<option value="C">내용</option>
+					<option value="W">작성자</option>
+					<option value="SC">제목+내용</option>
+				</select> &nbsp;
+				
+				<div class="search">
+					<input  class="form-control" type="text" id="search" name="search_word" placeholder=" 검색어를 입력하세요." value="${search_word}">
+				</div>&nbsp;
+					<button id="search_button" type="submit">
+					<img src="${pageContext.request.contextPath}/resources/image/search.png" width="15px"></button>
+				</div>
+			  </form>
+		     </div>
+		</div>
+		
+	<font size = 5 color="#dc3545">검색 결과가 없습니다.</font>
+	<div class="button">
+	<a href = "list">
+		<button  type="button" class = "btn btn-info">목록</button>
+	</a>
+</div></c:if>
 		<button type="button" onclick="location.href='/free_board/write'" class = "btn btn-info float-right">글 쓰 기</button>
+		
 </div>
 </body>
 </html>

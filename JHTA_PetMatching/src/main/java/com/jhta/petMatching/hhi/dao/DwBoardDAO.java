@@ -66,7 +66,7 @@ public class DwBoardDAO {
 		return sqlSession.selectList("DwBoard.deleteFileList");
 	}
 
-	public List<Board> getSearchList(Map<String, Object> map) {
+	public List<DwBoard> getSearchList(Map<String, Object> map) {
 		return sqlSession.selectList("DwBoard.getSearchList", map);
 	}
 

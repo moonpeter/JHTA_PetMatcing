@@ -27,6 +27,7 @@
 				enctype="multipart/form-data">
 			<input type = "hidden" name = "BOARD_NUM" value = "${boarddata.BOARD_NUM}">
 			<input type = "hidden" name = "BOARD_FILE" value = "${boarddata.BOARD_FILE}">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 			<p class="text-danger">
 			  <font size = 4>산책 신청 게시판 (산책러)</font>
 			</p>

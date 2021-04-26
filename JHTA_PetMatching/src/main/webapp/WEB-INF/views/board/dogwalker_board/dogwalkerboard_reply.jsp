@@ -16,7 +16,8 @@
 </head>
 <body>
 		<div class = "container">
-		<form action = "add" method = "post"  name = "boardform"> 
+		<form action = "replyAction" method = "post"  name = "boardform"> 
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 		<p class="text-danger">
 		  <font size = 4>산책 신청 게시판 (산책러) - 답변</font>
 		</p>

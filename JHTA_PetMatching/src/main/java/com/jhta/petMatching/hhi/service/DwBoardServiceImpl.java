@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import com.jhta.petMatching.hhi.controller.DwBoardController;
 import com.jhta.petMatching.hhi.dao.DwBoardDAO;
-import com.jhta.petMatching.hhi.domain.Board;
 import com.jhta.petMatching.hhi.domain.DwBoard;
 
 @Service
@@ -111,7 +110,7 @@ public class DwBoardServiceImpl implements DwBoardService {
 	}
 
 	@Override
-	public List<Board> getSearchList(String index, String search_word, int page, int limit) {
+	public List<DwBoard> getSearchList(String index, String search_word, int page, int limit) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		if(!index.equals("")) {
 			String[] search_field = index.split("");

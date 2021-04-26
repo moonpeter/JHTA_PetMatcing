@@ -221,7 +221,7 @@ img {
 .row { 
 	-bs-gutter-x: 0; 
 	-bs-gutter-y: 0;
-	 margin-right: -15px;
+/* 	 margin-right: 0; */
    
 }
 
@@ -252,6 +252,11 @@ body > div > div:nth-child(6){color:#dc3545}
       border-radius:10px; border: 2px solid #dc3545;}
 body > div:nth-child(9) > div.col-6{margin:0; padding:0}
 td{text-align:left}
+body > div.container > div.container{margin-top: 5em; margin-bottom: 5em;}
+#dog_photo > div.row{width:500px; margin-right:-15px; margin-left:0px}
+#detail_info_table > tbody > tr:nth-child(5){border-top: solid 1px #dc3545}
+#dog_photo > a.prev{color: #dc3545;}
+#dog_photo > a.next{color: #dc3545; right:-0.3em;}
 </style>
 </head>
 <body>
@@ -263,7 +268,6 @@ td{text-align:left}
 		<p class="text-danger">
 			<font size=4>산책 신청 게시판 (주인)&nbsp;&nbsp;&nbsp;</font>
 		</p>
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">	
 		<hr class="text-danger">
 
 		<!-- 게시글 제목 -->
@@ -275,6 +279,7 @@ td{text-align:left}
 			${boarddata.BOARD_NAME} <span id="date">${boarddata.BOARD_DATE}</span>
 		</div>
 
+	<div class="container">
 		<!-- 반려견 정보란  -->
 		<div class="container">
 			<div class="row">
@@ -313,27 +318,27 @@ td{text-align:left}
 							<div class="column">
 								<img class="demo cursor"
 									src="${pageContext.request.contextPath}/resources/upload/doBoard${boarddata.DOG_PHOTO}"
-									style="width: 100px;" onclick="currentSlide(1)">
+									style="width: 100px; height: 100px;" onclick="currentSlide(1)">
 							</div>
 							<div class="column">
 								<img class="demo cursor"
 									src="${pageContext.request.contextPath}/resources/upload/doBoard${boarddata.DOG_PHOTO2}"
-									style="width: 100px; float: left;" onclick="currentSlide(2)">
+									style="width: 100px; float: left; height: 100px;" onclick="currentSlide(2)">
 							</div>
 							<div class="column">
 								<img class="demo cursor"
 									src="${pageContext.request.contextPath}/resources/upload/doBoard${boarddata.DOG_PHOTO3}"
-									style="width: 100px; float: left;" onclick="currentSlide(3)">
+									style="width: 100px; float: left; height: 100px;" onclick="currentSlide(3)">
 							</div>
 							<div class="column">
 								<img class="demo cursor"
 									src="${pageContext.request.contextPath}/resources/upload/doBoard${boarddata.DOG_PHOTO4}"
-									style="width: 100px; float: left;" onclick="currentSlide(4)">
+									style="width: 100px; float: left; height: 100px;" onclick="currentSlide(4)">
 							</div>
 							<div class="column">
 								<img class="demo cursor"
 									src="${pageContext.request.contextPath}/resources/upload/doBoard${boarddata.DOG_PHOTO5}"
-									style="width: 100px; float: left;" onclick="currentSlide(5)">
+									style="width: 100px; float: left; height: 100px;" onclick="currentSlide(5)">
 							</div>
 						</div>
 					</div>
@@ -364,11 +369,11 @@ td{text-align:left}
 									<td>${boarddata.BOARD_CONTENT}</td>
 								</tr>
 							</table>
-								<hr class="text-danger">
 					</div>
 				</div>
 				<!-- <div class="container"> end -->
 			</div>
+		</div>
 			
 			<button id="send" class="btn btn-info" onClick="messagePopUp()">
   				<img id="image1" src="${pageContext.request.contextPath}/resources/image/reply_message.png" alt="메시지  보내기" width="30px">              
@@ -410,6 +415,7 @@ td{text-align:left}
 									<button type="submit" class="btn btn-primary">전송</button>
 									<button type="button" class="btn btn-danger"
 										data-dismiss="modal">취소</button>
+									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">	
 
 								</form>
 							</div>

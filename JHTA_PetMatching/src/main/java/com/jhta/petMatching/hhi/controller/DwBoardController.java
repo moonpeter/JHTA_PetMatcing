@@ -119,11 +119,13 @@ public class DwBoardController {
 
 	// 서치 리스트
 	@RequestMapping(value = "/search_list")
-	public ModelAndView searchList(@RequestParam(value = "page", defaultValue = "1", required = false) int page,
-			@RequestParam(value = "limit", defaultValue = "10", required = false) int limit, ModelAndView mv,
+	public ModelAndView searchList(
+			@RequestParam(value = "page", defaultValue = "1", required = false) int page,
+			@RequestParam(value = "limit", defaultValue = "10", required = false) int limit, 
+			ModelAndView mv,
 			@RequestParam(value = "search_field", defaultValue = "", required = false) String index,
 			@RequestParam(value = "search_word", defaultValue = "", required = false) String search_word) {
-		List<Board> list = null;
+		List<DwBoard> list = null;
 		int listcount = 0;
 
 		list = boardService.getSearchList(index, search_word, page, limit);
@@ -135,7 +137,7 @@ public class DwBoardController {
 		if (endpage > maxpage)
 			endpage = maxpage;
 
-		mv.setViewName("board/dw_board/board_list");
+		mv.setViewName("board/dogwalker_board/dogwalkerboard_list");
 		mv.addObject("page", page);
 		mv.addObject("maxpage", maxpage);
 		mv.addObject("startpage", startpage);
@@ -168,6 +170,8 @@ public class DwBoardController {
 			
 			String loginid = principal.getName();
 			model.addAttribute("loginid", loginid);
+			
+			model.addAttribute("table_name", "dwboard_comments");
 		}
 		return mv;
 	}
@@ -190,7 +194,7 @@ public class DwBoardController {
 	}
 
 	@PostMapping("/replyAction")
-	public ModelAndView dwBoardModifyAction(DwBoard board, ModelAndView mv, HttpServletRequest request) {
+	public ModelAndView dwBoardReplyAction(DwBoard board, ModelAndView mv, HttpServletRequest request) {
 
 		int result = boardService.boardReply(board);
 		if (result == 0) {
@@ -235,9 +239,6 @@ public class DwBoardController {
 	public String dwBoardModifyAction(DwBoard boarddata, String check, Model mv, HttpServletRequest request,
 			RedirectAttributes rattr) throws Exception {
 
-		// 추가합니다.
-		// input type="hidden" name="BOARD_FILE" value="${boarddata.BOARD_FILE}">
-		// boarddata.getBOARD_FILE()는 위 문장의 값을 가져옵니다. 즉, 이전에 선택한 파일 이름입니다.
 		String before_file = boarddata.getBOARD_FILE();
 
 		boolean usercheck = boardService.isBoardWriter(boarddata.getBOARD_NUM(), boarddata.getBOARD_PASS());
@@ -252,9 +253,6 @@ public class DwBoardController {
 		}
 
 		MultipartFile uploadfile = boarddata.getUploadfile();
-		// String saveFolder =
-		// request.getSession().getServletContext().getRealPath("resources") +
-		// "/upload/";
 
 		if (check != null && !check.equals("")) { // 1. 기존 파일을 그대로 사용하는 경우입니다.
 			logger.info("기존 파일을 그대로 사용합니다.");
@@ -264,7 +262,7 @@ public class DwBoardController {
 		} else {
 
 			// if(!uploadfile.isEmpty()) { // 2. 파일 변경한 경우
-			if (uploadfile != null && uploadfile.isEmpty()) {
+			if (uploadfile != null && !uploadfile.isEmpty()) {
 				logger.info("파일 변경되었습니다.");
 				// 답변 글을 수정할 경우 <input type="file" id="upfile" name="uploadfile" > 엘리먼트가 존재하지 않아
 				// private MultipartFile uploadfile; 에서 uploadfile은 null 입니다.
@@ -302,10 +300,6 @@ public class DwBoardController {
 			url = "redirect:detail";
 			rattr.addAttribute("num", boarddata.getBOARD_NUM());
 
-			// 파일 삭제를 위해 추가한 부분
-			// 수정 전에 파일이 있고 이전 파일명과 현재 파일명이 다른 경우 삭제할 목록을 테이블에 추가합니다.
-			// 예) 수정 전 파일명 "a.png", 현재 파일명 ""인 경우 - 이전 파일 삭제
-			// 예) 수정 전 파일명 "a.png", 현재 파일명 "b.png"인 경우 - 이전 파일 변경
 			if (!before_file.equals("") && !before_file.equals(boarddata.getBOARD_FILE())) {
 				boardService.insert_deleteFile(before_file);
 			}
@@ -322,9 +316,6 @@ public class DwBoardController {
 			String fileName = uploadfile.getOriginalFilename(); // 원래 파일 명
 			board.setBOARD_ORIGINAL(fileName); // 원래 파일명 저장
 
-			// String saveFolder =
-			// request.getSession().getServletContext().getRealPath("resources") +
-			// "/upload/";
 
 			String fileDBName = fileDBName(fileName, saveFolder);
 			logger.info("fileDBName = " + fileDBName);
@@ -363,10 +354,6 @@ public class DwBoardController {
 
 		/*** 확장자 구하기 시작 ***/
 		int index = fileName.lastIndexOf(".");
-		// 문자열에서 특정 문자열의 위치 값(index)를 반환한다.
-		// indexOf가 처음 발견되는 문자열에 대한 index를 반환하는 반면,
-		// lastIndexOf는 마지막으로 발견되는 문자열의 index를 반환합니다.
-		// (파일명에 점이 여러개 있을 경우 맨 마지막에 발견되는 문자열의 위치를 리턴합니다.)
 		logger.info("index = " + index);
 
 		String fileExtension = fileName.substring(index + 1);
@@ -402,12 +389,12 @@ public class DwBoardController {
 		int result = boardService.boardDelete(num);
 
 		// 삭제 처리 실패한 경우
-		if (result == 0) {
-			logger.info("게시판 삭제 실패");
-			mv.addAttribute("url", request.getRequestURL());
-			mv.addAttribute("message", "삭제 실패");
-			return "error/error";
-		}
+//		if (result == 0) {
+//			logger.info("게시판 삭제 실패");
+//			mv.addAttribute("url", request.getRequestURL());
+//			mv.addAttribute("message", "삭제 실패");
+//			return "error/error";
+//		}
 
 		// 삭제 처리 성공한 경우 - 글 목록 보기 요청을 전송하는 부분입니다.
 		logger.info("게시판 삭제 성공");

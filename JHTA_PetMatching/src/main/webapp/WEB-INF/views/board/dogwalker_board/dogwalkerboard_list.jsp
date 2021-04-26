@@ -9,13 +9,34 @@
 	<script src="${pageContext.request.contextPath}/resources/js/sigungu.js"></script>
 	
 	<script>
-		var result = "${result}";
+ 		var result = "${result}";
 		if(result == 'deleteSucess'){
 			alert("삭제 성공입니다.")
 		} else if(result == 'updateSuccess'){
 			alert("회원 정보가 수정되었습니다.")
-		}
+		} 
+		
+		$(function(){
+			var selectedValue = '${search_field}'
+			if(selectedValue != '')
+				$("#viewcount").val(selectedValue);
+		
+		$("#search_button").click(function(){
+			var word = $(".search input").val();
+			if(word == ''){
+				alert("검색어를 입력하세요.");
+				return false;
+				}
+			});
+		})
+		
 	</script>
+<style>
+	#count{float:right; color:#dc3545}
+	#subject{float:left; margin-left:1em;}
+	#re{float:left; margin-left:2em;}
+	#title{padding-left:3em;}
+</style>
 <title>산책 신청(Walker)</title>
 </head>
 <body>
@@ -40,12 +61,6 @@
 					<option value="15">15개씩 보기</option>
 				</select>&nbsp;&nbsp;&nbsp; 
 
-				<!-- <select id="searchField">
-					<option value="dogowner" selected>견주</option>
-					<option value="walker">산책러</option>
-					<option value="subject+content">제목+내용</option>
-				</select> -->
-				
 				<!-- <select name="addressRegion" id="addressRegion"></select>
 				<select name="addressDo" id="addressDo"></select>
 				<select name="addressSiGunGu" id="addressSiGunGu"></select> -->
@@ -62,9 +77,10 @@
 				</select> &nbsp;
 				
 				<div class="search">
-					<button id="search_button"><img src="${pageContext.request.contextPath}/resources/image/search.png" width="15px"></button>
-					<input class="form-control" name="search_word" type="text" id="search" placeholder=" 검색어를 입력하세요." value="${search_word}">
-				</div>
+					<input  class="form-control" type="text" id="search" name="search_word" placeholder=" 검색어를 입력하세요." value="${search_word}">
+				</div>&nbsp;
+					<button id="search_button" type="submit">
+				<img src="${pageContext.request.contextPath}/resources/image/search.png" width="15px"></button>
 		      </div>
 		    </form>
 		   </div>
@@ -89,17 +105,13 @@
 				<c:out value = "${num}" />	<%-- num 출력 --%>
 				<c:set var = "num" value="${num-1}" /> <%-- num = num - 1; 의미 --%>
 			</td>
-			<td> <%-- 제목 --%>
+			<td id="title"> <%-- 제목 --%>
 				<div>
-					<%-- 답변 글 제목 앞에 여백 처리 부분
-						 BOARD_RE_LEV, BOARD_NUM,
-						 BOARD_SUBJECT, BOARD_NAME, BOARD_DATE,
-						 BOARD_READCOUNT : property 이름 --%>
 				<c:if test = "${b.BOARD_RE_LEV != 0 }"> <!-- 답글인 경우 -->
 					<c:forEach var = "a" begin = "0" end = "${b.BOARD_RE_LEV*2}" step = "1">
 					&nbsp;
 					</c:forEach>
-					<img src ="${pageContext.request.contextPath}/resources/image/line.gif">
+					<img src ="${pageContext.request.contextPath}/resources/image/line.gif" id="re">
 				</c:if>
 					
 				<c:if test = "${b.BOARD_RE_LEV == 0}">	<%-- 원문인 경우 --%>
@@ -107,9 +119,11 @@
 				</c:if>
 				
 				<a href = "detail?num=${b.BOARD_NUM}">
-					<c:out value = "${b.BOARD_SUBJECT}" escapeXml="true" />
+					<span id="subject"><c:out value = "${b.BOARD_SUBJECT}" escapeXml="true" /></span>
 					<%-- escapeXml = "true" : HTML 태그를 화면에 그대로 보여줍니다. --%>
 				</a>
+				<span id="count">
+				<img id="speechbubble" src ="${pageContext.request.contextPath}/resources/image/speechbubble.png" width="30px">(${b.cnt})</span>
 			</div>
 			</td>
 			<td><div>${b.BOARD_NAME}</div></td>
@@ -165,12 +179,56 @@
 </c:if> <%-- c:if test = "${listcount > 0}"> end --%>
 
 <%-- 게시글이 없는 경우 --%>
-<c:if test = "${listcount == 0 }">
+<%-- <c:if test = "${listcount == 0 }">
 	<font size = 5>등록된 글이 없습니다.</font>
-</c:if>
+</c:if> --%>
+
+<c:if test = "${listcount == 0 && !empty search_word }">
+	
+		<!-- 게시판 타이틀 -->
+		<p class="text-danger">
+		  <font size = 4>산책 신청 게시판 (산책러)&nbsp;&nbsp;&nbsp;</font>
+		  <em id="listcount" class="text-danger"> ${listcount}개의 게시물</em>
+		</p>
+		<hr class="text-danger"> 
+		
+		
+		<!-- 게시판 리스트 기능 메뉴 -->
+		<div class="container">
+				<select class = "form-control">
+					<option value="5">5개씩 보기</option>
+					<option value="10" selected>10개씩 보기</option>
+					<option value="15">15개씩 보기</option>
+				</select>
+
+		<!-- 검색창 -->
+			<div class="search">
+				<form action="search_list">
+				<div class="input-group">
+				<select id="viewcount" name="search_field">
+					<option value="S">제목</option>
+					<option value="C">내용</option>
+					<option value="W">작성자</option>
+					<option value="SC">제목+내용</option>
+				</select> &nbsp;
+				
+				<div class="search">
+					<input  class="form-control" type="text" id="search" name="search_word" placeholder=" 검색어를 입력하세요." value="${search_word}">
+				</div>&nbsp;
+					<button id="search_button" type="submit">
+					<img src="${pageContext.request.contextPath}/resources/image/search.png" width="15px"></button>
+				</div>
+			  </form>
+		     </div>
+		</div>
+		
+	<font size = 5 color="#dc3545">검색 결과가 없습니다.</font>
+	<div class="button">
+	<a href = "list">
+		<button  type="button" class = "btn btn-info">목록</button>
+	</a>
+</div></c:if>
 		<button type="button" onclick="location.href='/dw_board/write'" class = "btn btn-info float-right">글 쓰 기</button>
-
-
 </div>
 </body>
 </html>

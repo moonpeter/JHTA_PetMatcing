@@ -45,7 +45,7 @@ public interface DoBoardService {
 	public int insert_deleteFile(String before_file);
 
 	// 서치 리스트
-	public List<Board> getSearchList(String index, String search_word, int page, int limit);
+	public List<DoBoard> getSearchList(String index, String search_word, int page, int limit);
 
 	public int getSearchListCount(String index, String search_word);
 	

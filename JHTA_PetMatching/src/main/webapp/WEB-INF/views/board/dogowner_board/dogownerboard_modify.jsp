@@ -27,6 +27,7 @@
 				enctype="multipart/form-data">
 			<input type = "hidden" name = "BOARD_NUM" value = "${boarddata.BOARD_NUM}">
 			<input type = "hidden" name = "BOARD_FILE" value = "${boarddata.BOARD_FILE}">
+			<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 			<p class="text-danger">
 			  <font size = 4>산책 신청 게시판 (주인)&nbsp;&nbsp;&nbsp;</font>
 			</p>
@@ -70,7 +71,7 @@
 				</div>
 				
 				<%-- 원문 글인 경우에만 파일 첨부 수정 가능합니다. --%>
-				<c:if test = "${boarddata.BOARD_RE_LEV==0 }">
+				<%-- <c:if test = "${boarddata.BOARD_RE_LEV==0 }">
 					<div class = "form-group read">
 						<label for = "board_file">파일 첨부</label>
 						<label for = "upfile">
@@ -80,7 +81,7 @@
 						<span id = "filevalue">${boarddata.BOARD_ORIGINAL}</span>
 						<img src = "${pageContext.request.contextPath}/resources/image/remove.png" alt="파일삭제" width="10px" class = "remove">
 					</div>	
-				</c:if>
+				</c:if> --%>
 				
 				<div class = "form-group">
 					<label for = "board_pass">비밀번호</label>

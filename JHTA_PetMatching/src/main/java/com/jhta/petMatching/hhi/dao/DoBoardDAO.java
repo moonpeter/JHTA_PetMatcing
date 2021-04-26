@@ -66,11 +66,11 @@ public class DoBoardDAO {
 		return sqlSession.selectList("DoBoard.deleteFileList");
 	}
 	
-	public List<Board> getSearchList(Map<String, Object> map) {
-		return sqlSession.selectList("DoBoards.getSearchList", map);
+	public List<DoBoard> getSearchList(Map<String, Object> map) {
+		return sqlSession.selectList("DoBoard.getSearchList", map);
 	}
 	
 	public int getSearchListCount(Map<String, Object> map) {
-		return sqlSession.selectOne("DoBoards.searchCount",map);
+		return sqlSession.selectOne("DoBoard.searchCount",map);
 	}
 }

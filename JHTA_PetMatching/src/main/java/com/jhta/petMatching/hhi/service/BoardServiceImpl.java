@@ -33,6 +33,7 @@ public class BoardServiceImpl implements BoardService {
 		int endrow = startrow + limit - 1;
 		map.put("start", startrow);
 		map.put("end", endrow);
+		
 		return dao.getBoardList(map);
 	}
 
