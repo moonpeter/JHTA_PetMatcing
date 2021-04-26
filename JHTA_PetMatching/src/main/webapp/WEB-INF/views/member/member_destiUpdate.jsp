@@ -118,9 +118,9 @@ li > a {
 </body>
 <script>
 $(document).ready(function (){
-	var checkname = false;
-	var checkphone = false;
-		
+	var checkname = true;
+	var checkphone = true;
+	
 	//가입하기 눌렀을 때
 	$('form').submit(function(){
 		if(!checkname){
@@ -135,7 +135,7 @@ $(document).ready(function (){
 			return false;
 		}
 	});
-		
+	
 	//이름 검사
 	$("#name").on('keyup', function(){
 		checkname = true;

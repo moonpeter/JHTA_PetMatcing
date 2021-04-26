@@ -107,8 +107,12 @@ public class MemberController {
 	}
 
 	@RequestMapping(value = "/update") //내정보 수정 화면
-	public ModelAndView member_update(ModelAndView mv, Principal principal) {
+	public ModelAndView member_update(Member member, ModelAndView mv, Principal principal) { 
 		String id = (String) principal.getName();
+		String password = member.getPassword();
+		logger.info(password);
+		member.setPassword(password);
+		
 		if (id == null) {
 			mv.setViewName("redirect:login");
 		} else {

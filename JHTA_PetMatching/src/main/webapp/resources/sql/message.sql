@@ -27,6 +27,3 @@ create sequence message_seq;
 
 --������ ����
 drop sequence message_seq;
-
-
-
