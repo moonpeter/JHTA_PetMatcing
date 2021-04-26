@@ -17,6 +17,21 @@
 		<img src="${pageContext.request.contextPath}/resources/image/main.jpg" alt="dog" width="600" height="400">
 	</div>
 	<jsp:include page="/WEB-INF/views/common/footer.jsp" />
-
 </body>
+<script>
+$(document).ready(function() {
+	var result = "${result}";
+	if(result == 'desti_updateSuccess'){
+		alert("배송지 수정이 완료되었습니다.");
+	}
+	
+	if(result == 'insertSuccess'){
+		alert("배송지 정보가 입력되었습니다.");
+	}
+	
+	if(result == 'updateSuccess'){
+		alert("내정보 수정이 완료되었습니다.");
+	}
+})
+</script>
 </html>

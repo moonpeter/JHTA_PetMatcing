@@ -19,11 +19,13 @@ from members
 drop table members;
 
 create table destination(
+id		varchar2(30),
 name	varchar2(30),
 post	number,
 address	varchar2(300),
 phone	varchar2(60),
-request varchar2(300)
+request varchar2(300),
+PRIMARY KEY(id)
 );
 
 select *
