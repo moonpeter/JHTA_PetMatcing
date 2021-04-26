@@ -17,7 +17,11 @@
 	<security:intercept-url pattern="/member/idcheck" access="permitAll" />
 	<security:intercept-url pattern="/member/joinProcess" access="permitAll" />
 	<security:intercept-url pattern="/member/list" access="hasRole('ROLE_ADMIN')" />
-	<security:intercept-url pattern="/shop/writeForm" access="hasRole('ROLE_ADMIN')" />	
+	<security:intercept-url pattern="/shop/writeForm" access="hasRole('ROLE_ADMIN')" />
+	<security:intercept-url pattern="/image_board/list" access="permitAll" />
+    <security:intercept-url pattern="/image_board/detail" access="permitAll" />
+    <security:intercept-url pattern="/imageboardcomment/list" access="permitAll" />
+    <security:intercept-url pattern="/imageboardcomment/add" access="permitAll" />	
 	<security:intercept-url pattern="/**" access="hasAnyRole('ROLE_MEMBER', 'ROLE_ADMIN')" />
 	<!-- <security:intercept-url pattern="/**" access="permitAll" /> -->
 	
