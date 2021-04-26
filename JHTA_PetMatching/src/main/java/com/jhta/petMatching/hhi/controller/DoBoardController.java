@@ -53,9 +53,6 @@ public class DoBoardController {
 	@Autowired
 	private CommentService commentService;
 	
-	@Value("${savefoldername_do}")
-	private String saveFolder;
-	
 	// DO_BOARD List 출력
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView doboardList(@RequestParam(value="page", defaultValue="1", required=false) int page, ModelAndView mv) {
@@ -235,22 +232,17 @@ public class DoBoardController {
 			return mv;
 		}
 		logger.info("(수정)상세보기 성공");
-		// 수정 폼 페이지로 이동할 때 원문 글 내용을 보여주기 때문에 boarddata 객체를
-		// ModelAndView 객체에 저장합니다.
 		mv.addObject("boarddata",boarddata);
-		// 글 수정 폼 페이지로 이동하기 위해 경로를 설정합니다.
 		mv.setViewName("board/dogowner_board/dogownerboard_modify");
 		return mv;
 	}	
 	
 	
-	// @RequestMapping(value="/add", method=RequestMethod.POST)
 		@PostMapping("/modifyAction")
 		public String doBoardModifyAction(DoBoard boarddata, String check, Model mv, HttpServletRequest request, RedirectAttributes rattr) throws Exception {
 			
-			// 추가합니다.
-			// input type="hidden" name="BOARD_FILE" value="${boarddata.BOARD_FILE}">
-			// boarddata.getBOARD_FILE()는 위 문장의 값을 가져옵니다. 즉, 이전에 선택한 파일 이름입니다.
+			String saveFolder =request.getSession().getServletContext().getRealPath("resources")+"/doboard_upload/";
+			
 			String before_file = boarddata.getBOARD_FILE();
 			
 			boolean usercheck =
@@ -326,8 +318,12 @@ public class DoBoardController {
 		}
 	
 	@PostMapping("/add")
-	public String doadd(DoBoard board) throws Exception {
+	public String doadd(DoBoard board, HttpServletRequest request) throws Exception {
 				
+		String saveFolder =request.getSession().getServletContext().getRealPath("resources")+"/doboard_upload/";
+		logger.info("이미지 업로드 실제 경로=> "+saveFolder);
+		
+		
 		MultipartFile dog_uploadfile  = board.getDog_uploadfile();
 		MultipartFile dog_uploadfile2 = board.getDog_uploadfile2();
 		MultipartFile dog_uploadfile3 = board.getDog_uploadfile3();
@@ -338,8 +334,6 @@ public class DoBoardController {
 			String fileName = dog_uploadfile.getOriginalFilename(); // 원래 파일 명
 //			board.setDOG_PHOTO(fileName); // 원래 파일명 저장
 			
-			// String saveFolder =
-			//		request.getSession().getServletContext().getRealPath("resources") + "/upload/";
 			
 			String fileDBName = fileDBName(fileName, saveFolder);
 			logger.info("fileDBName = " + fileDBName);
@@ -522,8 +516,8 @@ public class DoBoardController {
 		public ResponseEntity<Resource> dodownloadFile(
 				String original, String filename, HttpServletRequest request) {
 		
-		// String saveFolder = 
-		//		request.getSession().getServletContext().getRealPath("resources") + "/upload/";
+		String saveFolder =request.getSession().getServletContext().getRealPath("resources")+"/doboard_upload/";
+		
 		logger.info(saveFolder);
 		Resource resource = new FileSystemResource(saveFolder + filename);
 		

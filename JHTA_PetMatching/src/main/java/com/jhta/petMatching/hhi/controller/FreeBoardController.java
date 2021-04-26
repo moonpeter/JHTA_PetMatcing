@@ -51,9 +51,6 @@ public class FreeBoardController {
 	@Autowired
 	private CommentService commentService;
 	
-	@Value("${savefoldername_free}")
-	private String saveFolder;
-	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView freeboardList(@RequestParam(value="page", defaultValue="1", required=false) int page, ModelAndView mv) {
 		
@@ -252,6 +249,8 @@ public class FreeBoardController {
 		@PostMapping("/modifyAction")
 		public String freeBoardModifyAction(Board boarddata, String check, Model mv, HttpServletRequest request, RedirectAttributes rattr) throws Exception {
 			
+			String saveFolder =request.getSession().getServletContext().getRealPath("resources")+"/freeboard_upload/";
+			
 			String before_file = boarddata.getBOARD_FILE();
 			
 			boolean usercheck =
@@ -317,7 +316,9 @@ public class FreeBoardController {
 	
 	
 	@PostMapping("/add")
-	public String add(Board board) throws Exception {
+	public String add(Board board, HttpServletRequest request) throws Exception {
+		
+		String saveFolder =request.getSession().getServletContext().getRealPath("resources")+"/freeboard_upload/";
 		
 		MultipartFile uploadfile = board.getUploadfile();
 		
@@ -414,8 +415,8 @@ public class FreeBoardController {
 		public ResponseEntity<Resource> freedownloadFile(
 				String original, String filename, HttpServletRequest request) {
 		
-		// String saveFolder = 
-		//		request.getSession().getServletContext().getRealPath("resources") + "/upload/";
+		String saveFolder =request.getSession().getServletContext().getRealPath("resources")+"/freeboard_upload/";
+		
 		logger.info(saveFolder);
 		Resource resource = new FileSystemResource(saveFolder + filename);
 		

@@ -284,31 +284,31 @@ body > div.container > div.container{margin-top: 5em; margin-bottom: 5em;}
 		<div class="container">
 			<div class="row">
 				<div class="col-6">
-					<%-- <img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/doBoard${boarddata.DOG_PHOTO}"  width="500px" > --%>
+					<%-- <img class="card-img-top" src="${pageContext.request.contextPath}/resources/doboard_upload${boarddata.DOG_PHOTO}"  width="500px" > --%>
 					<div class="container" id="dog_photo">
 						<div class="mySlides">
 							<img
-								src="${pageContext.request.contextPath}/resources/upload/doBoard${boarddata.DOG_PHOTO}"
+								src="${pageContext.request.contextPath}/resources/doboard_upload${boarddata.DOG_PHOTO}"
 								width="500px" height="500px">
 						</div>
 						<div class="mySlides">
 							<img
-								src="${pageContext.request.contextPath}/resources/upload/doBoard${boarddata.DOG_PHOTO2}"
+								src="${pageContext.request.contextPath}/resources/doboard_upload${boarddata.DOG_PHOTO2}"
 								width="500px" height="500px">
 						</div>
 						<div class="mySlides">
 							<img
-								src="${pageContext.request.contextPath}/resources/upload/doBoard${boarddata.DOG_PHOTO3}"
+								src="${pageContext.request.contextPath}/resources/doboard_upload${boarddata.DOG_PHOTO3}"
 								width="500px" height="500px">
 						</div>
 						<div class="mySlides">
 							<img
-								src="${pageContext.request.contextPath}/resources/upload/doBoard${boarddata.DOG_PHOTO4}"
+								src="${pageContext.request.contextPath}/resources/doboard_upload${boarddata.DOG_PHOTO4}"
 								width="500px" height="500px">
 						</div>
 						<div class="mySlides">
 							<img
-								src="${pageContext.request.contextPath}/resources/upload/doBoard${boarddata.DOG_PHOTO5}"
+								src="${pageContext.request.contextPath}/resources/doboard_upload${boarddata.DOG_PHOTO5}"
 								width="500px" height="500px">
 						</div>
 						<a class="prev" onclick="plusSlides(-1)">❮</a>
@@ -317,27 +317,27 @@ body > div.container > div.container{margin-top: 5em; margin-bottom: 5em;}
 						<div class="row">
 							<div class="column">
 								<img class="demo cursor"
-									src="${pageContext.request.contextPath}/resources/upload/doBoard${boarddata.DOG_PHOTO}"
+									src="${pageContext.request.contextPath}/resources/doboard_upload${boarddata.DOG_PHOTO}"
 									style="width: 100px; height: 100px;" onclick="currentSlide(1)">
 							</div>
 							<div class="column">
 								<img class="demo cursor"
-									src="${pageContext.request.contextPath}/resources/upload/doBoard${boarddata.DOG_PHOTO2}"
+									src="${pageContext.request.contextPath}/resources/doboard_upload${boarddata.DOG_PHOTO2}"
 									style="width: 100px; float: left; height: 100px;" onclick="currentSlide(2)">
 							</div>
 							<div class="column">
 								<img class="demo cursor"
-									src="${pageContext.request.contextPath}/resources/upload/doBoard${boarddata.DOG_PHOTO3}"
+									src="${pageContext.request.contextPath}/resources/doboard_upload${boarddata.DOG_PHOTO3}"
 									style="width: 100px; float: left; height: 100px;" onclick="currentSlide(3)">
 							</div>
 							<div class="column">
 								<img class="demo cursor"
-									src="${pageContext.request.contextPath}/resources/upload/doBoard${boarddata.DOG_PHOTO4}"
+									src="${pageContext.request.contextPath}/resources/doboard_upload${boarddata.DOG_PHOTO4}"
 									style="width: 100px; float: left; height: 100px;" onclick="currentSlide(4)">
 							</div>
 							<div class="column">
 								<img class="demo cursor"
-									src="${pageContext.request.contextPath}/resources/upload/doBoard${boarddata.DOG_PHOTO5}"
+									src="${pageContext.request.contextPath}/resources/doboard_upload${boarddata.DOG_PHOTO5}"
 									style="width: 100px; float: left; height: 100px;" onclick="currentSlide(5)">
 							</div>
 						</div>
