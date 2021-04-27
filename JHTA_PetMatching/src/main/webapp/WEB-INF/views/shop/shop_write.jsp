@@ -38,7 +38,7 @@
    		    본문 이미지_4 : <input type="file" id="shop_upload_img_content_4" name="shop_upload_img_content_4"><br>
    		    본문 이미지_5 : <input type="file" id="shop_upload_img_content_5" name="shop_upload_img_content_5"><br>
 		    
-		    본문 텍스트 : <input type="text" id="shop_text_content" name="shop_text_content"><br>
+		    본문 텍스트 : <textarea id="shop_text_content" name="shop_text_content"></textarea><br>
 	    </div>
 		<br>	
 		<button type=submit class="btn btn-primary">등록</button>

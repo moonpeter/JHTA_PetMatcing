@@ -14,9 +14,10 @@
 				#{shop_price}, 
 				#{shop_country_of_origin}, 
 				#{shop_brand},
+				0,
+				
 				#{shop_thumnail},
 				#{shop_thumnail_original},
-				0,
 				#{shop_img_content},
 				#{shop_img_content_original},
 				#{shop_img_content_2},
