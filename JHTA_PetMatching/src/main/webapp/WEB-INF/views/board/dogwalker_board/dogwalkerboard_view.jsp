@@ -31,6 +31,14 @@
 	window.open("${pageContext.request.contextPath}/message/send?receiver_id="+receiver,
 			    "post", "width=600, height=700, scrollbars=yes");
 	};
+	
+	// 댓글 작성자 옆에 있는 메시지 이미지 클릭
+	function messagePopUp2(){
+		var receiver = $('input[name=sendMessage]:checked').val(); //메시지 이미지를 클릭하면 옆에 있는 id를 가져옴 
+		window.open("${pageContext.request.contextPath}/message/send?receiver_id="+receiver,
+				    "post", "width=600, height=700, scrollbars=yes");
+	};
+	
 	</script>
 	<script type="text/javascript">
 	$(document).ready(function (e){
