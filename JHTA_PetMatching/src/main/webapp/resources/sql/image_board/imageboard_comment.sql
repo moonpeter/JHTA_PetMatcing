@@ -2,7 +2,7 @@ drop table imageboard_comment cascade constraints;
 drop sequence imageboard_comment_seq;
 
 create table imageboard_comment(
-  num                   number  primary key, --댓글 번호
+  num                   number  primary key, --�뙎湲� 踰덊샇
   id                    varchar2(30),
   content               varchar2(200),
   reg_date              date,
