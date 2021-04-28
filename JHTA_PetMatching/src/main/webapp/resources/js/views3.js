@@ -46,7 +46,7 @@ $(function() {
 												output = '';
 												img = '';
 												if ($("#loginid").text() == this.id) {
-													img = "<img src='${pageContext.request.contextPath}/resources/image/pencil2.png' width='15px' class='update'>"
+													img = "<img src='../resources/image/pencil2.png' width='15px' class='update'>"
 															+ "<img src='${pageContext.request.contextPath}/resources/image/delete.png' width='15px' class='remove'>"
 															+ "<input type='hidden' value='"
 															+ this.num + "'>";
@@ -153,7 +153,7 @@ $(function() {
 		var num = $(this).next().val(); // 댓글번호
 		$.ajax({
 			type : "post",
-			url : "/comment/delete",
+			url : "../comment/delete",
 			data : {
 				"num" : num,
 				"table_name" : table_name
@@ -163,7 +163,10 @@ $(function() {
 					// page = 1
 					getList(page); // 삭제 후 해당 페이지 보여줍니다.
 				} // if
-			} // success
+			}, // success
+			error : function(){
+				console.log('에러')
+			}
 		}) // ajax end
 	})
 
