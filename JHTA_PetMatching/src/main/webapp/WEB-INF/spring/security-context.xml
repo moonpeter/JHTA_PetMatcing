@@ -12,6 +12,8 @@
 	<security:http>
 	
 	<security:intercept-url pattern="/resources/**/**" access="permitAll" />
+	<security:intercept-url pattern="/index.jsp" access="permitAll" />
+	<security:intercept-url pattern="/home/main" access="permitAll" />
 	<security:intercept-url pattern="/member/login" access="permitAll" />
 	<security:intercept-url pattern="/member/join" access="permitAll" />
 	<security:intercept-url pattern="/member/idcheck" access="permitAll" />
