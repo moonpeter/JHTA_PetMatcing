@@ -82,7 +82,7 @@ public class ShopTest {
 		logger.info("testWriteForm() end!!!");
 	}
 	
-//	@Test
+	@Test
 	public void testWrite() throws Exception {
 		logger.info("testWrite() start!!!");
 		FileInputStream fis_thumnail = new FileInputStream("/Users/moonpeter/Desktop/mediatest/image/naverlogo.jpg");
@@ -290,7 +290,7 @@ public class ShopTest {
 		logger.info("shopModifyForm() end!!!");
 	}
 	
-	@Test
+//	@Test
 	public void shopModify() {
 		logger.info("shopModify() start!!!");
 		int result = sqlSession.update("Shops.shopModify", 46);

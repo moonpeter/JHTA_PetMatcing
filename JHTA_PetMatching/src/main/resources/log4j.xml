@@ -19,6 +19,10 @@
 		<level value="info" />
 	</logger>
 	
+	<logger name="com.jhta.petMatching.dao">
+		<level value="trace" />
+	</logger>
+	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
 		<level value="info" />
@@ -46,7 +50,7 @@
 
 	<!-- Root Logger -->
 	<root>
-		<priority value="info" />
+		<priority value="trace" />
 		<appender-ref ref="console" />
 	</root>
 	

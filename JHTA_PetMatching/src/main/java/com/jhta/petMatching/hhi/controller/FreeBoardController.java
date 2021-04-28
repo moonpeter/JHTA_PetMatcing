@@ -24,7 +24,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -51,9 +50,6 @@ public class FreeBoardController {
 	
 	@Autowired
 	private CommentService commentService;
-	
-	@Value("${savefoldername_free}")
-	private String saveFolder;
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView freeboardList(@RequestParam(value="page", defaultValue="1", required=false) int page, ModelAndView mv) {
@@ -83,7 +79,7 @@ public class FreeBoardController {
 		mv.addObject("boardlist", boardlist);
 		mv.addObject("limit", limit);
 		
-//		int count = commentService.getListCount();
+//		int count = commentService.getListCount(num, "freeboard_comments");
 //		mv.addObject("count", count);
 		
 		return mv;
@@ -95,6 +91,7 @@ public class FreeBoardController {
 		public Map<String,Object> freeboardListAjax(
 				@RequestParam(value="page", defaultValue="1", required=false) int page,
 				@RequestParam(value="limit", defaultValue="10", required=false) int limit
+//				@RequestParam(value="count", defaultValue="0", required=false) int num
 				) {
 			
 			int listcount = boardService.getListCount(); // 총 리스트 수를 받아옴
@@ -118,6 +115,9 @@ public class FreeBoardController {
 			map.put("listcount", listcount);
 			map.put("boardlist", boardlist);
 			map.put("limit", limit);
+
+//			int count = commentService.getListCount(num, "freeboard_comments");
+//			map.put("count", count);
 			
 			return map;
 		}
@@ -201,7 +201,7 @@ public class FreeBoardController {
 		}
 		
 		@PostMapping("/replyAction")
-		public ModelAndView freeBoardModifyAction(Board board, ModelAndView mv, HttpServletRequest request) {
+		public ModelAndView freeBoardReplyAction(Board board, ModelAndView mv, HttpServletRequest request) {
 			
 			int result = boardService.boardReply(board);
 			if(result == 0) {
@@ -249,9 +249,8 @@ public class FreeBoardController {
 		@PostMapping("/modifyAction")
 		public String freeBoardModifyAction(Board boarddata, String check, Model mv, HttpServletRequest request, RedirectAttributes rattr) throws Exception {
 			
-			// 추가합니다.
-			// input type="hidden" name="BOARD_FILE" value="${boarddata.BOARD_FILE}">
-			// boarddata.getBOARD_FILE()는 위 문장의 값을 가져옵니다. 즉, 이전에 선택한 파일 이름입니다.
+			String saveFolder =request.getSession().getServletContext().getRealPath("resources")+"/freeboard_upload/";
+			
 			String before_file = boarddata.getBOARD_FILE();
 			
 			boolean usercheck =
@@ -267,30 +266,23 @@ public class FreeBoardController {
 			}
 			
 			MultipartFile uploadfile = boarddata.getUploadfile();
-			// String saveFolder = request.getSession().getServletContext().getRealPath("resources") + "/upload/";
 			
-			if(check != null && !check.equals("")) { // 1. 기존 파일을 그대로 사용하는 경우입니다.
+			if(check != null && !check.equals("")) { 
 				logger.info("기존 파일을 그대로 사용합니다.");
 				boarddata.setBOARD_ORIGINAL(check);
-				// <input type = "hidden" name = "BOARD_FILE" value = "${boarddata.BOARD_FILE}">
-				// 위 문장 때문에 board.setBOARD_FILE() 값은 자동 저장됩니다.
 			} else {
 				
-				// if(!uploadfile.isEmpty()) { // 2. 파일 변경한 경우
-				if(uploadfile!=null && uploadfile.isEmpty()) {
+				// if(!uploadfile.isEmpty()) { 
+				if(uploadfile!=null && !uploadfile.isEmpty()) {
 					logger.info("파일 변경되었습니다.");
-					// 답변 글을 수정할 경우 <input type="file" id="upfile" name="uploadfile" > 엘리먼트가 존재하지 않아
-					// private MultipartFile uploadfile; 에서 uploadfile은 null 입니다.
 					
 					String fileName = uploadfile.getOriginalFilename(); //원래 파일명
 					boarddata.setBOARD_ORIGINAL(fileName);
 					
 					String fileDBName = fileDBName(fileName, saveFolder);
 					
-					// transferTO(File path) : 업로드한 파을 매개변수의 경로에 저장합니다.
 					uploadfile.transferTo(new File(saveFolder + fileDBName));
 					
-					// 바뀐 파일명으로 저장 
 					boarddata.setBOARD_FILE(fileDBName);
 				} else { // uploadfile.isEmpty() 인 경우 - 3. 파일 선택하지 않은 경우
 					logger.info("선택 파일 없습니다.");
@@ -315,10 +307,6 @@ public class FreeBoardController {
 				url = "redirect:detail";
 				rattr.addAttribute("num", boarddata.getBOARD_NUM());
 				
-				// 파일 삭제를 위해 추가한 부분
-				// 수정 전에 파일이 있고 이전 파일명과 현재 파일명이 다른 경우 삭제할 목록을 테이블에 추가합니다.
-				// 예) 수정 전 파일명 "a.png", 현재 파일명 ""인 경우 - 이전 파일 삭제
-				// 예) 수정 전 파일명 "a.png", 현재 파일명 "b.png"인 경우 - 이전 파일 변경
 				if(!before_file.equals("") && !before_file.equals(boarddata.getBOARD_FILE())) {
 					boardService.insert_deleteFile(before_file);
 				}
@@ -327,9 +315,10 @@ public class FreeBoardController {
 		}
 	
 	
-	// @RequestMapping(value="/add", method=RequestMethod.POST)
 	@PostMapping("/add")
-	public String add(Board board) throws Exception {
+	public String add(Board board, HttpServletRequest request) throws Exception {
+		
+		String saveFolder =request.getSession().getServletContext().getRealPath("resources")+"/freeboard_upload/";
 		
 		MultipartFile uploadfile = board.getUploadfile();
 		
@@ -337,8 +326,6 @@ public class FreeBoardController {
 			String fileName = uploadfile.getOriginalFilename(); // 원래 파일 명
 			board.setBOARD_ORIGINAL(fileName); // 원래 파일명 저장
 			
-			// String saveFolder =
-			//		request.getSession().getServletContext().getRealPath("resources") + "/upload/";
 			
 			String fileDBName = fileDBName(fileName, saveFolder);
 			logger.info("fileDBName = " + fileDBName);
@@ -377,10 +364,6 @@ public class FreeBoardController {
 		
 		/*** 확장자 구하기 시작 ***/
 		int index = fileName.lastIndexOf(".");
-		// 문자열에서 특정 문자열의 위치 값(index)를 반환한다.
-		// indexOf가 처음 발견되는 문자열에 대한 index를 반환하는 반면,
-		// lastIndexOf는 마지막으로 발견되는 문자열의 index를 반환합니다.
-		// (파일명에 점이 여러개 있을 경우 맨 마지막에 발견되는 문자열의 위치를 리턴합니다.)
 		logger.info("index = " + index);
 		
 		String fileExtension = fileName.substring(index + 1);
@@ -432,8 +415,8 @@ public class FreeBoardController {
 		public ResponseEntity<Resource> freedownloadFile(
 				String original, String filename, HttpServletRequest request) {
 		
-		// String saveFolder = 
-		//		request.getSession().getServletContext().getRealPath("resources") + "/upload/";
+		String saveFolder =request.getSession().getServletContext().getRealPath("resources")+"/freeboard_upload/";
+		
 		logger.info(saveFolder);
 		Resource resource = new FileSystemResource(saveFolder + filename);
 		

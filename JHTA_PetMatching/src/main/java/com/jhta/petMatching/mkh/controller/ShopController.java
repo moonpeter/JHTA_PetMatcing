@@ -5,6 +5,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,16 +32,16 @@ public class ShopController {
 	@Autowired
 	ShopService shopService;
 	
-	@Value("${savefoldername_shop}")
-	private String saveFolder;
-	
 	@GetMapping("writeForm")
 	public String writePage() {
 		return "shop/shop_write";
 	}
 	
 	@PostMapping("write")
-	public String insert(Shop shop) throws Exception {
+	public String insert(Shop shop, HttpServletRequest request) throws Exception {
+		
+		String saveFolder = request.getSession().getServletContext().getRealPath("resources") + "/upload/shop/";
+		logger.info("이미지 업로드 실제 경로 === " + saveFolder);
 		
 		MultipartFile uploadThumnail = shop.getShop_upload_thumnail();
 		

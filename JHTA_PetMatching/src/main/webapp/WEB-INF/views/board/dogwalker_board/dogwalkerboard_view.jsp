@@ -3,7 +3,7 @@
 
 <html>
 <head>
-<title>MVC 게시판 - view</title>
+<title>산책 신청 게시판(산책러)</title>
 	<jsp:include page = "/WEB-INF/views/common/header.jsp" />
 	<script src="${pageContext.request.contextPath}/resources/js/jquery-3.5.1.js"></script>
 	<script src = "${pageContext.request.contextPath}/resources/js/views3.js"></script>
@@ -31,6 +31,40 @@
 	window.open("${pageContext.request.contextPath}/message/send?receiver_id="+receiver,
 			    "post", "width=600, height=700, scrollbars=yes");
 	};
+	
+	// 댓글 작성자 옆에 있는 메시지 이미지 클릭
+	function messagePopUp2(){
+		var receiver = $('input[name=sendMessage]:checked').val(); //메시지 이미지를 클릭하면 옆에 있는 id를 가져옴 
+		window.open("${pageContext.request.contextPath}/message/send?receiver_id="+receiver,
+				    "post", "width=600, height=700, scrollbars=yes");
+	};
+	
+	</script>
+	<script type="text/javascript">
+	$(document).ready(function (e){
+		
+		$(document).on("click","img",function(){
+			var path = $(this).attr('src')
+			showImage(path);
+		});//end click event
+		
+		function showImage(fileCallPath){
+		    
+		    $(".bigPictureWrapper").css("display","flex").show();
+		    
+		    $(".bigPicture")
+		    .html("<img src='"+fileCallPath+"' >")
+		    .animate({width:'100%', height: '100%'}, 1000);
+		    
+		  }//end fileCallPath
+		  
+		$(".bigPictureWrapper").on("click", function(e){
+		    $(".bigPicture").animate({width:'0%', height: '0%'}, 1000);
+		    setTimeout(function(){
+		      $('.bigPictureWrapper').hide();
+		    }, 1000);
+		  });//end bigWrapperClick event
+	});
 	</script>
 <style>
 	body > div > table > tbody >tr:nth-child(1) {
@@ -81,14 +115,41 @@ body > div > div:nth-child(6){padding-bottom:0.53em;}
 body > div > div:nth-child(6){color:#dc3545}
 #send{background-color:white; color:#dc3545;  height:40px;
       border-radius:10px; border: 2px solid #dc3545;}
+      
+ .bigPictureWrapper {
+			position: absolute;
+			display: none;
+			justify-content: center;
+			align-items: center;
+			top:0%;
+			width:100%;
+			height:100%;
+			/* background-color: gray;  */
+			z-index: 100;
+			/* background:rgba(255,255,255,0.5); */
+		}
+		.bigPicture {
+			position: relative;
+			display:flex;
+			/* justify-content: center; */
+			align-items: center;
+		}
+		.bigPicture img {
+			width:600px;
+		}
+		body > div.container > div:nth-child(6) > img{width:300px}
+		.form-control{border:none; height:500px}
+		body > div.container > div:nth-child(6) > textarea{padding:0; margin-top: 2em; margin-bottom:5em;}
+		
 </style>
 </head>
 <body>
 	<input type="hidden" id="id" value="${loginid}" name="loginid">
+	<input type="hidden" id="table_name" value="${table_name}">
+	
 	<div class = "container">
 		<p class="text-danger">
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">	
-		  <font size = 4>산책 신청 게시판&nbsp;&nbsp;&nbsp;</font>
+		  <font size = 4>산책 신청 게시판 (산책러)&nbsp;&nbsp;&nbsp;</font>
 		</p>
 		<hr class="text-danger"> 
 			
@@ -101,27 +162,33 @@ body > div > div:nth-child(6){color:#dc3545}
 						<span id="date">${boarddata.BOARD_DATE}</span></div>
 				
 			<!-- 내용 -->
-				<div style="padding-right:0px"><textarea class = "form-control"
-				readOnly> ${boarddata.BOARD_CONTENT}</textarea></div>
-
-			<c:if test="${boarddata.BOARD_RE_LEV == 0}"> <%-- 원문글인 경우에만 첨부파일을 추가할 수 있습니다. --%>
-
-				<div>첨부파일&nbsp;
-				<c:if test = "${!empty boarddata.BOARD_FILE}"> <%-- 파일 첨부한 경우 --%>
-				<img src = "../resources/image/down.png" width = "10px">
-					<a href = "down?filename=${boarddata.BOARD_FILE}&original=${boarddata.BOARD_ORIGINAL}">
-					${boarddata.BOARD_ORIGINAL}</a>
+			<c:if test="${boarddata.BOARD_RE_LEV == 0}">
+			<div class="bigPictureWrapper">
+				<div class="bigPicture">
+				</div>
+			</div>
+				<div style="padding-right:0px">
+				<c:if test = "${!empty boarddata.BOARD_FILE}">
+					<img class="demo cursor"
+						 src="${pageContext.request.contextPath}/resources/dwboard_upload${boarddata.BOARD_FILE}">
 				</c:if>
-				<c:if test = "${empty boarddata.BOARD_FILE}"> <%-- 파일 첨부하지 않은 경우 --%> 			
-				</c:if> </div>
-			</c:if>	
+				<c:if test = "${empty boarddata.BOARD_FILE}">
+				</c:if> 
+				<textarea class = "form-control"readOnly> ${boarddata.BOARD_CONTENT}</textarea>
+			</div>
+			</c:if>
+			
+			<c:if test="${boarddata.BOARD_RE_LEV != 0}">
+				<div style="padding-right:0px">
+				<textarea class = "form-control"readOnly> ${boarddata.BOARD_CONTENT}</textarea>
+			</div>
+			</c:if>
 			
 			<button id="send" class="btn btn-info" onClick="messagePopUp()">
   				<img id="image1" src="${pageContext.request.contextPath}/resources/image/reply_message.png" alt="메시지  보내기" width="30px">              
     			메시지 보내기
 			</button>
-			
-			
+
 			
 				<div class = "center">
 				 		<button id = "comment">댓글</button>
@@ -167,6 +234,7 @@ body > div > div:nth-child(6){color:#dc3545}
 		 		</div>
 		 		<button type = "submit" class = "btn btn-primary">전송</button>
 		 		<button type = "button" class = "btn btn-danger" data-dismiss = "modal">취소</button>
+		 		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">	
 		 		
 		 		</form>
 		 	</div>

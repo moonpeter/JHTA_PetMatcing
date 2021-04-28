@@ -23,3 +23,6 @@ select * from DW_BOARD;
 
 insert into DW_BOARD
 values(1, 'admin', '1234','테스트','내용','1','1',1,1,1,1, sysdate);
+
+
+

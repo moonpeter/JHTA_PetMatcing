@@ -17,10 +17,10 @@ BOARD_FILE3            VARCHAR2(50),
 BOARD_ORIGINAL3        VARCHAR2(50),
 BOARD_FILE4            VARCHAR2(50),
 BOARD_ORIGINAL4        VARCHAR2(50),
-BOARD_READCOUNT        NUMBER default 0, --湲��쓽 議고쉶�닔
-BOARD_DATE             DATE default sysdate, --湲��쓽 �옉�꽦 �궇吏�
-REPLY_COUNT            NUMBER default 0, --�뙎湲� �닔
-RECOMMEND_USER_LIST    VARCHAR2(4000) default ',', --寃뚯떆湲��쓣 異붿쿇�븳 �쑀���쓽 id 紐⑸줉. varchar2�뒗 理쒕� 4000byte�씠誘�濡� �슜�웾�쓣 �솗�옣�븯怨� �떢�쑝硫� LONG (理쒕� 2GB), CLOB(理쒕� 4GB)�쓣 �궗�슜�븷 寃�.   
+BOARD_READCOUNT        NUMBER default 0, --글의 조회수
+BOARD_DATE             DATE default sysdate, --글의 작성 날짜
+REPLY_COUNT            NUMBER default 0, --댓글 수
+RECOMMEND_USER_LIST    VARCHAR2(4000) default ',', --게시글을 추천한 유저의 id 목록. varchar2는 최대 4000byte이므로 용량을 확장하고 싶으면 LONG (최대 2GB), CLOB(최대 4GB)을 사용할 것.   
 RECOMMEND_COUNT        NUMBER default 0,
 PRIMARY KEY(BOARD_NUM)
 );

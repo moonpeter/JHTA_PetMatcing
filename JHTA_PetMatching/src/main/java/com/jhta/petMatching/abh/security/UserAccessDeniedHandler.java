@@ -20,11 +20,11 @@ public class UserAccessDeniedHandler implements AccessDeniedHandler {
 	@Override
 	public void handle(HttpServletRequest request, HttpServletResponse response,
 			AccessDeniedException accessDeniedException) throws IOException, ServletException {
-		logger.error("AccessDeniedHandler : ¿¡·¯");
+		logger.error("AccessDeniedHandler : ì—ëŸ¬");
 		
 		String url = "/WEB-INF/views/error/error.jsp";
 		RequestDispatcher dispatcher = request.getRequestDispatcher(url);
-		request.setAttribute("key", "Á¢±Ù ±ÇÇÑÀÌ ¾ø½À´Ï´Ù");
+		request.setAttribute("key", "ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½");
 		dispatcher.forward(request, response);
 	}
 }

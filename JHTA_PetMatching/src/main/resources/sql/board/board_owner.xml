@@ -7,23 +7,42 @@
 	<select id="count" resultType="int">
 		select count(*) from do_board
 	</select>
+	
+	
+	<!-- 기존 list 쿼리문  -->
+	<!-- <select id="list" parameterType="java.util.Map" resultType="Doboard">
+			select * from
+				( select rownum rnum, b.*
+					from
+						(select * from do_board
+						 order by BOARD_RE_REF desc,
+						 BOARD_RE_SEQ asc) b
+				)
+				where rnum &gt;= #{start} and rnum &lt;= #{end}
+		</select> -->
 
+	<!--  댓글 갯수 count list 쿼리문  -->
 	<select id="list" parameterType="java.util.Map" resultType="Doboard">
 		select * from
-			( select rownum rnum, b.*
-				from
-					(select * from do_board
-					 order by BOARD_RE_REF desc,
-					 BOARD_RE_SEQ asc) b
-			)
-			where rnum &gt;= #{start} and rnum &lt;= #{end}
+		( select rownum rnum, b.*
+		from
+		(select do_board.* ,(select count(*) as cnt from doboard_comments where
+		doboard_comments.board_num=do_board.board_num) as cnt
+		from do_board
+		order by BOARD_RE_REF desc,
+		BOARD_RE_SEQ asc) b
+		)
+		where rnum &gt;= #{start} and rnum &lt;= #{end}
 	</select>
 
 	<select id="getSearchList" parameterType="map" resultType="Doboard">
-		select * from
+		select * 
+		from
 			(select rownum rnum, b.*
 				from
-					(select * from do_board
+					(select *
+						from do_board
+						
 					<include refid="search" />
 					)b
 				)

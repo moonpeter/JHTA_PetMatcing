@@ -47,7 +47,7 @@ $(document).ready(function(){
 	
 	$("#upfile").change(function(){
 		check++;
-		var inputfile = $(file).val().split('\\');
+		var inputfile = $("#upfile").val().split('\\');
 		$('#filevalue').text(inputfile[inputfile.length -1]);
 		show();
 		console.log(check);

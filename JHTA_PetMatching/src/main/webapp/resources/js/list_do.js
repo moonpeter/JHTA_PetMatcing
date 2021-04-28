@@ -44,19 +44,19 @@ function ajax(sdata){
 						}
 						img = "";
 						if(item.board_RE_LEV > 0){
-							imt = "<img src = '../resources/image/line.gif'>";
+							imt = "<img src = '${pageContext.request.contextPath}/resources/image/line.gif'>";
 						}
 						
 						var subject=item.board_SUBJECT.replace(/</g,'&lt;')
 								subject=subject.replace(/>/g,'&gt;')
 						
-						output += "<td><div>" + blank + img
+						output += '<td><div>' + blank + img
 						output += '<a href = "detail?num=' + item.board_NUM + '">'
-						output += subject 
-						output += data.count + '</a></div></td>'
-						output += '<td><div>' + item.board_NAME + '</div></td>'
-						output += '<td><div>' + item.board_DATE + '</div></td>'
-						output += '<td><div>' + item.board_READCOUNT + '</div></td></tr>'
+						output += subject + '</a></div></td>'
+						output += '<td><div>' + item.dog_PHOTO + '</div></td>'
+//						output += '<td><div>' + item.board_NAME + '</div></td>'
+//						output += '<td><div>' + item.board_DATE + '</div></td>'
+//						output += '<td><div>' + item.board_READCOUNT + '</div></td></tr>'
 					})
 					
 			output += "</tbody>"

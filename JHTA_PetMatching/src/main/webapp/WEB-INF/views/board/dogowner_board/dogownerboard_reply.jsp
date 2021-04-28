@@ -21,6 +21,7 @@
 		<input type="hidden" name="BOARD_RE_REF" value="${boarddata.BOARD_RE_REF}">
 		<input type="hidden" name="BOARD_RE_LEV" value="${boarddata.BOARD_RE_LEV}">
 		<input type="hidden" name="BOARD_RE_SEQ" value="${boarddata.BOARD_RE_SEQ}">
+		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">
 		
 		<h1>MVC 게시판 - Reply</h1>
 		<div class = "form-group">

@@ -92,10 +92,10 @@
 
 <div class="container ">
 	<img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_img_content }">
-	<img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_img_content_2 }">
+	<%-- <img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_img_content_2 }">
 	<img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_img_content_3 }">
 	<img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_img_content_4 }">
-	<img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_img_content_5 }">
+	<img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/shop${shop.shop_img_content_5 }"> --%>
 </div>
 
 <div class="container">

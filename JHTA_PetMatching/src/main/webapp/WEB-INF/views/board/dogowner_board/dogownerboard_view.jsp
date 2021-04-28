@@ -65,6 +65,13 @@
 			    "post", "width=600, height=700, scrollbars=yes");
 	};
 	
+	// 댓글 작성자 옆에 있는 메시지 이미지 클릭
+	function messagePopUp2(){
+		var receiver = $('input[name=sendMessage]:checked').val(); //메시지 이미지를 클릭하면 옆에 있는 id를 가져옴 
+		window.open("${pageContext.request.contextPath}/message/send?receiver_id="+receiver,
+				    "post", "width=600, height=700, scrollbars=yes");
+	};
+	
 </script>
 <style>
 body>div>table>tbody>tr:nth-child(1) {
@@ -221,7 +228,7 @@ img {
 .row { 
 	-bs-gutter-x: 0; 
 	-bs-gutter-y: 0;
-	 margin-right: -15px;
+/* 	 margin-right: 0; */
    
 }
 
@@ -252,6 +259,11 @@ body > div > div:nth-child(6){color:#dc3545}
       border-radius:10px; border: 2px solid #dc3545;}
 body > div:nth-child(9) > div.col-6{margin:0; padding:0}
 td{text-align:left}
+body > div.container > div.container{margin-top: 5em; margin-bottom: 5em;}
+#dog_photo > div.row{width:500px; margin-right:-15px; margin-left:0px}
+#detail_info_table > tbody > tr:nth-child(5){border-top: solid 1px #dc3545}
+#dog_photo > a.prev{color: #dc3545;}
+#dog_photo > a.next{color: #dc3545; right:-0.3em;}
 </style>
 </head>
 <body>
@@ -263,7 +275,6 @@ td{text-align:left}
 		<p class="text-danger">
 			<font size=4>산책 신청 게시판 (주인)&nbsp;&nbsp;&nbsp;</font>
 		</p>
-		<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">	
 		<hr class="text-danger">
 
 		<!-- 게시글 제목 -->
@@ -275,35 +286,36 @@ td{text-align:left}
 			${boarddata.BOARD_NAME} <span id="date">${boarddata.BOARD_DATE}</span>
 		</div>
 
+	<div class="container">
 		<!-- 반려견 정보란  -->
 		<div class="container">
 			<div class="row">
 				<div class="col-6">
-					<%-- <img class="card-img-top" src="${pageContext.request.contextPath}/resources/upload/doBoard${boarddata.DOG_PHOTO}"  width="500px" > --%>
+					<%-- <img class="card-img-top" src="${pageContext.request.contextPath}/resources/doboard_upload${boarddata.DOG_PHOTO}"  width="500px" > --%>
 					<div class="container" id="dog_photo">
 						<div class="mySlides">
 							<img
-								src="${pageContext.request.contextPath}/resources/upload/doBoard${boarddata.DOG_PHOTO}"
+								src="${pageContext.request.contextPath}/resources/doboard_upload${boarddata.DOG_PHOTO}"
 								width="500px" height="500px">
 						</div>
 						<div class="mySlides">
 							<img
-								src="${pageContext.request.contextPath}/resources/upload/doBoard${boarddata.DOG_PHOTO2}"
+								src="${pageContext.request.contextPath}/resources/doboard_upload${boarddata.DOG_PHOTO2}"
 								width="500px" height="500px">
 						</div>
 						<div class="mySlides">
 							<img
-								src="${pageContext.request.contextPath}/resources/upload/doBoard${boarddata.DOG_PHOTO3}"
+								src="${pageContext.request.contextPath}/resources/doboard_upload${boarddata.DOG_PHOTO3}"
 								width="500px" height="500px">
 						</div>
 						<div class="mySlides">
 							<img
-								src="${pageContext.request.contextPath}/resources/upload/doBoard${boarddata.DOG_PHOTO4}"
+								src="${pageContext.request.contextPath}/resources/doboard_upload${boarddata.DOG_PHOTO4}"
 								width="500px" height="500px">
 						</div>
 						<div class="mySlides">
 							<img
-								src="${pageContext.request.contextPath}/resources/upload/doBoard${boarddata.DOG_PHOTO5}"
+								src="${pageContext.request.contextPath}/resources/doboard_upload${boarddata.DOG_PHOTO5}"
 								width="500px" height="500px">
 						</div>
 						<a class="prev" onclick="plusSlides(-1)">❮</a>
@@ -312,28 +324,28 @@ td{text-align:left}
 						<div class="row">
 							<div class="column">
 								<img class="demo cursor"
-									src="${pageContext.request.contextPath}/resources/upload/doBoard${boarddata.DOG_PHOTO}"
-									style="width: 100px;" onclick="currentSlide(1)">
+									src="${pageContext.request.contextPath}/resources/doboard_upload${boarddata.DOG_PHOTO}"
+									style="width: 100px; height: 100px;" onclick="currentSlide(1)">
 							</div>
 							<div class="column">
 								<img class="demo cursor"
-									src="${pageContext.request.contextPath}/resources/upload/doBoard${boarddata.DOG_PHOTO2}"
-									style="width: 100px; float: left;" onclick="currentSlide(2)">
+									src="${pageContext.request.contextPath}/resources/doboard_upload${boarddata.DOG_PHOTO2}"
+									style="width: 100px; float: left; height: 100px;" onclick="currentSlide(2)">
 							</div>
 							<div class="column">
 								<img class="demo cursor"
-									src="${pageContext.request.contextPath}/resources/upload/doBoard${boarddata.DOG_PHOTO3}"
-									style="width: 100px; float: left;" onclick="currentSlide(3)">
+									src="${pageContext.request.contextPath}/resources/doboard_upload${boarddata.DOG_PHOTO3}"
+									style="width: 100px; float: left; height: 100px;" onclick="currentSlide(3)">
 							</div>
 							<div class="column">
 								<img class="demo cursor"
-									src="${pageContext.request.contextPath}/resources/upload/doBoard${boarddata.DOG_PHOTO4}"
-									style="width: 100px; float: left;" onclick="currentSlide(4)">
+									src="${pageContext.request.contextPath}/resources/doboard_upload${boarddata.DOG_PHOTO4}"
+									style="width: 100px; float: left; height: 100px;" onclick="currentSlide(4)">
 							</div>
 							<div class="column">
 								<img class="demo cursor"
-									src="${pageContext.request.contextPath}/resources/upload/doBoard${boarddata.DOG_PHOTO5}"
-									style="width: 100px; float: left;" onclick="currentSlide(5)">
+									src="${pageContext.request.contextPath}/resources/doboard_upload${boarddata.DOG_PHOTO5}"
+									style="width: 100px; float: left; height: 100px;" onclick="currentSlide(5)">
 							</div>
 						</div>
 					</div>
@@ -364,11 +376,11 @@ td{text-align:left}
 									<td>${boarddata.BOARD_CONTENT}</td>
 								</tr>
 							</table>
-								<hr class="text-danger">
 					</div>
 				</div>
 				<!-- <div class="container"> end -->
 			</div>
+		</div>
 			
 			<button id="send" class="btn btn-info" onClick="messagePopUp()">
   				<img id="image1" src="${pageContext.request.contextPath}/resources/image/reply_message.png" alt="메시지  보내기" width="30px">              
@@ -410,6 +422,7 @@ td{text-align:left}
 									<button type="submit" class="btn btn-primary">전송</button>
 									<button type="button" class="btn btn-danger"
 										data-dismiss="modal">취소</button>
+									<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}">	
 
 								</form>
 							</div>

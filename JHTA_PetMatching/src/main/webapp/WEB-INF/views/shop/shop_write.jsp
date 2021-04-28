@@ -3,6 +3,24 @@
 	.container {
 /* 		background-color : pink; */
 		padding : 10px;
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		margin-top: 50px;
+	}
+	input {
+		width: 100%;
+		height: 40px;
+		border: 1px solid red;
+		margin-bottom: 10px;
+	}
+	
+	textarea {
+		width: 100%;
+		height: 40px;
+		border: 1px solid red;
+		margin-bottom: 10px;
 	}
 	
 	#category-bar {
@@ -13,7 +31,7 @@
 <jsp:include page="/WEB-INF/views/common/header.jsp" ></jsp:include>
 
 <div class="container">
-	<div class="row bg-info">
+	<div class="row container-wrapper">
     <form action="write" method="post" enctype="multipart/form-data" class="needs-validation">
  			<label for="board_title"> Category :&nbsp; </label> 
 	         <select name="shop_category">
@@ -38,10 +56,12 @@
    		    본문 이미지_4 : <input type="file" id="shop_upload_img_content_4" name="shop_upload_img_content_4"><br>
    		    본문 이미지_5 : <input type="file" id="shop_upload_img_content_5" name="shop_upload_img_content_5"><br>
 		    
-		    본문 텍스트 : <input type="text" id="shop_text_content" name="shop_text_content"><br>
+		    본문 텍스트 : <textarea id="shop_text_content" name="shop_text_content"></textarea><br>
 	    </div>
 		<br>	
 		<button type=submit class="btn btn-primary">등록</button>
+		<button type=reset class="btn btn-danger">취소</button>
+		
 		</div>	
 		
 		<input type="hidden" name ="${_csrf.parameterName }" value = "${_csrf.token }">
