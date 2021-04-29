@@ -65,7 +65,7 @@ public class ShopTest {
 		logger.info("======= Test End!!! =======");
 	}
 	
-	//@Test // 현재 메서드를 테스트 대상으로 지정하는 어노테이션
+	@Test // 현재 메서드를 테스트 대상으로 지정하는 어노테이션
 	public void testConnection() {
 		try (Connection conn = dataSource.getConnection()) {
 			logger.info("확인용 conn : " + conn);
@@ -74,7 +74,7 @@ public class ShopTest {
 		}
 	}
 		
-//	@Test
+	@Test
 	public void testWriteForm() throws Exception {
 		logger.info("testWriteForm() start!!!");
 		this.mockMvc.perform(get("/shop/writeForm")).andDo(print())
@@ -82,7 +82,7 @@ public class ShopTest {
 		logger.info("testWriteForm() end!!!");
 	}
 	
-	@Test
+//	@Test
 	public void testWrite() throws Exception {
 		logger.info("testWrite() start!!!");
 		FileInputStream fis_thumnail = new FileInputStream("/Users/moonpeter/Desktop/mediatest/image/naverlogo.jpg");
@@ -116,12 +116,12 @@ public class ShopTest {
 		logger.info("testWrite() end!!!");
 	}
 	
-//	@Test
+	@Test
 	public void controllerTestForMainList() throws Exception {
 		mockMvc.perform(get("/shop/list")).andDo(print());
 	}
 	
-//	@Test
+	@Test
 	public void main_list() {
 		logger.info("main_list() start!!!");
 		
@@ -148,7 +148,7 @@ public class ShopTest {
 		logger.info("main_list() end!!!");
 	}
 	
-//	@Test
+	@Test
 	public void list_ajax() {
 		logger.info("list_ajax() start!!!");
 		int page = 1;
@@ -176,7 +176,7 @@ public class ShopTest {
 		logger.info("list_ajax() end!!!");
 	}
 	
-//	@Test
+	@Test
 	public void detail() {
 		logger.info("detail() start!!!");
 		Shop detail = sqlSession.selectOne("Shops.detail", 1);
@@ -184,7 +184,7 @@ public class ShopTest {
 		logger.info("detail() end!!!");
 	}
 	
-//	@Test
+	@Test
 	public void getListCount() {
 		logger.info("getListCount() start!!!");
 		int listCount = sqlSession.selectOne("Shops.listCount");
@@ -193,7 +193,7 @@ public class ShopTest {
 	}
 	
 
-//	@Test
+	@Test
 	public void getCategoryListCount() {
 		logger.info("getCategoryListCount() start!!!");
 		int categoryListCount = sqlSession.selectOne("Shops.categoryListCount", "외출용품");
@@ -201,7 +201,7 @@ public class ShopTest {
 		logger.info("getCategoryListCount() end!!!");
 	}
 	
-//	@Test
+	@Test
 	public void categoryList() {
 		logger.info("categoryList() start!!!");
 		int page = 1;
@@ -229,7 +229,7 @@ public class ShopTest {
 		logger.info("categoryList() end!!!");
 	}
 	
-//	@Test
+	@Test
 	public void category_list_ajax() {
 		logger.info("category_list_ajax() start!!!");
 				
@@ -261,10 +261,10 @@ public class ShopTest {
 		logger.info("category_list_ajax() end!!!");
 	}
 	
-//	@Test
+	@Test
 	public void searchList() {
 		logger.info("searchList() start!!!");
-		String searchWord = "건강";
+		String searchWord = "울리";
 		int listCount = sqlSession.selectOne("Shops.searchListCount", searchWord);
 		List<Shop> list = sqlSession.selectList("Shops.searchList", searchWord);
 		for (Shop shop : list) {
@@ -290,11 +290,5 @@ public class ShopTest {
 		logger.info("shopModifyForm() end!!!");
 	}
 	
-//	@Test
-	public void shopModify() {
-		logger.info("shopModify() start!!!");
-		int result = sqlSession.update("Shops.shopModify", 46);
-		logger.info("shopModify() end!!!");
-	}
 	
 }
